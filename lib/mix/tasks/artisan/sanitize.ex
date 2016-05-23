@@ -47,7 +47,7 @@ defmodule Mix.Tasks.Artisan.Sanitize do
 
     def run([]) do
       input = IO.read(:stdio, :all)
-      input = Regex.replace ~r/[^\pL',;:.?!\-\s]+/iu, input, ""
+      input = Regex.replace ~r/[^\pL,;:.?!\-\s]+/iu, input, ""
       input = Regex.replace ~r/[',;:.?!\-\s]+/iu, input, " \\0"
       input = Regex.replace ~r/[[:space:]]+/, input, " "
 
