@@ -1,15 +1,5 @@
 # Artisan
 
-## Tasks for training and simulating Markov Chains and Hidden Markov Models
-
-To list available tasks:
-
-    mix help --search artisan
-
-To get help on individual task:
-
-    mix help artisan.task_name
-
 ## Installing the UMDHMM tool for training Hidden Markov Models
 
     mkdir tools
@@ -25,3 +15,14 @@ developer tools installed.
 
 You can add `tools/umdhmm-v1.02` to your `PATH` for convenience or just run
 the program directly (`./tools/umdhmm-v1.02/esthmm`).
+
+## Tasks for training and simulating Hidden Markov Models
+
+To list available tasks:
+
+    mix help --search artisan
+
+To get help on individual task:
+
+    mix help artisan.task_name
+
