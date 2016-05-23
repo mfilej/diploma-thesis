@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Sim do
+defmodule Mix.Tasks.Artisan.Sim do
   use Mix.Task
 
   @shortdoc "Simulates Hidden Markov Models"
@@ -10,7 +10,7 @@ defmodule Mix.Tasks.Sim do
 
   Requires path to .hmm file provided as an argument. Example:
 
-      mix sim example.hmm
+      mix artisan.sim example.hmm
   """
 
   @len 100

@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.KeySeq do
+defmodule Mix.Tasks.Artisan.KeySeq do
   use Mix.Task
 
   @shortdoc "Turns input text into .key and .seq files"
@@ -13,7 +13,7 @@ defmodule Mix.Tasks.KeySeq do
 
   The following will produce `example.key` and `example.seq` files:
 
-      cat text.train | mix key_seq example
+      cat text.train | mix artisan.key_seq example
   """
 
   def run([name]) do

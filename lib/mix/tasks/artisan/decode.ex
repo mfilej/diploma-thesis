@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Decode do
+defmodule Mix.Tasks.Artisan.Decode do
   use Mix.Task
 
   @shortdoc "Decodes sequence of symbol indexes into words"
@@ -9,7 +9,7 @@ defmodule Mix.Tasks.Decode do
   Use this task to decode a .seq file containing word indices into readable
   text. Requires path to .key file as argument, .seq file is given on stdin.
 
-      cat example.seq | mix decode example.key
+      cat example.seq | mix artisan.decode example.key
   """
 
   def run([key_file]) do

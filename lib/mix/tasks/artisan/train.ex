@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Train do
+defmodule Mix.Tasks.Artisan.Train do
   use Mix.Task
   def run(_) do
     IO.read(:stdio, :all)
