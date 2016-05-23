@@ -1,5 +1,8 @@
 # Artisan
 
+![Egyptian artisans](http://www.ushistory.org/civ/images/00040751.jpg)
+*Picture courtesy of [ushistory.org](http://www.ushistory.org).*
+
 ## Installing the [UMDHMM][umdhmm] tool for training Hidden Markov Models
 
     mkdir tools
