@@ -39,7 +39,10 @@ included in this project:
 At this point we are ready to generate some text. Run the following command
 multiple times for different results:
 
-  mix artisan.sim example/demo.hmm | mix artisan.decode example/demo.key
+  mix artisan.sim example/demo.hmm 100 | mix artisan.decode example/demo.key
+
+The argument `100` indicates that we want to generate 100 words (including
+punctuation).
 
 ## Tasks for training and simulating Hidden Markov Models
 
