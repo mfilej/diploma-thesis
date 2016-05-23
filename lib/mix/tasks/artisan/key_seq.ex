@@ -24,7 +24,13 @@ defmodule Mix.Tasks.Artisan.KeySeq do
     len_str = "T= #{len}\n"
     seq_out = Enum.map(seq, &to_string/1) |> Enum.join(" ")
 
-    File.write!("#{name}.key", key_out)
-    File.write!("#{name}.seq", [len_str | seq_out])
+    key_file = "#{name}.key"
+    seq_file = "#{name}.seq"
+
+    File.write!(key_file, key_out)
+    IO.puts "Key file written to #{key_file}"
+    File.write!(seq_file, [len_str | seq_out])
+    IO.puts "Sequence file written to #{seq_file}"
+    IO.puts "Number of symbols in alphabet: #{length(key)}"
   end
 end
