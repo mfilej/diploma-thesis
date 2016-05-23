@@ -1,0 +1,2 @@
+defmodule Artisan do
+end
