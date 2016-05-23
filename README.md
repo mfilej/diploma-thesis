@@ -1,6 +1,6 @@
 # Artisan
 
-## Installing the UMDHMM tool for training Hidden Markov Models
+## Installing the [UMDHMM][umdhmm] tool for training Hidden Markov Models
 
     mkdir tools
     cd tools
@@ -15,6 +15,8 @@ developer tools installed.
 
 You can add `tools/umdhmm-v1.02` to your `PATH` for convenience or just run
 the program directly (`./tools/umdhmm-v1.02/esthmm`).
+
+[umdhmm]: http://www.kanungo.com/software/software.html
 
 ## Training a HMM and generating text with the resulting model
 
