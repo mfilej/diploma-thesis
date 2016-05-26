@@ -8,10 +8,10 @@ BUILD_DIR = "build"
 TARGET_PDF = "diploma.pdf"
 
 task chapters: CHAPTER_FILES.ext(".tex")
-task default: :chapters
+task default: [:chapters, :typeset]
  
 rule ".tex" => ->(f){source_for(f)} do |t|
-  sh "pandoc -f markdown_github+tex_math_dollars+raw_tex-hard_line_breaks -t latex #{t.source} | recite > #{t.name}"
+  sh "bin/md_to_tex #{t.source} | bin/recite > #{t.name}"
   Rake::Task[:typeset].execute
 end
 

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+pandoc --chapters \
+  -f markdown_github+tex_math_dollars+raw_tex+header_attributes-hard_line_breaks \
+  -t latex \
+  "$@"
