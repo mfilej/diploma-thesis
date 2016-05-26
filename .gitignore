@@ -1,3 +1,4 @@
 /.texpadtmp
 /build/*
+/chapters/*.tex
 /diploma.pdf
