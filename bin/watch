@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Watches for changes to source files and fires rake.
+# Requires fsevent_watch (brew install fsevent_watch).
+
+set -e
+
+watch() {
+  fsevent_watch -F
+}
+
+match() {
+  grep -v --line-buffered build | \
+  grep -E --line-buffered "(\.md|layout\.tex)$"
+}
+
+run() {
+  xargs -I% -n1 sh -c "rake"
+}
+
+watch | match | run
