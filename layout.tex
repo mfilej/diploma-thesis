@@ -10,6 +10,8 @@
 \usepackage{fancyhdr}               % poskrbi, na primer, za glave strani
 \usepackage{amssymb}                % dodatni simboli
 \usepackage{amsmath}                % eqref, npr.
+\usepackage[chapter]{algorithm}
+\usepackage[noend]{algpseudocode}
 \usepackage[scale=2]{ccicons}                % CC license symbols
 
 %\usepackage{hyperxmp}
@@ -43,7 +45,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Page setup
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addtolength{\marginparwidth}{-20pt} % robovi za tisk
 \addtolength{\oddsidemargin}{40pt}
 \addtolength{\evensidemargin}{-40pt}
@@ -60,7 +62,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Headings
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\autfont}{\Large}
 \newcommand{\titfont}{\LARGE\bf}
 \newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
@@ -68,26 +70,35 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorems
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newtheorem{izrek}{Izrek}[chapter]
 \newtheorem{trditev}{Trditev}[izrek]
 \newenvironment{dokaz}{\emph{Dokaz.}\ }{\hspace{\fill}{$\Box$}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Algorithms
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+\renewcommand{\ALG@name}{Algoritem}
+\renewcommand{\listalgorithmname}{Seznam algoritmov}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% PDF-A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define medatata
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\Title{\ttitle}
 \def\Author{\tauthor, \tauthoremail}
 \def\Subject{\ttitleEn}
 \def\Keywords{\tkeywordsEn}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \convertDate converts D:20080419103507+02'00' to 2008-04-19T10:35:07+02:00
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \def\convertDate{%
     \getYear
 }
