@@ -3,6 +3,7 @@ require "rake/clean"
 
 CHAPTERS_DIR = "chapters"
 CHAPTER_FILES = Rake::FileList.new("#{CHAPTERS_DIR}/*.md")
+FIGURES_DIR = "figures"
 MAIN_TEX_FILE = "layout.tex"
 BUILD_DIR = "build"
 TARGET_PDF = "diploma.pdf"
@@ -20,6 +21,7 @@ task :typeset do
   cp MAIN_TEX_FILE, BUILD_DIR
   cp Dir.glob("*.{bib,bst,xmp,xmpi,icm}"), BUILD_DIR
   cp_r CHAPTERS_DIR, BUILD_DIR
+  cp_r FIGURES_DIR, BUILD_DIR
   Dir.chdir(BUILD_DIR) do
     sh "latexmk -pdf -recorder"
   end
