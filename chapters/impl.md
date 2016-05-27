@@ -131,7 +131,7 @@ V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
 
 ### Korak E
-TODO: definiraj N, T, a, Pi, ObsProb=b_j, O@@
+TODO: definiraj $N, T, a, Pi, ObsProb=b_j, \boldsymbol{O}, \lambda=(a, b, pi)$
 
 Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava izreka @@ref@@.
 
@@ -178,3 +178,22 @@ Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov model
 \input{figures/main_loop_algorithm}
 
 Do sedaj smo opisali temeljne algoritme našega programa, ki pa smo jih mogli do določene mere spremeniti oz. prirediti, da smo dobili željene funkcionalnosti in se izognili določenim težavam. V nadaljevanju bomo predstavili te spremembe, bistvo predstavljenih algoritmov pa se ni spremenilo, kar je tudi vidno v končni izvorni kodi.
+
+### Podpora za mnogotera opazovana zaporedja
+
+Baum-Welch algoritem je v osnovi definiran za maksimizacijo parametrov modela glede na dano opazovano sekvenco. Ker želimo v naši nalogi algoritem uporabiti za namen generiranja besedila, moramo za uspešno učenje modela uporabiti dovolj veliko učno množico, npr. krajšo knjigo dolžine $10.000$ besed. Takšno učno zaporedje nam predstavlja dve težavi. 1) Opazovano zaporedje takšne dolžine bo v koraku $E$ Baum-Welch algoritma za bolj oddaljene simbole izračunalo zelo majhe verjetnosti, ki bodo povzročile napako podkoračitve~\angl[underflow] (s to težavo smo se večkrat srečali zato jo bomo kasneje podrobneje opisali). 2) Zapis celotnega besedila v obliki enega opazovanja sporoča odvisnost zaporedja — povedi, ki nastopijo kasneje, so odvisno od povedi, ki so nastopile prej — ki je ne želimo modelirati (bolj kot odvisnost med povedmi je za nas zanimiva odvisnost med besedami).~\cite{Zhao2011}
+
+V literaturi zasledimo različne načine obravnave mnogoterih zaporedij, od enostavnejših, kjer ima vsako zaporedje enako težo~\cite{Rabiner1989}~\cite{Bilmes1997}, do kompleksnejših pristopov, kjer imajo lahko modeli različne uteži ali je njihova izbira celo dinamično prepuščena drugim algoritmom.~\cite{Zhao2011}~\cite{Li2000}  Zaradi narave našega problema, smo se odločili, da bomo vsako poved obravnavali kot neodvisno zaporedje. Algoritme za priredbo Baum-Welch algoritma za mnogotera zaporedja smo prevzeli iz enačb v članku \textquotedblleft{}An Erratum for \textquoteleft{}A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition\textquoteright{}\textquotedblright{}~\cite{rabinererratum}.
+
+Algoritmi za izračun spremenljivk $\alpha\eqref{koda:estimate_alpha}, \beta\eqref{koda:estimate_beta}, \gamma\eqref{koda:estimate_gamma}, \xi\eqref{koda:estimate_xi}$ ostanejo enaki, korak $E$ kot celota pa se spremeni do te mere, da sedaj te spremenljivke računamo za vsako opazovano zaporedje  posebej. Če je $\boldsymbol{O}^{(k)}$ $k$-to zaporedje (oz. $k$-ta poved), potem moramo izračunati spremenljivke $\alpha^k, \beta^k, \gamma^k$ in $\xi^k$.
+
+S pomočjo teh spremenljivk najprej izračuanmo verjetnosti posameznih zaporedij glede na trenutni model $P(\boldsymbol{O}^{(k)}|\lambda)$ z nespremenjenim algoritmom \eqref{koda:model_prob}). Verjetnost celotne množice zaporedij glede na trenutni model $P(\boldsymbol{O}|\lambda)$ je nato enaka zmnožku posameznih verjetnosti~\cite{Rabiner1989}.
+
+\begin{equation}
+P(\boldsymbol{O}|\lambda) = \prod_{k=1}^K P(\boldsymbol{O}^{(k)}|\lambda)
+\label{eq:multi_obs_model_prob}
+\end{equation}
+
+Algoritem za računanje verjetnosti modela~\eqref{koda:model_prob} vrača logaritem verjetnosti, zato lahko te vrednosti enostavno seštejemo.
+
+Nazadnje se obrnemo še k posodobitvam za korak $M$, kjer smo priredili izračun algoritmov za maksimizacijo spremenljivk $\bar{\pi}~\eqref{koda:reestimate_pi}, \bar{a}~\eqref{koda:reestimate_a}$ in $\bar{b}~\eqref{koda:reestimate_b}$. Algoritmom smo dodali dodatno zanko, kjer se sprehodimo čez vsa opazovana zaporedja ($k \leftarrow 1$ do $K$), uporabo spremenljivk $\alpha, \beta, \gamma$ in $\xi$ pa smo zamenjali z novimi različicami $\alpha^k, \beta^k, \gamma^k$ in $\xi^k$. Nove vrednosti v števcih in imenovalcih enačb je bilo potrebno sešteti in tako smo dobili vrednosti za modele z mnogoterimi opazovanimi sekvencami. Pomemben korak pri preverjanju pravilnosti je bil, da se je program tudi po spremembah za primer posameznega opazovanega zaporedja še vedno obnašal na enak način kot prej (prvotne specifikacije za posamezna opazovana zaporedja smo ohranili kar se da nedotaknjene).
