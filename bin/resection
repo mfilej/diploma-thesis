@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+puts ARGF.read.gsub(/\\(?<cmd>(sub)?section)\{(?<title>[^}]+)\\#(?<toctitle>[^}]+)\}/) { |match|
+  cmd = $~[:cmd]
+  title = $~[:title]
+  toctitle = $~[:toctitle]
+  "\\#{cmd}[#{toctitle}]{#{title}}"
+}

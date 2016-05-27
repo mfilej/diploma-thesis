@@ -12,7 +12,7 @@ task chapters: CHAPTER_FILES.ext(".tex")
 task default: [:chapters, :typeset]
  
 rule ".tex" => ->(f){source_for(f)} do |t|
-  sh "bin/md_to_tex #{t.source} | bin/recite > #{t.name}"
+  sh "bin/md_to_tex #{t.source} | bin/recite | bin/resection > #{t.name}"
   Rake::Task[:typeset].execute
 end
 
