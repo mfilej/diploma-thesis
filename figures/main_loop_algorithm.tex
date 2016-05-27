@@ -1,0 +1,20 @@
+\begin{algorithm}
+\caption{
+  Glavna zanka (predpostavimo da je \texttt{model} nek začetni model),
+  vrednost $\varepsilon$ in \texttt{max\_iter} pa sta nastavljeni s strani
+  uporabnika.}
+\label{koda:main_loop}
+\begin{algorithmic}
+\State \texttt{model\_prob = compute\_model\_probability(model)}
+\Loop
+  \State \texttt{new\_model = reestimate\_model(model)}
+  \State \texttt{new\_model\_prob = compute\_model\_probability(new\_model)}
+  \If{\texttt{new\_model\_prob $-$ model\_prob $> \varepsilon$ AND max\_iter $> 0$}}
+    \State \texttt{model\_prob = new\_model\_prob}
+    \State \texttt{model = new\_model}
+  \Else
+    \State \texttt{break}
+  \EndIf
+\EndLoop
+\end{algorithmic}
+\end{algorithm}

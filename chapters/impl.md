@@ -107,8 +107,8 @@ Subjektivna izbira, zanimivost
 
 Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način:
 
-```
-
+\begin{figure}
+\begin{verbatim}
 [zacetni parametri] ---> [izracun vmesnih spremenljivk - StepE]
               A                      |
               |                      V
@@ -119,7 +119,10 @@ Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za
                    |
                   NE
                    L_> [dobili smo lokalni maksimum]
-```
+\end{verbatim}
+\caption{Potek postopne izgradnje modela}
+\label{diag:hmm_main_loop}
+\end{figure}
 
 Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem @@dodaj referenco@@, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$ (angl. estimation) in korak $M$ (angl. maximization). V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela, v koraku $M$ pa na njihovi podlagi tudi izračunamo nov model.
 
@@ -146,7 +149,7 @@ Zaradi zveze@@ref@@ med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `est
 
 \input{figures/estimate_gamma_algorithm}
 
-S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede na dano opazovano sekvenco@@ref@@ (`model_prob`~\eqref{koda:model_prob}).
+S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede na dano opazovano sekvenco@@ref@@ (`compute_model_probability`~\eqref{koda:model_prob}).
 
 \input{figures/model_prob_algorithm}
 
@@ -169,3 +172,7 @@ Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\
 
 
 ### Iterativno izboljševanje modela
+
+Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov modela, sedaj pa jih bomo skupaj povezali v glavno zanko, kot je to prikazano na sliki \ref{diag:hmm_main_loop}. V literaturi~\cite{Xu1996} najdemo dokaze, da takšna maksimizacija modela nujno vodi proti povečanju verjetnosti modela, do točke kjer verjetnost konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do te kritične točke oz. njenega približka, t.j. točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot neka določena vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabniku, ker različni problemi zahtevajo svoje vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne $\varepsilon$ vrednosti, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}.
+
+\input{figures/main_loop_algorithm}
