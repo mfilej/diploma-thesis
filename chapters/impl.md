@@ -22,9 +22,9 @@ f(x, y) = [ … … … ]        f(x, y, z) = [ […] […] […] ]
           [ … … … ]                     [ […] […] […] ]
 ```
 
-Nemalokrat se take podatkovne strukture predstavljajo s pomočjo polj (angl. array) ali seznamov v drugih oblikah, vendar se je v našem primeru to izkazalo za nepraktično zaradi podatkovnih tipov, ki so jih Erlang in Elixir ponujata. Seznami so povezani (angl. linked list), kar pomeni da niso primerni za indeksirano dostopanje do elementov (`list[x]`), n-terke (angl. tuples), ki to funkcionalnost podpirajo, pa ne nudijo obširnih funkcionalnosti za naštevanje (angl. enumerate)~\cite{Thomas2014}, ki so pri implementaciji našega programa prav tako nepogrešljive.
+Nemalokrat se take podatkovne strukture predstavljajo s pomočjo polj \angl[array] ali seznamov v drugih oblikah, vendar se je v našem primeru to izkazalo za nepraktično zaradi podatkovnih tipov, ki so jih Erlang in Elixir ponujata. Seznami so povezani \angl[linked list], kar pomeni da niso primerni za indeksirano dostopanje do elementov (`list[x]`), n-terke \angl[tuples], ki to funkcionalnost podpirajo, pa ne nudijo obširnih funkcionalnosti za naštevanje~\angl[enumerate]~\cite{Thomas2014}, ki so pri implementaciji našega programa prav tako nepogrešljive.
 
-Obeh težav smo se rešili z uporabo podatkovne strukture `map`~\{elixir/map}, ki ponuja oboje. `map` je slovar (angl. dictionary), ki v osnovi ponuja preslikavo iz ključa v vrednost (angl. key-value). Zaradi narave okolja Erlang/OTP se `map` zelo pogosto uporablja in je zato implementacija le-tega kar se da učinkovita. Za naše potrebe lahko `map` uporabimo tako, da indekse rezultata združimo v 2-terko in jo uporabimo za ključ, sam element rezultata pa zapišemo kot vrednost.
+Obeh težav smo se rešili z uporabo podatkovne strukture `map`~\{elixir/map}, ki ponuja oboje. `map` je slovar \angl[dictionary], ki v osnovi ponuja preslikavo iz ključa v vrednost \angl[key-value]. Zaradi narave okolja Erlang/OTP se `map` zelo pogosto uporablja in je zato implementacija le-tega kar se da učinkovita. Za naše potrebe lahko `map` uporabimo tako, da indekse rezultata združimo v 2-terko in jo uporabimo za ključ, sam element rezultata pa zapišemo kot vrednost.
 
 ```
                                        %{
@@ -60,7 +60,7 @@ Da bi zagotovili konsistentnost pri uporabi teh podatkovnih struktur, smo funkci
 
 Da bi se zavarovali pred lastnimi napakami pri programiranju rešitve smo pred pisanjem vsake funkcije zapisali njeno specifikacijo v obliki testa enote (anlg. unit test) ~\cite{Carlsson2006}. Ker je tudi specifikacija neke vrste izvršljiv program, nam omogoča, da avtomatsko preverimo, ali napisana koda ustreza specifikacijam. Testi se izvajajo dovolj hitro, da jih lahko med pisanjem vsake funkcije poženemo večkrat in tako vidimo, kdaj se bližamo uspešni rešitvi. Ko napisana koda ustreza željenim specifikacijam, lahko dodamo nove, strožje specifikacije, ali pa nadaljujemo z pisanjem naslednje funkcije~\cite{Beck2003}.
 
-Takšni testi so nepogrešljivi tudi pri refaktoriranju ("proces, pri kateremu spreminjamo programsko kodo, na takšen način, da se spremeni interna struktura organizacija, njeno zunanje vedenje pa ostane nespremenjeno"~\cite{Li2007}), saj moramo biti pri spreminjanju kode pazljivi, da ne pride do nazadovanja (angl. regression).
+Takšni testi so nepogrešljivi tudi pri refaktoriranju ("proces, pri kateremu spreminjamo programsko kodo, na takšen način, da se spremeni interna struktura organizacija, njeno zunanje vedenje pa ostane nespremenjeno"~\cite{Li2007}), saj moramo biti pri spreminjanju kode pazljivi, da ne pride do nazadovanja \angl[regression].
 
 Znaten del naše rešitve obsega matematične algoritme, za katere ni trivialno napisati specifikacije, saj lahko tudi pri ročnih izračunih hitro samo uvedemo napako. Zato smo se pri implementaciji odločili, da se bomo oprli na neko referenčno implementacijo in s pomočjo rezultatov, ki jih bomo dobili iz le-te, napisali specifikacije za naše funkcije. Referenčna implementacija, po kateri smo se zgledovali, je Python projekt HMM~\cite{guyz/HMM}, ki je sestavljen na dovolj prijazen način, da smo lahko različne algoritme izvajali posebej in njihove rezultate prepisali v naše specifikacije.
 
@@ -75,7 +75,7 @@ assert_in_delta frequencies.b, 8000, 150
 
 Zahtevamo torej, da je od $10.000$ poskusov prehoda iz začetnega stanja $2.000\pm150$ takih, kjer se je zgodil prehod v stanje $A, $8.000\pm150$ pa takih, kjer se je zgodil prehod v stanje $B.
 
-Nekatere specifikacije je težko povzeti v nekaj trditvah (angl. assertion), ročno navajanje potrebne količine trditev bi bilo zamudno (in v določenih primerih celo nepraktično), veliko število kode, ki bi nastalo kot rezultat takšnega navajanja pa bi bilo nepregledno in težavno za spreminjanje ter vzdrževanje. V takih primerih si lahko pomagamo z orodji za preizkušanje na osnovi lastnosti (angl. property-based testing), ki nam omogočajo, da neko lastnost izrazimo na večji množici števil (npr. vsa naravna števila ali pozitivna realna števila, itd.), program pa potem v procesu preverjanja sam izbere nekaj kombinacij takih števil, za katere preveri, če zapisani pogoji držijo. Za okolje Erlang je na voljo QuickCheck, s pomočjo orodja ExCheck~\cite{parroty/excheck} pa smo ga lahko uporabili tudi v programskem okolju Elixir. QuickCheck in Excheck ponujata omejen jezik, s katerim opišemo lastnosti, ki jih želimo preveriti v našem programu. Orodji nato generirata naključne testne primere in preverita, če jim naš program zadostuje.~\cite{Li2007}
+Nekatere specifikacije je težko povzeti v nekaj trditvah \angl[assertion], ročno navajanje potrebne količine trditev bi bilo zamudno (in v določenih primerih celo nepraktično), veliko število kode, ki bi nastalo kot rezultat takšnega navajanja pa bi bilo nepregledno in težavno za spreminjanje ter vzdrževanje. V takih primerih si lahko pomagamo z orodji za preizkušanje na osnovi lastnosti \angl[property-based testing], ki nam omogočajo, da neko lastnost izrazimo na večji množici števil (npr. vsa naravna števila ali pozitivna realna števila, itd.), program pa potem v procesu preverjanja sam izbere nekaj kombinacij takih števil, za katere preveri, če zapisani pogoji držijo. Za okolje Erlang je na voljo QuickCheck, s pomočjo orodja ExCheck~\cite{parroty/excheck} pa smo ga lahko uporabili tudi v programskem okolju Elixir. QuickCheck in Excheck ponujata omejen jezik, s katerim opišemo lastnosti, ki jih želimo preveriti v našem programu. Orodji nato generirata naključne testne primere in preverita, če jim naš program zadostuje.~\cite{Li2007}
 
 Takšen pristop testiranja smo na primer uporabili pri pisanju razširjenih logaritemskih funkcij. Razširjen logaritem je za vsa pozitivna realna števila definiran kot navaden logaritem. ExCheck nam omogoča, da to trditev zapišemo na naslednji način \footnote{	\texttt{Logzero} modul vsebuje našo implementacijo, \texttt{:math} pa je del Erlangove standardne knjižnice.}:
 
@@ -103,7 +103,7 @@ Bogata, ustaljena, preverjenna Erlang/OTP platforma
 \cite{Armstrong2007}
 Subjektivna izbira, zanimivost
 
-## Algoritmi za modeliranje skritih modelov Markova
+## Algoritmi za modeliranje skritih modelov Markova#Algoritmi
 
 Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način:
 
@@ -124,7 +124,7 @@ Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za
 \label{diag:hmm_main_loop}
 \end{figure}
 
-Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem @@dodaj referenco@@, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$ (angl. estimation) in korak $M$ (angl. maximization). V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela, v koraku $M$ pa na njihovi podlagi tudi izračunamo nov model.
+Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem @@dodaj referenco@@, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$ \angl[estimation] in korak $M$ \angl[maximization]. V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela, v koraku $M$ pa na njihovi podlagi tudi izračunamo nov model.
 
 V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
@@ -176,3 +176,5 @@ Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\
 Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov modela, sedaj pa jih bomo skupaj povezali v glavno zanko, kot je to prikazano na sliki \ref{diag:hmm_main_loop}. V literaturi~\cite{Xu1996} najdemo dokaze, da takšna maksimizacija modela nujno vodi proti povečanju verjetnosti modela, do točke kjer verjetnost konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do te kritične točke oz. njenega približka, t.j. točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot neka določena vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabniku, ker različni problemi zahtevajo svoje vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne $\varepsilon$ vrednosti, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}.
 
 \input{figures/main_loop_algorithm}
+
+Do sedaj smo opisali temeljne algoritme našega programa, ki pa smo jih mogli do določene mere spremeniti oz. prirediti, da smo dobili željene funkcionalnosti in se izognili določenim težavam. V nadaljevanju bomo predstavili te spremembe, bistvo predstavljenih algoritmov pa se ni spremenilo, kar je tudi vidno v končni izvorni kodi.
