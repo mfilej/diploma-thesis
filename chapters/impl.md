@@ -105,23 +105,14 @@ Subjektivna izbira, zanimivost
 
 ## Algoritmi za modeliranje skritih modelov Markova#Algoritmi
 
-Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način:
+Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način, kot je prikazan na sliki \ref{diag:baum_welch}.
 
 \begin{figure}
-\begin{verbatim}
-[zacetni parametri] ---> [izracun vmesnih spremenljivk - StepE]
-              A                      |
-              |                      V
-             DA            [izgradnja novega modela - StepM]
-              |                      |
-              |                      V
-             <Se  nov model bolje prilega opazovanim sekvencam?>
-                   |
-                  NE
-                   L_> [dobili smo lokalni maksimum]
-\end{verbatim}
+\begin{center}
+\includegraphics[width=\textwidth]{images/baum_welch.pdf}
+\end{center}
 \caption{Potek postopne izgradnje modela}
-\label{diag:hmm_main_loop}
+\label{diag:baum_welch}
 \end{figure}
 
 Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem @@dodaj referenco@@, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$ \angl[estimation] in korak $M$ \angl[maximization]. V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela, v koraku $M$ pa na njihovi podlagi tudi izračunamo nov model.
@@ -145,7 +136,7 @@ Ko imamo vrednosti $\alpha$ in $\beta$ lahko nadaljujemo z izračunom verjetnost
 
 \input{figures/estimate_xi_algorithm}
 
-Zaradi zveze@@ref@@ med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
+Zaradi zveze @@ref@@ med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
 
 \input{figures/estimate_gamma_algorithm}
 
@@ -173,7 +164,7 @@ Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\
 
 ### Iterativno izboljševanje modela
 
-Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov modela, sedaj pa jih bomo skupaj povezali v glavno zanko, kot je to prikazano na sliki \ref{diag:hmm_main_loop}. V literaturi~\cite{Xu1996} najdemo dokaze, da takšna maksimizacija modela nujno vodi proti povečanju verjetnosti modela, do točke kjer verjetnost konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do te kritične točke oz. njenega približka, t.j. točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot neka določena vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabniku, ker različni problemi zahtevajo svoje vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne $\varepsilon$ vrednosti, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}.
+Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov modela, sedaj pa jih bomo skupaj povezali v glavno zanko, kot je to prikazano na sliki \ref{diag:baum_welch}. V literaturi~\cite{Xu1996} najdemo dokaze, da takšna maksimizacija modela nujno vodi proti povečanju verjetnosti modela, do točke kjer verjetnost konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do te kritične točke oz. njenega približka, t.j. točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot neka določena vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabniku, ker različni problemi zahtevajo svoje vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne $\varepsilon$ vrednosti, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}.
 
 \input{figures/main_loop_algorithm}
 
@@ -204,4 +195,17 @@ Aplikacija skritih modelov Markova na dolga opazovana zaporedja zahteva računan
 
 Pri implementaciji našega programa smo to težavo opazili, ko so, že po nekaj iteracijah Baum-Welch algoritma, vse spremenljivke dobile vrednost $0$. Razlog tiči v tem, da ima pri veliki množici vseh možnih zaporedij besed, neko poljubno opazovano zaporedje zelo majhno pogojno verjetnost. Za spopadanje s to težavo obstajata dve pogostejši rešitvi: eden je *lestvičenje*~\angl[scaling, rescaling] pogojnih verjetnosti na podlagi skrbno izbranih faktorjev, drugi pa zamenjava pogojnih verjetnosti z vrednostmi njihovih logaritmov\footnote{Beseda \emph{logaritem} se v tej nalogi vedno nanaša na naravni logaritem.}. Prednost slednjega načina je v tem, da lahko algoritme postopoma spremenimo in vseskozi preverjamo pravilnost sprememb le s tem, da v naših specifikacijah pričakovane vrednosti zamenjamo z njihovimi logaritmi~\cite{Mann2006}.
 
-Vse potrebne priredbe algoritmov so zelo nazorno prikazane v članku \textquotedblleft{}Numerically Stable Hidden Markov Model Implementation\textquotedblright{}~\cite{Mann2006}, zato jih tukaj ne bomo posebej navajali.
+Vse potrebne priredbe algoritmov v koraku $E$ so zelo nazorno prikazane v članku \textquotedblleft{}Numerically Stable Hidden Markov Model Implementation\textquotedblright{}~\cite{Mann2006}, zato jih tukaj ne bomo posebej navajali.
+
+V koraku $M$ algoritmov ni potrebno spreminjati, z izjemo končnih vrednosti, ki so sedaj logaritmirane, zato na njih v zadnjem koraku uporabimo naravno eksponentno funkcijo $e^x$.
+
+### Simulacija skritih modelov Markova
+
+Z uspešno maksimiziranim modelom $\lambda$ lahko pričnemo s simuliranjem. Postopek je znatno enostavnejši od maksimiziranja in poteka na naslednji način:
+
+1. Na podlagi razporeditve verjetnosti začetnih stanj $\pi$ naključno	\footnote{Z besedo \emph{naključno} v tem odseku opisujemo naključno izbiro z upoštevanjem danih verjetnosti prehoda ali emisije.} izberemo začetno stanje $S_i$.
+2. Model postavimo v stanje S_i in na podlagi verjetnosti za emisijo simbola v danem stanju $b_i(k)$ naključno izberemo simbol.
+4. Če smo dosegli ciljno število znakov se ustavimo.
+5. Na podlagi razporeditve verjetnosti prehoda stanj $a_{ij}$ naključno izberemo novo stanje in se vrnemo v točko 2).
+
+\input{figures/simulate_hmm_algorithm}

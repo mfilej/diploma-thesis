@@ -1,0 +1,27 @@
+\begin{algorithm}
+\captionsetup{singlelinecheck=off}
+\caption[Simulacija modela]{Simulacija modela $\lambda$. \\
+  Predpostavljamo naslednje:
+  \begin{itemize}
+    \item da imamo na voljo model $\lambda = (\pi, a, b)$, ki ga želimo
+          simulirati,
+    \item da je uporabnik podal željeno dolžino generirane sekvence 
+          \texttt{target\_length},
+    \item da imamo na voljo funkcijo \texttt{push(list, x)}, ki na konec
+          seznama \texttt{list} doda element \texttt{x},
+    \item da imamo na voljo funkciji \texttt{pick\_state($\cdot$)} in
+          \texttt{pick\_symbol($\cdot$)}, ki na podlagi razporeditve
+          verjetnosti in trenutnega stanja izbereta novo stanje oz. simbol.
+  \end{itemize}}
+\label{koda:simulate_hmm}
+\begin{algorithmic}
+\State \texttt{seqeunce = []}
+\State \texttt{state = pick\_state($\pi$)}
+\While{\texttt{length(seqeunce) $<$ target\_length}}
+  \State \texttt{seqeunce = push(seqeunce, pick\_symbol($b$, state))}
+  \State \texttt{state = pick\_state($a$, state)}
+\EndWhile
+\State
+\Return \texttt{sequence}
+\end{algorithmic}
+\end{algorithm}
