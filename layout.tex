@@ -10,6 +10,7 @@
 \usepackage{fancyhdr}               % poskrbi, na primer, za glave strani
 \usepackage{amssymb}                % dodatni simboli
 \usepackage{amsmath}                % eqref, npr.
+\usepackage{perpage}
 \usepackage[chapter]{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage[scale=2]{ccicons}                % CC license symbols
@@ -59,6 +60,8 @@
 \fancyhead[LE,RO]{\sl \thepage} \fancyhead[LO]{\sl \rightmark} \fancyhead[RE]{\sl \leftmark}
 
 \newcommand{\BibTeX}{{\sc Bib}\TeX}
+
+\MakePerPage{footnote} % restart footnote numbering on every page
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Headings
