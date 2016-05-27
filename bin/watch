@@ -11,7 +11,7 @@ watch() {
 
 match() {
   grep -v --line-buffered build | \
-  grep -E --line-buffered "(\.md|figures|layout\.tex)"
+  grep -E --line-buffered "(\.md|figures|layout\.tex|bibliography\.bib)"
 }
 
 run() {
