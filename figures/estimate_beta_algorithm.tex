@@ -1,0 +1,18 @@
+\begin{algorithm}
+\caption{\texttt{estimate\_beta}}
+\label{koda:estimate_beta}
+\begin{algorithmic}
+\For{$i \leftarrow 1$ to $N$}
+  \State $\beta(i) = 1$
+\EndFor
+\For{$t \leftarrow T-1$ to $1$}
+  \For{$j \leftarrow 1$ to $N$}
+    \State $sum = 0$
+    \For{$i \leftarrow 1$ to $N$}
+      \State $sum = sum + \beta_{t+1}(j) \cdot a_{ij} \cdot b_j(O_{t+i})$
+    \EndFor
+    \State $\beta_t(i) = sum$
+  \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

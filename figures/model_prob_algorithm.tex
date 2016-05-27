@@ -1,0 +1,11 @@
+\begin{algorithm}
+\caption{\texttt{model\_prob}}
+\label{koda:model_prob}
+\begin{algorithmic}
+\State $prob = 0$
+\For{$i \leftarrow 1$ to $N$}
+  \State $prob = prob + \alpha_T(i)$
+\EndFor
+\Return $ln(prob)$
+\end{algorithmic}
+\end{algorithm}

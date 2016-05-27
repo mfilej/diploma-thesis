@@ -1,0 +1,13 @@
+\begin{algorithm}
+\caption{\texttt{estimate\_xi}}
+\label{koda:estimate_xi}
+\begin{algorithmic}
+\For{$t \leftarrow 1$ to $T-1$}
+  \For{$i \leftarrow 1$ to $N$}
+    \For{$j \leftarrow 1$ to $N$}
+      \State $\xi_t(i,j) = \alpha_t{i} \cdot a_{ij} \cdot b_j(O_{t+1}) \cdot \beta_{t+1}(j)$
+    \EndFor
+  \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

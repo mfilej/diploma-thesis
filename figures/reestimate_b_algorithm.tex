@@ -1,0 +1,17 @@
+\begin{algorithm}
+\caption{\texttt{reestimate\_b}}
+\label{koda:reestimate_b}
+\begin{algorithmic}
+\For{$i \leftarrow 1$ to $N$}
+  \State $numerator = 0$
+  \State $denominator = 0$
+  \For{$t \leftarrow 1$ to $T-1$}
+    \State $denominator = denominator + \gamma_t(i)$
+    \If{$O_t = v_k$}
+      \State $numerator = numerator + \gamma_t(i)$
+    \EndIf
+  \EndFor
+  \State $\bar{b}_i(k) = numerator / denominator$
+\EndFor
+\end{algorithmic}
+\end{algorithm}

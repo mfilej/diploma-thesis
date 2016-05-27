@@ -1,10 +1,12 @@
-# Implementacija rešitve
+\chapter[Implementacija]{Implementacija rešitve}
+
+## Zahteve, omejitve in izbira orodij
 
 Eden izmed poglavitnih ciljev pri implementaciji rešitve je bila pravilnost programa oz. njegovih rezultatov. S hitrostjo izvajanja se ne nismo obremenjevali, dokler je bila v praktičnih mejah in nam ni predstavlja znatne upočasnitve pri razvoju. Generiranje modela, ki je računsko zahtevnejše, je potrebno izvesti samo enkrat, simuliranje modela, ki bi verjetno želeli izvajati pogosteje, pa ni računsko zahtevno~\cite{Guedon2003}~\cite{Ramage2007}~\cite{Li2000}.
 
 Da bi si zagotovili čim boljše možnosti za pravilno izvedbo rešitve smo se odločili za naslednje pristope: uporabo funkcijskega programiranja, premišljeno zasnovane podatkovne strukture (prilagojene tako razumevanju kot programskemu okolju), programsko testiranje (t.i. unit testing in property-based testing) s sklicevanjem na referenčno rešitev in statično analizo programa. V nadaljevanju bomo podrobneje predstavili vsakega od naštetih pristopv.
 
-## Funkcijsko programiranje in podatkovne strukture
+### Funkcijsko programiranje in podatkovne strukture
 
 Evolucija funkcijskega programiranja se je začela z delom na lambda računu, nato pa nadaljevala s programskimi jeziki kot so Lisp, Iswim, FM, ML, nato pa z modernejšimi različicami kot so Miranda in Haskell. Za razred *funkcijskih* programskih jezikov je značilno, da izračunavanje izvajajo izključno preko vrednotenja *izrazov*~\cite{Hudak1989}.
 
@@ -54,7 +56,7 @@ iex> map = %{...}
 
 Da bi zagotovili konsistentnost pri uporabi teh podatkovnih struktur, smo funkcije za branje in zapisovanje enkapsulirali v svoj modul.
 
-## Testiranje in preverjanje pravilnosti
+### Testiranje in preverjanje pravilnosti
 
 Da bi se zavarovali pred lastnimi napakami pri programiranju rešitve smo pred pisanjem vsake funkcije zapisali njeno specifikacijo v obliki testa enote (anlg. unit test) ~\cite{Carlsson2006}. Ker je tudi specifikacija neke vrste izvršljiv program, nam omogoča, da avtomatsko preverimo, ali napisana koda ustreza specifikacijam. Testi se izvajajo dovolj hitro, da jih lahko med pisanjem vsake funkcije poženemo večkrat in tako vidimo, kdaj se bližamo uspešni rešitvi. Ko napisana koda ustreza željenim specifikacijam, lahko dodamo nove, strožje specifikacije, ali pa nadaljujemo z pisanjem naslednje funkcije~\cite{Beck2003}.
 
@@ -85,13 +87,13 @@ Takšen pristop testiranja smo na primer uporabili pri pisanju razširjenih loga
   end
 ```
 
-## Statična analiza
+### Statična analiza
 
 Tako kot programsko okolje Erlang/OTP, tudi Elixir sloni na konceptu dinamičnih programskih tipov (t.i. dynamic typing), ki od uporabnikov ne zahtevajo, da programsko kodo označujejo z informacijami o programskih tipih. Da bi se lahko uporabniki vseeno lahko pridobili prednosti, ki jih prinašajo orodja za statično analizo programske kode, se lahko poslužijo koncepta postopnega tipiziranja (t.i. gradual typing)~\cite{Papadakis2011}. Na ta način se informacije o programskih tipih dodajajo sproti in po želji, orodje za statično analizo pa javlja morebitne težave. Rezultat je čistejša programska koda, ki jo je lažje razumeti in vzdrževati, je robustnejša in bolje dokumentirana~\cite{Sagonas2008}.
 
 V programskem okolju Erlang/OTP je na voljo orodje Dialyzer~\cite{Sagonas2005}, ki pa se lahko uporablja tudi v okolju Elixir s pomočjo orodja Dialyxir~\cite{jeremyjh/dialyxir}.
 
-## Izbira programskega jezika
+### Izbira programskega jezika
 
 Elixir
 \cite{Thomas2014}
@@ -100,3 +102,70 @@ Programerju prijazen
 Bogata, ustaljena, preverjenna Erlang/OTP platforma
 \cite{Armstrong2007}
 Subjektivna izbira, zanimivost
+
+## Algoritmi za modeliranje skritih modelov Markova
+
+Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način:
+
+```
+
+[zacetni parametri] ---> [izracun vmesnih spremenljivk - StepE]
+              A                      |
+              |                      V
+             DA            [izgradnja novega modela - StepM]
+              |                      |
+              |                      V
+             <Se  nov model bolje prilega opazovanim sekvencam?>
+                   |
+                  NE
+                   L_> [dobili smo lokalni maksimum]
+```
+
+Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem @@dodaj referenco@@, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$ (angl. estimation) in korak $M$ (angl. maximization). V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela, v koraku $M$ pa na njihovi podlagi tudi izračunamo nov model.
+
+V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
+
+
+
+### Korak E
+TODO: definiraj N, T, a, Pi, ObsProb=b_j, O@@
+
+Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava izreka @@ref@@.
+
+\input{figures/estimate_alpha_algorithm}
+
+Podobnosti med definicijama $\alpha$ in $\beta$ se pokažeta tudi v podobnosti njunih algoritmov. `estimate_beta`~\eqref{koda:estimate_beta} se razlikuje v izrazu za izračun vsote v notranji zanki, glavna zanka pa gre tokrat od zadnjega stanja nazaj.
+
+\input{figures/estimate_beta_algorithm}
+
+Ko imamo vrednosti $\alpha$ in $\beta$ lahko nadaljujemo z izračunom verjetnosti modela za posamezno stanje glede na dano opazovano sekvenco. S pomočjo definicije@@ref@@ začnemo s spremenljivko $\xi$ in jo preslikamo v funkcijo `estimate_xi`~\eqref{koda:estimate_xi}.
+
+\input{figures/estimate_xi_algorithm}
+
+Zaradi zveze@@ref@@ med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
+
+\input{figures/estimate_gamma_algorithm}
+
+S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede na dano opazovano sekvenco@@ref@@ (`model_prob`~\eqref{koda:model_prob}).
+
+\input{figures/model_prob_algorithm}
+
+
+
+### Korak M
+
+TODO: definiraj $\bar{\pi}, \bar{a}, \bar{b}, O_t, v_k$
+
+Cilj $M$ koraka je s pomočjo izračunanih vrednosti spremenljivk $\gamma$ in $\xi$ ponovno oceniti parametre $\bar{\pi}$, $\bar{a}$ in $\bar{b}$ za nov model.
+
+Funkcija `reestimate_pi`~\eqref{koda:reestimate_pi} verjetnosti začetnih stanj $\bar{\pi}$ izračuna tako, da enostavno prebere izračunane vrednosti spremenljivke $\bar{\gamma}$ za prvi simbol opazovane sekvence.
+
+\input{figures/reestimate_pi_algorithm}
+
+Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\bar{a}$@@ref@@ v funkcijo `reestimate_a`~\eqref{koda:reestimate_a} in enačbe za izračun nove vrednosti $\bar{b}$@@ref@@ v funkcijo `reestimate_b`~\eqref{koda:reestimate_b}.
+
+\input{figures/reestimate_a_algorithm}
+\input{figures/reestimate_b_algorithm}
+
+
+### Iterativno izboljševanje modela

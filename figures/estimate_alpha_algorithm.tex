@@ -1,0 +1,18 @@
+\begin{algorithm}
+\caption{\texttt{estimate\_alpha}}
+\label{koda:estimate_alpha}
+\begin{algorithmic}
+\For{$i \leftarrow 1$ to $N$}
+  \State $\alpha_1(i) = \pi_i \cdot b_i(O_1)$
+\EndFor
+\For{$t \leftarrow 2$ to $T$}
+  \For{$j \leftarrow 1$ to $N$}
+    \State $sum = 0$
+    \For{$i \leftarrow 1$ to $N$}
+      \State $sum = sum + \alpha_{t-1}(i) \cdot a_{ij}$
+    \EndFor
+    \State $\alpha_t(j) = \sum \cdot b_j(O_t)$
+  \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

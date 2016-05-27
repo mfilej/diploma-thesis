@@ -1,0 +1,15 @@
+\begin{algorithm}
+\caption{\texttt{estimate\_gamma}}
+\label{koda:estimate_gamma}
+\begin{algorithmic}
+\For{$t \leftarrow 1$ to $T-1$}
+  \For{$i \leftarrow 1$ to $N$}
+    \State $sum = 0$
+    \For{$j \leftarrow 1$ to $N$}
+      \State $sum = sum + \xi_t(i,j)$
+    \EndFor
+    \State $\gamma_t(i) = sum$
+  \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

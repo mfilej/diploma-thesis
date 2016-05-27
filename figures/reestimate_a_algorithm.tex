@@ -1,0 +1,17 @@
+\begin{algorithm}
+\caption{\texttt{reestimate\_a}}
+\label{koda:reestimate_a}
+\begin{algorithmic}
+\For{$i \leftarrow 1$ to $N$}
+  \For{$j \leftarrow 1$ to $N$}
+    \State $numerator = 0$
+    \State $denominator = 0$
+    \For{$t \leftarrow 1$ to $T-1$}
+      \State $numerator = numerator + \xi_t(i,j)$
+      \State $denominator = denominator + \gamma_t(i)$
+    \EndFor
+    \State $\bar{a}_{ij} = numerator / denominator$
+  \EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}
