@@ -1,4 +1,4 @@
-\chapter[Implementacija]{Implementacija rešitve}
+# Implementacija rešitve
 
 ## Zahteve, omejitve in izbira orodij
 
