@@ -1,13 +1,15 @@
 \begin{algorithm}
-\caption{\texttt{reestimate\_b}}
+\caption[\texttt{reestimate\_b}]{\texttt{reestimate\_b} \\
+  $o_t$ je simbol na $o$-tem mestu v opazovani sekvenci, $v_k$ pa $k$-ti
+  simbol iz abecede.}
 \label{koda:reestimate_b}
 \begin{algorithmic}
 \For{$i \leftarrow 1$ to $N$}
   \State $numerator = 0$
   \State $denominator = 0$
-  \For{$t \leftarrow 1$ to $T-1$}
+  \For{$t \leftarrow 1$ to $T, k \leftarrow 1$ to $K$}
     \State $denominator = denominator + \gamma_t(i)$
-    \If{$O_t = v_k$}
+    \If{$o_t = v_k$}
       \State $numerator = numerator + \gamma_t(i)$
     \EndIf
   \EndFor

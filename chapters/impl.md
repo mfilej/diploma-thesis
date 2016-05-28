@@ -113,12 +113,22 @@ Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem \wip{dodaj referen
 $$\lambda = (a, b, \pi),$$
 v koraku $M$ pa na njihovi podlagi izračunamo nov model
 $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
-V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
+\noindent Definiramo še nekaj simbolov, ki se bodo uporabljali v nadaljevanju:
 
+\begin{description}[style=multiline,itemsep=0em]
+    \item[$N \dots$] število stanj modela;
+    \item[$T \dots$] dolžina opazovanega zaporedja;
+    \item[$K \dots$] število vseh možnih simbolov (včasih imenovano tudi velikost abecede);
+    \item[$\boldsymbol{O} \dots$] opazovana sekvenca, ki je sestavljena iz opazovanih simbolov $(o_1, o_2, \dots, o_T)$;
+    \item[$\boldsymbol{V} \dots$] abeceda, sestavljena iz simbolov $(v_1, v_2, \dots, v_K)$.
+\end{description}
+
+\noindent V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
+
+\pagebreak
 
 ### Korak E
-\wip{definiraj $N, T, a, Pi, ObsProb=b_j, \boldsymbol{O}, \lambda=(a, b, pi)$}
 
 Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava izreka \wip{ref}.
 
@@ -140,11 +150,7 @@ S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede
 
 \input{figures/model_prob_algorithm}
 
-
-
 ### Korak M
-
-TODO: definiraj $\bar{\pi}, \bar{a}, \bar{b}, O_t, v_k$
 
 Cilj $M$ koraka je s pomočjo izračunanih vrednosti spremenljivk $\gamma$ in $\xi$ ponovno oceniti parametre $\bar{\pi}$, $\bar{a}$ in $\bar{b}$ za nov model.
 
@@ -207,5 +213,7 @@ Z uspešno maksimiziranim modelom $\lambda$ lahko pričnemo s simuliranjem. Post
 2. Model postavimo v stanje S_i in na podlagi verjetnosti za emisijo simbola v danem stanju $b_i(k)$ naključno izberemo simbol.
 4. Če smo dosegli ciljno število znakov se ustavimo.
 5. Na podlagi razporeditve verjetnosti prehoda stanj $a_{ij}$ naključno izberemo novo stanje in se vrnemo v točko 2).
+
+Algoritem \eqref{koda:simulate_hmm} predstavi zgornje zaporedje v obliki psevdokode.
 
 \input{figures/simulate_hmm_algorithm}
