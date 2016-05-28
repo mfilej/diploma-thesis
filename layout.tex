@@ -12,6 +12,7 @@
 \usepackage{amsmath}                % eqref, npr.
 \usepackage{perpage}
 \usepackage{caption}
+\usepackage{xcolor} % \wip command
 \usepackage[chapter]{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage[scale=2]{ccicons}                % CC license symbols
@@ -94,6 +95,7 @@
 
 \newcommand{\angl}[1][Prevod]{\footnote{angl. \textit{#1}}}
 \def\tightlist{} % pandoc compatibility
+\newcommand\wip[1]{\textcolor{red}{\small{\texttt{TODO:}} #1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% PDF-A

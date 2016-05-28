@@ -109,16 +109,18 @@ Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za
 \label{diag:baum_welch}
 \end{figure}
 
-Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem @@dodaj referenco@@, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$ \angl[estimation] in korak $M$ \angl[maximization]. V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela, v koraku $M$ pa na njihovi podlagi tudi izračunamo nov model.
-
+Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem \wip{dodaj referenco}, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$\angl[estimation] in korak $M$\angl[maximization]. V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela
+$$\lambda = (a, b, \pi),$$
+v koraku $M$ pa na njihovi podlagi izračunamo nov model
+$$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
 V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
 
 
 ### Korak E
-TODO: definiraj $N, T, a, Pi, ObsProb=b_j, \boldsymbol{O}, \lambda=(a, b, pi)$
+\wip{definiraj $N, T, a, Pi, ObsProb=b_j, \boldsymbol{O}, \lambda=(a, b, pi)$}
 
-Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava izreka @@ref@@.
+Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava izreka \wip{ref}.
 
 \input{figures/estimate_alpha_algorithm}
 
@@ -126,15 +128,15 @@ Podobnosti med definicijama $\alpha$ in $\beta$ se pokažeta tudi v podobnosti n
 
 \input{figures/estimate_beta_algorithm}
 
-Ko imamo vrednosti $\alpha$ in $\beta$ lahko nadaljujemo z izračunom verjetnosti modela za posamezno stanje glede na dano opazovano sekvenco. S pomočjo definicije@@ref@@ začnemo s spremenljivko $\xi$ in jo preslikamo v funkcijo `estimate_xi`~\eqref{koda:estimate_xi}.
+Ko imamo vrednosti $\alpha$ in $\beta$ lahko nadaljujemo z izračunom verjetnosti modela za posamezno stanje glede na dano opazovano sekvenco. S pomočjo definicije \wip{ref} začnemo s spremenljivko $\xi$ in jo preslikamo v funkcijo `estimate_xi`~\eqref{koda:estimate_xi}.
 
 \input{figures/estimate_xi_algorithm}
 
-Zaradi zveze @@ref@@ med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
+Zaradi zveze \wip{ref} med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
 
 \input{figures/estimate_gamma_algorithm}
 
-S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede na dano opazovano sekvenco@@ref@@ (`compute_model_probability`~\eqref{koda:model_prob}).
+S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede na dano opazovano sekvenco \wip{ref} (`compute_model_probability`~\eqref{koda:model_prob}).
 
 \input{figures/model_prob_algorithm}
 
@@ -150,7 +152,7 @@ Funkcija `reestimate_pi`~\eqref{koda:reestimate_pi} verjetnosti začetnih stanj 
 
 \input{figures/reestimate_pi_algorithm}
 
-Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\bar{a}$@@ref@@ v funkcijo `reestimate_a`~\eqref{koda:reestimate_a} in enačbe za izračun nove vrednosti $\bar{b}$@@ref@@ v funkcijo `reestimate_b`~\eqref{koda:reestimate_b}.
+Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\bar{a}$ \wip{ref} v funkcijo `reestimate_a`~\eqref{koda:reestimate_a} in enačbe za izračun nove vrednosti $\bar{b}$ \wip{ref} v funkcijo `reestimate_b`~\eqref{koda:reestimate_b}.
 
 \input{figures/reestimate_a_algorithm}
 \input{figures/reestimate_b_algorithm}
