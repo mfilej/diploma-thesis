@@ -95,15 +95,9 @@ V programskem okolju Erlang/OTP je na voljo orodje Dialyzer~\cite{Sagonas2005}, 
 
 ### Izbira programskega jezika
 
-Elixir
-\cite{Thomas2014}
-Je moderen FP jezik
-Programerju prijazen
-Bogata, ustaljena, preverjenna Erlang/OTP platforma
-\cite{Armstrong2007}
-Subjektivna izbira, zanimivost
+Elixir~\cite{Thomas2014} je sodoben, dinamičen, funkcijski programski jezik. Zgrajen je na osnovi Erlangovega navideznega stroja in ima zato kljub svoji relativni novosti na voljo zelo bogat ekosistem in več desetletij razvoja, ki jih ponuja platforma Erlang/OTP~\cite{Armstrong2007}. Nenazadnje pa izbira programskega jezika za to nalogo predstavlja predvsem avtorjevo subjektivno odločitev.
 
-## Algoritmi za modeliranje skritih modelov Markova#Algoritmi
+## Algoritmi za modeliranje skritih modelov Markova#Implementacija algoritmov
 
 Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način, kot je prikazan na sliki \ref{diag:baum_welch}.
 
@@ -162,17 +156,21 @@ Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\
 \input{figures/reestimate_b_algorithm}
 
 
-### Iterativno izboljševanje modela
+### Iterativna maksimizacija parametrov modela {#iter}
 
-Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov modela, sedaj pa jih bomo skupaj povezali v glavno zanko, kot je to prikazano na sliki \ref{diag:baum_welch}. V literaturi~\cite{Xu1996} najdemo dokaze, da takšna maksimizacija modela nujno vodi proti povečanju verjetnosti modela, do točke kjer verjetnost konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do te kritične točke oz. njenega približka, t.j. točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot neka določena vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabniku, ker različni problemi zahtevajo svoje vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne $\varepsilon$ vrednosti, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}.
+Do te točke smo definirali vse ključne funkcije maksimizacijo paramterov modela, sedaj pa jih bomo skupaj povezali v glavno zanko, kot je to prikazano na sliki \ref{diag:baum_welch}. V literaturi~\cite{Xu1996} najdemo dokaze, da takšna maksimizacija modela nujno vodi proti povečanju verjetnosti modela, do točke kjer verjetnost konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do te kritične točke oz. njenega približka, t.j. točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot neka določena vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabnikom, ker različni problemi zahtevajo svoje vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne $\varepsilon$ vrednosti, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}.
 
 \input{figures/main_loop_algorithm}
 
 Do sedaj smo opisali temeljne algoritme našega programa, ki pa smo jih mogli do določene mere spremeniti oz. prirediti, da smo dobili željene funkcionalnosti in se izognili določenim težavam. V nadaljevanju bomo predstavili te spremembe, bistvo predstavljenih algoritmov pa se ni spremenilo, kar je tudi vidno v končni izvorni kodi.
 
+### Izbira začetnih parametrov
+
+Postopek iterativnoega izboljševanja parametrov modela opisan v poglavju \ref{iter} zahteva izbiro nekih začetnih parametrov, ki bodo služili kot vhod v iteracijo~\eqref{koda:main_loop}. Dobra izbira parametra lahko vpliva na to, ali bo maksimizacija pripelajla do lokalnega ali globalnega maksimuma~\cite{Rabiner1989}. V literaturi~\cite{Rabiner1989}~\cite{Bilmes1997} zasledimo dva nezahtevna pristopa, ki se izkažeta za enako dobra: naključne vrednosti in enakomerno\footnote{Prehodu v vsako stanje dodelimo enako verjetnost.} razporejene vrednosti (seveda pod pogojem, da se držimo omejitev stohastičnosti in da so verjetnosti neničelne). Izjema je $b$ parameter modela, kjer se izkaže, da je dobra začetna ocena vrednosti pomembna~\cite{Rabiner1989}. Oceno lahko pridobimo na več načinov, odvisno od tipa podatkov. V našem primeru je vhod besedilo, tako da smo za vrednosti vzeli relativne frekvence pojavljanja simbolov.
+
 ### Podpora za mnogotera opazovana zaporedja
 
-Baum-Welch algoritem je v osnovi definiran za maksimizacijo parametrov modela glede na dano opazovano sekvenco. Ker želimo v naši nalogi algoritem uporabiti za namen generiranja besedila, moramo za uspešno učenje modela uporabiti dovolj veliko učno množico, npr. krajšo knjigo dolžine $10.000$ besed. Takšno učno zaporedje nam predstavlja dve težavi. 1) Opazovano zaporedje takšne dolžine bo v koraku $E$ Baum-Welch algoritma za bolj oddaljene simbole izračunalo zelo majhe verjetnosti, ki bodo povzročile napako podkoračitve~\angl[underflow] (s to težavo smo se večkrat srečali zato jo bomo kasneje podrobneje opisali). 2) Zapis celotnega besedila v obliki enega opazovanja sporoča odvisnost zaporedja — povedi, ki nastopijo kasneje, so odvisno od povedi, ki so nastopile prej — ki je ne želimo modelirati (bolj kot odvisnost med povedmi je za nas zanimiva odvisnost med besedami).~\cite{Zhao2011}
+Baum-Welch algoritem je v osnovi definiran za maksimizacijo parametrov modela glede na dano opazovano sekvenco. Ker želimo v naši nalogi algoritem uporabiti za namen generiranja besedila, moramo za uspešno učenje modela uporabiti dovolj veliko učno množico, npr. krajšo knjigo dolžine $10.000$ besed. Takšno učno zaporedje nam predstavlja dve težavi: 1) Opazovano zaporedje takšne dolžine bo v koraku $E$ Baum-Welch algoritma za bolj oddaljene simbole izračunalo zelo majhe verjetnosti, ki bodo povzročile napako podkoračitve~\angl[underflow] (s to težavo smo se večkrat srečali zato jo bomo kasneje podrobneje opisali). 2) Zapis celotnega besedila v obliki enega opazovanja sporoča odvisnost zaporedja — povedi, ki nastopijo kasneje, so odvisno od povedi, ki so nastopile prej — ki je ne želimo modelirati (bolj kot odvisnost med povedmi je za nas zanimiva odvisnost med besedami).~\cite{Zhao2011}
 
 V literaturi zasledimo različne načine obravnave mnogoterih zaporedij, od enostavnejših, kjer ima vsako zaporedje enako težo~\cite{Rabiner1989}~\cite{Bilmes1997}, do kompleksnejših pristopov, kjer imajo lahko modeli različne uteži ali je njihova izbira celo dinamično prepuščena drugim algoritmom.~\cite{Zhao2011}~\cite{Li2000}  Zaradi narave našega problema, smo se odločili, da bomo vsako poved obravnavali kot neodvisno zaporedje. Algoritme za priredbo Baum-Welch algoritma za mnogotera zaporedja smo prevzeli iz enačb v članku \textquotedblleft{}An Erratum for \textquoteleft{}A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition\textquoteright{}\textquotedblright{}~\cite{rabinererratum}.
 
