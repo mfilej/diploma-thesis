@@ -97,9 +97,9 @@ V programskem okolju Erlang/OTP je na voljo orodje Dialyzer~\cite{Sagonas2005}, 
 
 Elixir~\cite{Thomas2014} je sodoben, dinamičen, funkcijski programski jezik. Zgrajen je na osnovi Erlangovega navideznega stroja in ima zato kljub svoji relativni novosti na voljo zelo bogat ekosistem in več desetletij razvoja, ki jih ponuja platforma Erlang/OTP~\cite{Armstrong2007}. Nenazadnje pa izbira programskega jezika za to nalogo predstavlja predvsem avtorjevo subjektivno odločitev.
 
-## Algoritmi za modeliranje skritih modelov Markova#Implementacija algoritmov
+## Algoritmi za modeliranje skritih markovskih modelov#Implementacija algoritmov
 
-Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih modelov Markova v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način, kot je prikazan na sliki \ref{diag:baum_welch}.
+Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih markovskih modelov v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način, kot je prikazan na sliki \ref{diag:baum_welch}.
 
 \begin{figure}
 \begin{center}
@@ -124,7 +124,7 @@ $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
     \item[$\boldsymbol{V} \dots$] abeceda, sestavljena iz simbolov $(v_1, v_2, \dots, v_K)$.
 \end{description}
 
-Pomen besede *simbol* v kontekstu skritih modelov Markova je različen glede na problemsko domeno, kjer modele uporabljamo. V primeru uporabe modelov za namen generiranja besedil lahko simbol predstavlja črko, skupino črk, besedo … Na podoben način izraz *abeceda* ni nujno povezan s črkami, kot v običajnem smislu, ampak na vse *simbole*, ki lahko nastopajo v besedilu. Ker razvijamo splošnonamenski knjižnjico, smo obdržali tudi splošno izrazoslovje.
+Pomen besede *simbol* v kontekstu skritih markovskih modelov je različen glede na problemsko domeno, kjer modele uporabljamo. V primeru uporabe modelov za namen generiranja besedil lahko simbol predstavlja črko, skupino črk, besedo … Na podoben način izraz *abeceda* ni nujno povezan s črkami, kot v običajnem smislu, ampak na vse *simbole*, ki lahko nastopajo v besedilu. Ker razvijamo splošnonamenski knjižnjico, smo obdržali tudi splošno izrazoslovje.
 
 V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
@@ -197,7 +197,7 @@ Nazadnje se obrnemo še k posodobitvam za korak $M$, kjer smo priredili izračun
 
 ### Preprečevanje napake podkoračitve
 
-Aplikacija skritih modelov Markova na dolga opazovana zaporedja zahteva računanje z izredno majnimi verjetnostmi. Takšne majhne vrednosti privedejo do nestabilnosti pri izračunavanju števil v plavajoči vejici~\cite{Mann2006}, med drugim tudi do napake podkoračitve\angl[underflow].
+Aplikacija skritih markovskih modelov na dolga opazovana zaporedja zahteva računanje z izredno majnimi verjetnostmi. Takšne majhne vrednosti privedejo do nestabilnosti pri izračunavanju števil v plavajoči vejici~\cite{Mann2006}, med drugim tudi do napake podkoračitve\angl[underflow].
 
 Pri implementaciji našega programa smo to težavo opazili, ko so, že po nekaj iteracijah Baum-Welch algoritma, vse spremenljivke dobile vrednost $0$. Razlog tiči v tem, da ima pri veliki množici vseh možnih zaporedij besed, neko poljubno opazovano zaporedje zelo majhno pogojno verjetnost. Za spopadanje s to težavo obstajata dve pogostejši rešitvi: eden je *lestvičenje*~\angl[scaling, rescaling] pogojnih verjetnosti na podlagi skrbno izbranih faktorjev, drugi pa zamenjava pogojnih verjetnosti z vrednostmi njihovih logaritmov\footnote{Beseda \emph{logaritem} se v tej nalogi vedno nanaša na naravni logaritem.}. Prednost slednjega načina je v tem, da lahko algoritme postopoma spremenimo in vseskozi preverjamo pravilnost sprememb le s tem, da v naših specifikacijah pričakovane vrednosti zamenjamo z njihovimi logaritmi~\cite{Mann2006}.
 
@@ -205,7 +205,7 @@ Vse potrebne priredbe algoritmov v koraku $E$ so zelo nazorno prikazane v člank
 
 V koraku $M$ algoritmov ni potrebno spreminjati, z izjemo končnih vrednosti, ki so sedaj logaritmirane, zato na njih v zadnjem koraku uporabimo naravno eksponentno funkcijo $e^x$.
 
-### Simulacija skritih modelov Markova
+### Simulacija skritih markovskih modelov
 
 Z uspešno maksimiziranim modelom $\lambda$ lahko pričnemo s simuliranjem. Postopek je znatno enostavnejši od maksimiziranja in poteka na naslednji način:
 
