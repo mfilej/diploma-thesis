@@ -114,7 +114,7 @@ $$\lambda = (a, b, \pi),$$
 v koraku $M$ pa na njihovi podlagi izračunamo nov model
 $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
 
-\noindent Definiramo še nekaj simbolov, ki se bodo uporabljali v nadaljevanju:
+\noindent Definiramo še nekaj oznak, ki se bodo uporabljale v nadaljevanju:
 
 \begin{description}[style=multiline,itemsep=0em]
     \item[$N \dots$] število stanj modela;
@@ -124,9 +124,9 @@ $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
     \item[$\boldsymbol{V} \dots$] abeceda, sestavljena iz simbolov $(v_1, v_2, \dots, v_K)$.
 \end{description}
 
-\noindent V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
+Pomen besede *simbol* v kontekstu skritih modelov Markova je različen glede na problemsko domeno, kjer modele uporabljamo. V primeru uporabe modelov za namen generiranja besedil lahko simbol predstavlja črko, skupino črk, besedo … Na podoben način izraz *abeceda* ni nujno povezan s črkami, kot v običajnem smislu, ampak na vse *simbole*, ki lahko nastopajo v besedilu. Ker razvijamo splošnonamenski knjižnjico, smo obdržali tudi splošno izrazoslovje.
 
-\pagebreak
+V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
 ### Korak E
 
