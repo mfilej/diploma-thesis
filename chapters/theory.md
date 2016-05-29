@@ -26,7 +26,7 @@ p(X, Y) = p(X)p(Y)
 \label{eq:neod}
 \end{equation}
 
-*Stohastični proces*, včasih imenovan *naključni* proces, je zbirka naključnih spremenljivk, ki predstavljajo spreminjanje nekega sistema skozi čas.
+*Stohastični proces*, včasih imenovan *naključni* proces, je zbirka naključnih spremenljivk, ki predstavljajo spreminjanje nekega sistema skozi čas~\cite{Zhao2011}.
 
 ## Diskretni viri informacij
 
@@ -93,8 +93,61 @@ $$
 \begin{center}
 \includegraphics[width=\textwidth]{images/hidden_markov_model.pdf}
 \end{center}
-\caption{\wip{.....................}}
-\label{diag:hidden_markov_model}
+\caption{Markovska veriga z latentnimi (neopazovanimi ali prikritimi) spremenljivkami $\{z_n\}$. Vsako opazovanje $\{x_n\}$ je pogojeno pripadajoči latentni spremenljivki.}
+\label{diag:markov_latent}
 \end{figure}
 
 ## Skriti markovski modeli
+
+Slika \ref{diag:markov_latent} prestavlja osnovo, iz katere med drugim izhajajo tudi skriti markovski modeli~\cite{Bishop2006}.
+
+Za markovske modele velja, da so v vsakem trenutku v enem izmed $N$ stanj iz množice $S = \{S_1, S_2, \dots, S_N\}$. Ob časih $t = 0, 1, \dots, T$ prehajajo med različnimi stanji $S_n, n \in N$. Skriti markovski modeli so izpeljanka markoviskih modelov, kjer opazovalci poznajo le neko vejrentostno funkcijo stanja, samo stanje pa je skrito~\cite{Lustrek2004}.
+
+\wip{hmm diagram}
+
+Skriti markovski model $\lambda$ je definiran v obliki\footnote{Zapis običajno poenostavimo z $\lambda = (A, B, \pi)$.}
+
+$$
+\lambda = (A, B, \pi, N, M),
+$$
+
+\noindent kjer so $A, B, \pi, N$ in $M$, parametri, ki opisujejo model~\cite{Rabiner1989}.
+
+\begin{description}
+
+\item[$\boldsymbol{N}\dots$] Število stanj modela.
+
+\item[$\boldsymbol{M}\dots$] Število različnih simbolov opazovanja oz. velikost abecede.
+\item[$\boldsymbol{A}\dots$] Matrika verjetnosti prehodov stanj $A = [a_{ij}]$, ki opisuje verjetnost, da se bo sistem ob času $t+1$ znašel v stanju $S_j$ ob dejstvu, da je ob času $t$ bil v stanju $S_i$:
+
+\begin{equation}
+a_{ij} = P(q_{t+1} = S_j | q_t = S_i),\qquad 1 \leq i, j \leq N.
+\label{eq:hmm_a}
+\end{equation}
+
+\item[$\boldsymbol{B}\dots$] Matrika verjetnosti oddanih simbolov $B = [b_j(k)]$, ki opisuje verjetnost, da bo sistem, ki se ob času $t$ nahaja v stanju $S_j$, oddal simbol $v_k$:
+
+\begin{align}
+b_j(k) = P(v_k | q_t = S_j),\qquad &1 \leq j \leq N, \\
+&1 \leq k \leq M.\nonumber
+\label{eq:hmm_b}
+\end{align}
+
+\item[$\boldsymbol{\pi}\dots$] Začetna porazdelitev stanj $\{\pi_i\}$, kjer velja:
+
+\begin{equation}
+\pi_i = P(q_1 = S+1),\qquad 1 \leq i \leq N.
+\label{eq:hmm_pi}
+\end{equation}
+
+\end{description}
+
+Primerno določni skriti markovski modeli lahko delujejo kot generatorji zaporedij simbolov na naslednji način:
+
+1. izberemo začetno stanje $q_1 = S_i$ glede na $\pi$;
+2. nastavimo $t = 1$;
+3. izberemo $O_t = v_k$ glede na trenutno stanje $S_i$ in porazdelitev verjetnosti, ki jih določa $b_i(k)$;
+4. opravimo prehod v novo stanje $q_{t+1} = S_j$ glede na prehodne verjentosti iz stanja $S_i$, ki jih določa $a_{ij}$;
+5. nastavimo $t = t + 1$; če je $t < T$ se vrnemo na točko 3; sicer postopek zaključimo.
+
+Omenjeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno zaporedje opazovanja nastalo~\cite{Rabiner1989}.
