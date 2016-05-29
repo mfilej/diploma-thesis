@@ -3,7 +3,7 @@
 Verjetnostna teorija je ključnega pomena pri
 razumevanju, izražanju in obdelavi koncepta negotovosti. Skupaj z teorijo odločanja nam omogočata, da na podlagi vseh informacij, ki jih imamo na voljo, opravimo optimalne napovedi, četudi so ti podatki nepopolni ali dvoumni~\cite{Bishop2006}.
 
-V tem delu bomo po \cite{Bishop2006} povzeli nekaj konceptov verjetnostne teorije, ki so ključnega pomena za razlago teoretičnih osnov skritih markovskih modelov.
+V tem delu smo po \cite{Bishop2006} povzeli nekaj konceptov verjetnostne teorije, ki so ključnega pomena za razlago teoretičnih osnov skritih markovskih modelov.
 
 \begin{description}
     \item[Pravilo vsote:] $$p(X) = \sum_{Y} p(X, Y)$$
@@ -151,3 +151,17 @@ Primerno določni skriti markovski modeli lahko delujejo kot generatorji zapored
 5. nastavimo $t = t + 1$; če je $t < T$ se vrnemo na točko 3; sicer postopek zaključimo.
 
 Omenjeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno zaporedje opazovanja nastalo~\cite{Rabiner1989}.
+
+### Trije osnovni problemi skritih markovskih modelov
+
+Za uporabo skritih markovskih modelov pri reševanju praktičnih problemov moramo najprej rešiti tri osnovne probleme, ki smo jih povzeli po \cite{Rabiner1989}:
+
+1. Glede na dano opazovano zaporedje $O = (o_1, o_2, \dots, o_T)$ in model $\lambda = (A, B, \pi)$ določiti $P(O | \lambda)$ — t.j. verjetnost za opazovano zaporedje glede na model. Ta problem lahko tudi preoblikujemo v vprašanje: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
+2.  Glede na dano opazovano zaporedje $O = (o_1, o_2, \dots, o_T)$ in model $\lambda$ izbrati pripadajoče zaporedje stanj $Q = (q_1, q_2, \dots, q_T)$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). Ta problem obravnava *skriti* del modela.
+3. Prilagoditi parametre modela $\lambda = (A, B, \pi)$, tako, da maksimiziramo $P(O | \lambda)$.
+
+Opazovana zaporedja, ki jih uporabimo za optimizacijo parametrov modela imenujemo *učna zaporedja*, ker z njimi model “učimo”. Problem učenja je v večini primerov najpomembnejši od treh, ker nam omogoča, da za modeliramo pojave iz resničnega sveta~\cite{Rabiner1989}.
+
+Rešitev.
+
+
