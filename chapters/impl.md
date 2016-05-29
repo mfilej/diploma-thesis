@@ -209,6 +209,9 @@ V koraku $M$ algoritmov ni potrebno spreminjati, z izjemo končnih vrednosti, ki
 
 Z uspešno maksimiziranim modelom $\lambda$ lahko pričnemo s simuliranjem. Postopek je znatno enostavnejši od maksimiziranja in poteka na naslednji način:
 
+\wip{dodaj referenco na isti postopek v drugem poglavju, prilagodi, da se
+skladata}
+
 1. Na podlagi razporeditve verjetnosti začetnih stanj $\pi$ naključno	\footnote{Z besedo \emph{naključno} v tem odseku opisujemo naključno izbiro z upoštevanjem danih verjetnosti prehoda ali emisije.} izberemo začetno stanje $S_i$.
 2. Model postavimo v stanje S_i in na podlagi verjetnosti za emisijo simbola v danem stanju $b_i(k)$ naključno izberemo simbol.
 4. Če smo dosegli ciljno število znakov se ustavimo.
