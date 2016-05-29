@@ -148,6 +148,8 @@ b_j(k) = P(v_k | q_t = S_j),\qquad &1 \leq j \leq N, \\
 
 \end{description}
 
+### Uporaba modela za generiranje zaporedij {#theory-hmm-gen}
+
 Primerno določni skriti markovski modeli lahko delujejo kot generatorji zaporedij simbolov na naslednji način:
 
 1. izberemo začetno stanje $q_1 = S_i$ glede na $\pi$;

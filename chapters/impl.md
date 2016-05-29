@@ -209,16 +209,6 @@ V koraku $M$ algoritmov ni potrebno spreminjati, z izjemo končnih vrednosti, ki
 
 ### Simulacija skritih markovskih modelov
 
-Z uspešno maksimiziranim modelom $\lambda$ lahko pričnemo s simuliranjem. Postopek je znatno enostavnejši od maksimiziranja in poteka na naslednji način:
-
-\wip{dodaj referenco na isti postopek v drugem poglavju, prilagodi, da se
-skladata}
-
-1. Na podlagi razporeditve verjetnosti začetnih stanj $\pi$ naključno	\footnote{Z besedo \emph{naključno} v tem odseku opisujemo naključno izbiro z upoštevanjem danih verjetnosti prehoda ali emisije.} izberemo začetno stanje $S_i$.
-2. Model postavimo v stanje S_i in na podlagi verjetnosti za emisijo simbola v danem stanju $b_i(k)$ naključno izberemo simbol.
-4. Če smo dosegli ciljno število znakov se ustavimo.
-5. Na podlagi razporeditve verjetnosti prehoda stanj $a_{ij}$ naključno izberemo novo stanje in se vrnemo v točko 2).
-
-Algoritem \eqref{koda:simulate_hmm} predstavi zgornje zaporedje v obliki psevdokode.
+Z uspešno maksimiziranim modelom $\lambda$ lahko pričnemo z generiranjem oz. simuliranjem le-tega. Postopek, ki je znatno enostavnejši od maksimiziranja, je definiran v poglavju \ref{theory-hmm-gen}, algoritem \eqref{koda:simulate_hmm} pa postopek predstavi v obliki psevdokode.
 
 \input{figures/simulate_hmm_algorithm}
