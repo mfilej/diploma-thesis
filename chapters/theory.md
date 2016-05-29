@@ -3,9 +3,32 @@
 Verjetnostna teorija je ključnega pomena pri
 razumevanju, izražanju in obdelavi koncepta negotovosti. Skupaj z teorijo odločanja nam omogočata, da na podlagi vseh informacij, ki jih imamo na voljo, opravimo optimalne napovedi, četudi so ti podatki nepopolni ali dvoumni~\cite{Bishop2006}.
 
-V tem delu bomo povzeli nekaj konceptov verjetnostne teorije, ki so ključnega pomena za razlago teoretičnih osnov skritih markovskih modelov.
+V tem delu bomo po \cite{Bishop2006} povzeli nekaj konceptov verjetnostne teorije, ki so ključnega pomena za razlago teoretičnih osnov skritih markovskih modelov.
 
-\wip{Izberi kljucne koncepte iz Bishop str. 14/33 - pogojna verjetnost, bayesovo pravilo}
+\begin{description}
+    \item[Pravilo vsote:] $$p(X) = \sum_{Y} p(X, Y)$$
+    \item[Pravilo produkta:] $$p(X, Y) = p(Y | X) p(X)$$
+\end{description}
+
+$p(X, Y)$ je v tem primeru presek ali produkt verjetnosti, ki ga opišemo kot verjetnost, da se zgodita $X$ in $Y$. Na podoben način je količina $p(Y | X)$ pogojna verjetnost, oz. verjetnost da se zgodi $Y$ glede na $X$.
+
+*Bayesovo pravilo* \eqref{eq:bayes} določa zvezo med pogojnimi verjetnostmi.
+
+\begin{equation}
+p(Y | X) = \frac{p(X | Y)p(Y)}{p(X)}
+\label{eq:bayes}
+\end{equation}
+
+Spremenljivki $X$ in $Y$ sta *neodvisni*, kadar velja \eqref{eq:neod}.
+
+\begin{equation}
+p(X, Y) = p(X)p(Y)
+\label{eq:neod}
+\end{equation}
+
+*Stohastični proces*, včasih imenovan *naključni* proces, je zbirka naključnih spremenljivk, ki predstavljajo spreminjanje nekega sistema skozi čas.
+
+## Diskretni viri informacij
 
 Teorija informacije obravnava *diskretne vire informacije*, t.j. *naključne procese*, ki oddajajo informacijo zajeto v diskretnih signalih, njihovo matematično modeliranje pa temelji na opazovanju nizov simbolov, ki jih le-ti oddajajo. Končni, neprazni množici teh simbolov $V = \{v_1, v_2, \dots, v_K\}, K \in \mathbb{N}$ pravimo tudi *abeceda vira*. Niz naključnih spremenljivk $$\{X_t, t = 1, 2, \dots, n\},$$ ki ustrezajo simbolom, ki jih vir oddaja, označimo z $X_1, X_2, \dots, X_n$, kjer $X_n$ označuje $n$-ti simbol oddane sekvence. Enačba \eqref{eq:porazd} definira porazdelitev verjetnosti, da vir odda znak $x_1$ v trenutku $t = 1$, $x_2$ v trenutku $t = 2$, \dots\ in znak $x_n$ v trenutku $t$, enačba \eqref{eq:stac} pa definira lastnost *stacionarnosti*. Za stacionarne vire pravimo, da se njihove verjetnostne lastnosti s časom ne spreminjajo~\cite{Pavesic2010}.
  
@@ -30,7 +53,7 @@ Vire s spominom prvega reda imenujemo *markovski viri* \eqref{eq:markovski}. Za 
 \begin{equation}
 \begin{split}
 P(X_{n+1} = x_{n+1} | (X_{n} = x_n, \dots, X_1 = x_1)) = \\
-P(X_{n+1} = x_{n+1} | X_{n} = x_n)
+= P(X_{n+1} = x_{n+1} | X_{n} = x_n)
 \end{split}
 \label{eq:markovski}
 \end{equation}
@@ -56,8 +79,22 @@ $$
 \label{diag:prehmat}
 \end{figure}
 
-markovske verige
+*Markovska veriga* ali *markovski model* je stohastični proces, za katerega velja markovska lastnost \eqref{eq:markovski}~\cite{Bishop2006}.
 
-markovski modeli
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/markov_chain.pdf}
+\end{center}
+\caption{Markovska veriga prvega reda z množico opazovanj ${x_n}$, kjer je porazdelitev $p(x_n | x_{n-1})$ posameznega opazovanja $x_n$ odvisna od izida predhodnega opazovanja $x_{n-1}$.}
+\label{diag:markov_chain}
+\end{figure}
 
-skriti markovski modeli
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/hidden_markov_model.pdf}
+\end{center}
+\caption{\wip{.....................}}
+\label{diag:hidden_markov_model}
+\end{figure}
+
+## Skriti markovski modeli
