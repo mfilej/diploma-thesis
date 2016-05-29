@@ -1,6 +1,6 @@
 # Implementacija rešitve
 
-\wip{Utemeljitev, da smo se odlocili za svojo implementacijo.}
+\wip{Utemeljitev, da smo se odlocili za svojo implementacijo: vecina resitev ni dovoljevala dovoljsne kontrole nad parametri. Nekatere resitve so bile tezke za modifikacijo. Najvecja tezava je bila da vecina resitev se ne zna uciti na vecih sekvencah, kar je nujno za ucenje na daljsih besedilih (utemeljeno kasneje).}
 
 ## Zahteve, omejitve in izbira orodij
 
