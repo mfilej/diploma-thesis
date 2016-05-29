@@ -1,5 +1,7 @@
 # Implementacija rešitve
 
+\wip{Utemeljitev, da smo se odlocili za svojo implementacijo.}
+
 ## Zahteve, omejitve in izbira orodij
 
 Eden izmed poglavitnih ciljev pri implementaciji rešitve je bila pravilnost programa oz. njegovih rezultatov. S hitrostjo izvajanja se ne nismo obremenjevali, dokler je bila v praktičnih mejah in nam ni predstavlja znatne upočasnitve pri razvoju. Generiranje modela, ki je računsko zahtevnejše, je potrebno izvesti samo enkrat, simuliranje modela, ki bi verjetno želeli izvajati pogosteje, pa ni računsko zahtevno~\cite{Guedon2003}~\cite{Ramage2007}~\cite{Li2000}.
