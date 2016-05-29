@@ -103,7 +103,13 @@ Slika \ref{diag:markov_latent} prestavlja osnovo, iz katere med drugim izhajajo 
 
 Za markovske modele velja, da so v vsakem trenutku v enem izmed $N$ stanj iz množice $S = \{S_1, S_2, \dots, S_N\}$. Ob časih $t = 0, 1, \dots, T$ prehajajo med različnimi stanji $S_n, n \in N$. Skriti markovski modeli so izpeljanka markoviskih modelov, kjer opazovalci poznajo le neko vejrentostno funkcijo stanja, samo stanje pa je skrito~\cite{Lustrek2004}.
 
-\wip{hmm diagram}
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/hmm_trans.pdf}
+\end{center}
+\caption{Skriti markovski model, predstavljen na razprt način. Prehodi med stanji so prikazani skozi čas. Vsak stolpec v tem diagramu predstavlja eno izmed latentnih spremenljivk $z_n$ iz slike \ref{diag:markov_latent}.}
+\label{diag:hmm_trans}
+\end{figure}
 
 Skriti markovski model $\lambda$ je definiran v obliki\footnote{Zapis običajno poenostavimo z $\lambda = (A, B, \pi)$.}
 
