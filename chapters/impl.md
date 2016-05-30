@@ -122,7 +122,7 @@ $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
     \item[$N \dots$] število stanj modela;
     \item[$T \dots$] dolžina opazovanega zaporedja;
     \item[$K \dots$] število vseh možnih simbolov (včasih imenovano tudi velikost abecede);
-    \item[$\boldsymbol{O} \dots$] opazovana sekvenca, ki je sestavljena iz opazovanih simbolov $(o_1, o_2, \dots, o_T)$;
+    \item[$\boldsymbol{O} \dots$] opazovana sekvenca, ki je sestavljena iz opazovanih simbolov $\obsseq{1}{2}{T}$;
     \item[$\boldsymbol{V} \dots$] abeceda, sestavljena iz simbolov $(v_1, v_2, \dots, v_K)$.
 \end{description}
 
