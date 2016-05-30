@@ -209,6 +209,13 @@ Za opis algoritma *Baum-Welch* je potrebno najprej definirati še vrednosti $\xi
 
 \input{figures/baum_welch_gamma_xi_equations}
 
-S pomočjo $\xi$ in $\gamma$ lahko sedaj pridobimo dve zanimivi vrednosti.
+S pomočjo $\xi$ in $\gamma$ lahko sedaj ponovno ocenimo parametre in tako dobimo nov model $\bar{\lambda} = (\bar{A}, \bar{B}, \bar{\pi})$.
 
 \input{figures/baum_welch_reestimate_equations}
+
+V literaturi \cite{Li2000}\cite{Ramage2007}\cite{Bilmes1997} je dokazano, da za tako pridobljen model $\lambda$ velja ena izmed naslednjih dveh točk:
+
+1. model $\bar{\lambda}$ določa kritično točko kjer velja $\boldsymbol{\bar{\lambda} = \lambda}$;
+2. $\boldsymbol{P(O \given \bar{\lambda}) > P(O \given \lambda)}$, kar pomeni, da smo dobili nov model $\bar{\lambda}$, ki bolje pojasnjuje zaporedje $O$.
+
+Na podlagi zgornjih dveh točk lahko model iterativno izboljšujemo tako, da $\lambda$ vsakič zamenjamo z izračuannim $\bar{\lambda}$, dokler se ne približamo kritični točki~\cite{Rabiner1989}.

@@ -1,24 +1,34 @@
 \begin{align*}
-\sum_{t=1}^{T=1} \gamma_t(i) &= \text{pričakovano število prehodov iz stanja $S_i$.} \\
-\sum_{t=1}^{T=1} \xi_t(i, j) &= \text{pričakovano število prehodov iz stanja $S_i$ v stanje $S_j$.}
+\sum\limits_{t=1}^{T=1} \gamma_t(i)\;&=\;\text{pričakovano število prehodov iz stanja $S_i$.} \\
+\sum\limits_{t=1}^{T=1} \xi_t(i, j)\;&=\;\text{pričakovano število prehodov iz stanja $S_i$ v stanje $S_j$.}
 \end{align*}
 
 \begin{align}
 % pi
-\boldsymbol{\bar{\pi}}_i =& \text{pričakovana frekvenca stanja $S_i$ ob začetnem času $t=1$} \nonumber \\
-=& \gamma_1(i)
+\boldsymbol{\bar{\pi}}_i\;=&\quad\text{pričakovana frekvenca stanja $S_i$ ob začetnem času $t=1$} \nonumber \\
+=&\quad\gamma_1(i)
 \\[\baselineskip]
 % a
-\boldsymbol{\bar{a}}_{ij} =& \frac{
+\boldsymbol{\bar{a}}_{ij}\;=&\quad\frac{
 \text{pričakovana frekvenca prehodov iz stanja $S_i$ v stanje $S_j$}
 }{
 \text{pričakovano število prehodov iz stanja $S_i$}
+} \nonumber \\
+=&\quad\frac{
+\sum\limits_{t=1}^{T=1} \xi_t(i, j)
+}{
+\sum\limits_{t=1}^{T=1} \gamma_t(i)
 }
 \\[\baselineskip]
 % b
-\boldsymbol{\bar{b}}_j(k) =& \frac{
-\text{}
+\boldsymbol{\bar{b}}_j(k)\;=&\quad\frac{
+\text{pričakovano število pojavov simbola $v_k$ med obiskom stanja $j$}
 }{
-\text{}
+\text{pričakovano število obiskov stanja $j$}
+} \nonumber \\
+=&\quad\frac{
+\sum\limits_{\substack{t=1 \\ O_t = v_k}}^{T=1} \gamma_t(j)
+}{
+\sum\limits_{t=1}^{T=1} \gamma_t(j)
 }
 \end{align}
