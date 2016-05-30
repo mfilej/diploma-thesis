@@ -172,7 +172,7 @@ Opazovana zaporedja, ki jih uporabimo za optimizacijo parametrov modela imenujem
 
 V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitvi za prvi in tretju problem, katerih rešitev je ključna za izvedbo naše naloge.
 
-### *Forward-backward* algoritem {#ch:hmm:fb}
+## *Forward-backward* algoritem {#ch:hmm:fb}
 
 *Forward-backward* algoritem zahteva izračun *forward* ($\alpha$) in *backward* ($\beta$) spremenljivk.
 
@@ -197,7 +197,7 @@ P(O \given \lambda) = \sum_{i=1}^N \alpha_T(i)
 \label{eq:hmm:prob1}
 \end{equation}
 
-### *Baum-Welch* algoritem {#ch:hmm:bw}
+## *Baum-Welch* algoritem {#ch:hmm:bw}
 
 Za opis algoritma *Baum-Welch* je potrebno najprej definirati še vrednosti $\xi$ in $\gamma$.
 
