@@ -50,16 +50,16 @@ Diskretne vire nadaljno delimo na:
 
 Vire s spominom prvega reda imenujemo *markovski*\footnote{V slovenski literaturi najdemo prevoda \emph{markovov}~\cite{Pavesic2010} in \emph{markovski}~\cite{Gyergyk1988}. V tem  besedilu smo se odločili za uporabo slednjega.} \eqref{eq:markovski}. Za markovske vire velja, da je oddaja simbola v $n$-tem trenutku odvisna le od simbola, ki je oddan v trenutku $n-1$. Enačba \eqref{eq:preh} definira še *prehodno verjetnost* $p_{ij}$, t.j. verjetnost, da je vir v trenutku $n+1$ oddal znak $x_j \in A$ pri pogoju, da je v trenutku $n$ oddal znak $x_i \in A$~\cite{Pavesic2010}.
 
-\begin{equation}
+\begin{align}
 \begin{split}
-P(X_{n+1} = x_{n+1} | (X_{n} = x_n, \dots, X_1 = x_1)) = \\
-= P(X_{n+1} = x_{n+1} | X_{n} = x_n)
+&P(X_{n+1} = x_{n+1} \given (X_{n} = x_n, \dots, X_1 = x_1)) = \\
+= &P(X_{n+1} = x_{n+1} \given X_{n} = x_n)
 \end{split}
 \label{eq:markovski}
-\end{equation}
+\end{align}
 
 \begin{equation}
-p_{ij} = P(X{n+1} = x_j | X_n = xi)
+p_{ij} = P(X{n+1} = x_j \given X_n = xi)
 \label{eq:preh}
 \end{equation}
 
@@ -127,14 +127,14 @@ $$
 \item[$\boldsymbol{A}\dots$] Matrika verjetnosti prehodov stanj $A = [a_{ij}]$, ki opisuje verjetnost, da se bo sistem ob času $t+1$ znašel v stanju $S_j$ ob dejstvu, da je ob času $t$ bil v stanju $S_i$:
 
 \begin{equation}
-a_{ij} = P(q_{t+1} = S_j | q_t = S_i),\qquad 1 \leq i, j \leq N.
+a_{ij} = P(q_{t+1} = S_j \given q_t = S_i),\qquad 1 \leq i, j \leq N.
 \label{eq:hmm_a}
 \end{equation}
 
 \item[$\boldsymbol{B}\dots$] Matrika verjetnosti oddanih simbolov $B = [b_j(k)]$, ki opisuje verjetnost, da bo sistem, ki se ob času $t$ nahaja v stanju $S_j$, oddal simbol $v_k$:
 
 \begin{align}
-b_j(k) = P(v_k | q_t = S_j),\qquad &1 \leq j \leq N, \\
+b_j(k) = P(v_k \given q_t = S_j),\qquad &1 \leq j \leq N, \\
 &1 \leq k \leq M.\nonumber
 \label{eq:hmm_b}
 \end{align}
@@ -164,8 +164,8 @@ Omenjeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavlja
 
 Za uporabo skritih markovskih modelov pri reševanju praktičnih problemov moramo najprej rešiti tri osnovne probleme, ki smo jih povzeli po \cite{Rabiner1989}:
 
-1. Glede na dano opazovano zaporedje $O = (o_1, o_2, \dots, o_T)$ in model $\lambda = (A, B, \pi)$ določiti $P(O | \lambda)$ — t.j. verjetnost za opazovano zaporedje glede na model. Ta problem lahko tudi preoblikujemo v vprašanje: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
-2.  Glede na dano opazovano zaporedje $O = (o_1, o_2, \dots, o_T)$ in model $\lambda$ izbrati pripadajoče zaporedje stanj $Q = (q_1, q_2, \dots, q_T)$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). Ta problem obravnava *skriti* del modela.
+1. Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda = (A, B, \pi)$ določiti $P(O | \lambda)$ — t.j. verjetnost za opazovano zaporedje glede na model. Ta problem lahko tudi preoblikujemo v vprašanje: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
+2.  Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda$ izbrati pripadajoče zaporedje stanj $Q = q_1  q_2 \cdots q_T$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). Ta problem obravnava *skriti* del modela.
 3. Prilagoditi parametre modela $\lambda = (A, B, \pi)$, tako, da maksimiziramo $P(O | \lambda)$.
 
 Opazovana zaporedja, ki jih uporabimo za optimizacijo parametrov modela imenujemo *učna zaporedja*, ker z njimi model “učimo”. Problem učenja je v večini primerov najpomembnejši od treh, ker nam omogoča, da za modeliramo pojave iz resničnega sveta~\cite{Rabiner1989}.
@@ -176,11 +176,15 @@ V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitvi za prvi
 
 *Forward-backward* algoritem zahteva izračun *forward* ($\alpha$) in *backward* ($\beta$) spremenljivk.
 
+\sloppy
 \begin{description}
-\item[Vrednost $\boldsymbol{\alpha_t(i)}$ \eqref{eq:fw:forw}] opisuje verjetnost, da se dani model $\lambda$ po delnem opazovanem zaporedju $(o_1, o_2, \dots, o_t)$ znajde v stanju $S_i$. Začetna enačba \eqref{eq:fw:forw:init} in induktivni del \eqref{eq:fw:forw:loop} nam omogočata izračun vrednosti.
+\item[Vrednost $\boldsymbol{\alpha_t(i)}$ \eqref{eq:fw:forw}] opisuje verjetnost, da se dani model $\lambda$ po delnem opazovanem zaporedju $\obsseq{1}{2}{t}$ znajde v stanju $S_i$. Začetna enačba \eqref{eq:fw:forw:init} in induktivni del \eqref{eq:fw:forw:loop} nam omogočata izračun vrednosti.
 
-\item[Vrednost $\boldsymbol{\beta_t(i)}$ \eqref{eq:fw:back}] opisuje verjetnost delnega opazovanega zaporedja $(o_t, o_{t_1}, \dots, o_T)$, glede na to, da se model $\lambda$ ob koncu zaporedja znajde v stanju $S_i$. Izračun poteka na podoben način, le da se najprej postavi končna vrednost $1$ \eqref{eq:fw:back:init}, nato pa se izračunajo ostale vrednosti v obratnem vrstnem redu od $T-1$ do $1$ \eqref{eq:fw:back:loop}.
+\item[Vrednost $\boldsymbol{\beta_t(i)}$ \eqref{eq:fw:back}]
+
+opisuje verjetnost delnega opazovanega zaporedja $\obsseq{t}{t+1}{T}$, glede na to, da se model $\lambda$ ob koncu zaporedja znajde v stanju $S_i$. Izračun poteka na podoben način, le da se najprej postavi končna vrednost $1$ \eqref{eq:fw:back:init}, nato pa se izračunajo ostale vrednosti v obratnem vrstnem redu od $T-1$ do $1$ \eqref{eq:fw:back:loop}.
 \end{description}
+\fussy
 
 \input{figures/forward_backward_equations}
 
@@ -189,9 +193,22 @@ V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitvi za prvi
 Ko izračunamo vrednost $\alpha$ dobimo odgovor na problem 1 opisan v poglavju \ref{ch:hmm:3prob}. Verjetnost \eqref{eq:hmm:prob1} bomo kasneje uporabili kot oceno primernosti modela.
 
 \begin{equation}
-P(O | \lambda) = \sum_{i=1}^N \alpha_T(i)
+P(O \given \lambda) = \sum_{i=1}^N \alpha_T(i)
 \label{eq:hmm:prob1}
 \end{equation}
 
 ### *Baum-Welch* algoritem {#ch:hmm:bw}
 
+Za opis algoritma *Baum-Welch* je potrebno najprej definirati še vrednosti $\xi$ in $\gamma$.
+
+\begin{description}
+\item[Vrednost $\boldsymbol{\xi_t(i, i)}$ \eqref{eq:bw:xi}] opisuje verjetnost, da se model $\lambda$ pri opazovanju zaporedja $O$ ob času $t$ znajde v stanju $S_i$ in v stanju $S_j$ ob času $t+1$.
+
+\item[Vrednost $\boldsymbol{\gamma_t(i)}$ \eqref{eq:bw:gamma}] opisuje verjetnost, da se model $\lambda$ pri opazovanju zaporedja $O$ ob času $t$ znajde v stanju $S_i$.
+\end{description}
+
+\input{figures/baum_welch_gamma_xi_equations}
+
+S pomočjo $\xi$ in $\gamma$ lahko sedaj pridobimo dve zanimivi vrednosti.
+
+\input{figures/baum_welch_reestimate_equations}

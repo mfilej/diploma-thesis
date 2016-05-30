@@ -1,0 +1,15 @@
+\begin{align}
+% xi
+\boldsymbol{\xi_t(i, j)} =& P(q_t = S_i, q_{t+1} = S_j \given O, \lambda) \nonumber \\
+=& \frac{
+  \alpha_t(i) a_{ij} b_j(o_{t+1}) \beta_{t+1}(j) }{
+  \sum_{i=1}^N \sum_{j=1}^N \alpha_t(i) a_{ij} b_j(o_{t+1}) \beta_{t+1}(j) }
+\label{eq:bw:xi} 
+%
+\\[\baselineskip]
+% gamma
+\boldsymbol{\gamma_t(i)} =& P(q_t = S_i \given O, \lambda) \nonumber \\
+=& \sum_{j=1}^N \xi_t(i, j)
+\label{eq:bw:gamma}
+%
+\end{align}

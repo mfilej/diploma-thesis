@@ -1,5 +1,5 @@
 \begin{equation}
-\boldsymbol{\alpha_t(i)} = P((o_1, o_2, \dots, o_t), q_t = S_i | \lambda)
+\boldsymbol{\alpha_t(i)} = P(\obsseq{1}{2}{t}, q_t = S_i \given \lambda)
 \hspace{9.8em}\label{eq:fw:forw}
 \end{equation}
 
@@ -12,7 +12,7 @@
 \end{align}
 
 \begin{equation}
-\boldsymbol{\beta_t(i)} = P((o_{t+1}, o_{t+2}, \dots, o_T) | q_t = Si, \lambda)
+\boldsymbol{\beta_t(i)} = P(\obsseq{t+1}{t+2}{T} \given q_t = S_i, \lambda)
 \hspace{8em}\label{eq:fw:back}
 \end{equation}
 
