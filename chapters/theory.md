@@ -160,7 +160,7 @@ Primerno določni skriti markovski modeli lahko delujejo kot generatorji zapored
 
 Omenjeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno zaporedje opazovanja nastalo~\cite{Rabiner1989}.
 
-### Trije osnovni problemi skritih markovskih modelov
+### Trije osnovni problemi skritih markovskih modelov {#ch:hmm:3prob}
 
 Za uporabo skritih markovskih modelov pri reševanju praktičnih problemov moramo najprej rešiti tri osnovne probleme, ki smo jih povzeli po \cite{Rabiner1989}:
 
@@ -170,6 +170,28 @@ Za uporabo skritih markovskih modelov pri reševanju praktičnih problemov moram
 
 Opazovana zaporedja, ki jih uporabimo za optimizacijo parametrov modela imenujemo *učna zaporedja*, ker z njimi model “učimo”. Problem učenja je v večini primerov najpomembnejši od treh, ker nam omogoča, da za modeliramo pojave iz resničnega sveta~\cite{Rabiner1989}.
 
-Rešitev.
+V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitvi za prvi in tretju problem, katerih rešitev je ključna za izvedbo naše naloge.
 
+### *Forward-backward* algoritem {#ch:hmm:fb}
+
+*Forward-backward* algoritem zahteva izračun *forward* ($\alpha$) in *backward* ($\beta$) spremenljivk.
+
+\begin{description}
+\item[Vrednost $\boldsymbol{\alpha_t(i)}$ \eqref{eq:fw:forw}] opisuje verjetnost, da se dani model $\lambda$ po delnem opazovanem zaporedju $(o_1, o_2, \dots, o_t)$ znajde v stanju $S_i$. Začetna enačba \eqref{eq:fw:forw:init} in induktivni del \eqref{eq:fw:forw:loop} nam omogočata izračun vrednosti.
+
+\item[Vrednost $\boldsymbol{\beta_t(i)}$ \eqref{eq:fw:back}] opisuje verjetnost delnega opazovanega zaporedja $(o_t, o_{t_1}, \dots, o_T)$, glede na to, da se model $\lambda$ ob koncu zaporedja znajde v stanju $S_i$. Izračun poteka na podoben način, le da se najprej postavi končna vrednost $1$ \eqref{eq:fw:back:init}, nato pa se izračunajo ostale vrednosti v obratnem vrstnem redu od $T-1$ do $1$ \eqref{eq:fw:back:loop}.
+\end{description}
+
+\input{figures/forward_backward_equations}
+
+\wip{diagram za alpha in beta, ce gre en ob drugem}
+
+Ko izračunamo vrednost $\alpha$ dobimo odgovor na problem 1 opisan v poglavju \ref{ch:hmm:3prob}. Verjetnost \eqref{eq:hmm:prob1} bomo kasneje uporabili kot oceno primernosti modela.
+
+\begin{equation}
+P(O | \lambda) = \sum_{i=1}^N \alpha_T(i)
+\label{eq:hmm:prob1}
+\end{equation}
+
+### *Baum-Welch* algoritem {#ch:hmm:bw}
 
