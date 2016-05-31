@@ -160,19 +160,19 @@ Primerno določni skriti markovski modeli lahko delujejo kot generatorji zapored
 
 Omenjeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno zaporedje opazovanja nastalo~\cite{Rabiner1989}.
 
-### Trije osnovni problemi skritih markovskih modelov {#ch:hmm:3prob}
+### Tri osnovna vprašanja skritih markovskih modelov {#ch:hmm:3prob}
 
-Za uporabo skritih markovskih modelov pri reševanju praktičnih problemov moramo najprej rešiti tri osnovne probleme, ki smo jih povzeli po \cite{Rabiner1989}:
+Za uporabo skritih markovskih modelov pri reševanju praktičnih izzivov moramo najprej odgovoriti na tri osnovna vprašanja, ki smo jih povzeli po \cite{Rabiner1989}:
 
-1. Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda = (A, B, \pi)$ določiti $P(O | \lambda)$ — t.j. verjetnost za opazovano zaporedje glede na model. Ta problem lahko tudi preoblikujemo v vprašanje: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
-2.  Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda$ izbrati pripadajoče zaporedje stanj $Q = q_1  q_2 \cdots q_T$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). Ta problem obravnava *skriti* del modela.
+1. Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda = (A, B, \pi)$ določiti $P(O | \lambda)$ — t.j. verjetnost za opazovano zaporedje glede na model. To vprašanje lahko zastavimo tudi na drugačen način: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
+2.  Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda$ izbrati pripadajoče zaporedje stanj $Q = q_1  q_2 \cdots q_T$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). To vprašanje obravnava *skriti* del modela.
 3. Prilagoditi parametre modela $\lambda = (A, B, \pi)$, tako, da maksimiziramo $P(O | \lambda)$.
 
 Opazovana zaporedja, ki jih uporabimo za optimizacijo parametrov modela imenujemo *učna zaporedja*, ker z njimi model “učimo”. Problem učenja je v večini primerov najpomembnejši od treh, ker nam omogoča, da za modeliramo pojave iz resničnega sveta~\cite{Rabiner1989}.
 
-V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitvi za prvi in tretju problem, katerih rešitev je ključna za izvedbo naše naloge.
+V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili odgovore na prvo in tretje vprašanje, katerih rešitev je ključna za izvedbo naše naloge.
 
-## *Forward-backward* algoritem {#ch:hmm:fb}
+## Algoritem *Forward-backward* {#ch:hmm:fb}
 
 *Forward-backward* algoritem zahteva izračun *forward* ($\alpha$) in *backward* ($\beta$) spremenljivk.
 
@@ -190,14 +190,14 @@ opisuje verjetnost delnega opazovanega zaporedja $\obsseq{t}{t+1}{T}$, glede na 
 
 \wip{diagram za alpha in beta, ce gre en ob drugem}
 
-Ko izračunamo vrednost $\alpha$ dobimo odgovor na problem 1 opisan v poglavju \ref{ch:hmm:3prob}. Verjetnost \eqref{eq:hmm:prob1} bomo kasneje uporabili kot oceno primernosti modela.
+Ko izračunamo vrednost $\alpha$ dobimo odgovor na prvo vprašanje, opisano v poglavju \ref{ch:hmm:3prob}. Verjetnost \eqref{eq:hmm:prob1} bomo kasneje uporabili kot oceno primernosti modela.
 
 \begin{equation}
 P(O \given \lambda) = \sum_{i=1}^N \alpha_T(i)
 \label{eq:hmm:prob1}
 \end{equation}
 
-## *Baum-Welch* algoritem {#ch:hmm:bw}
+## Algoritem *Baum-Welch* {#ch:hmm:bw}
 
 Za opis algoritma *Baum-Welch* je potrebno najprej definirati še vrednosti $\xi$ in $\gamma$.
 
