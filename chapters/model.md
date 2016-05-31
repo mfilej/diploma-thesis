@@ -10,7 +10,7 @@ Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za
 \label{diag:baum_welch}
 \end{figure}
 
-Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem \wip{dodaj referenco}, dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$\angl[estimation] in korak $M$\angl[maximization]. V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela
+Imamo torej glavno zanko, kjer se izvaja Baum-Welch algoritem (glej poglavje \ref{ch:hmm:bw}), dokler ni zadoščeno glavnemu pogoju. Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$\angl[estimation] in korak $M$\angl[maximization]. V koraku $E$ izračunamo vmesne spremenljivke $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela
 $$\lambda = (a, b, \pi),$$
 v koraku $M$ pa na njihovi podlagi izračunamo nov model
 $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
@@ -31,23 +31,23 @@ V nadaljevanju predstavimo psevdokodo za izračun omenjenih spremenljivk.
 
 ## Korak E
 
-Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava izreka \wip{ref}.
+Izračun spremenljivke $\alpha$ poteka v fukciji `estimate_alpha`~\eqref{koda:estimate_alpha}, ki je preslikava enačb \eqref{eq:fw:forw:init} in \eqref{eq:fw:forw:loop}.
 
 \input{figures/estimate_alpha_algorithm}
 
-Podobnosti med definicijama $\alpha$ in $\beta$ se pokažeta tudi v podobnosti njunih algoritmov. `estimate_beta`~\eqref{koda:estimate_beta} se razlikuje v izrazu za izračun vsote v notranji zanki, glavna zanka pa gre tokrat od zadnjega stanja nazaj.
+Podobnosti med definicijama $\alpha$ in $\beta$ se pokažeta tudi v podobnosti njunih algoritmov. `estimate_beta`~\eqref{koda:estimate_beta} se razlikuje v izrazu za izračun vsote v notranji zanki, glavna zanka pa gre tokrat od zadnjega stanja nazaj. Algoritem je preslikava enačb \eqref{eq:fw:back:init} in \eqref{eq:fw:back:loop}.
 
 \input{figures/estimate_beta_algorithm}
 
-Ko imamo vrednosti $\alpha$ in $\beta$ lahko nadaljujemo z izračunom verjetnosti modela za posamezno stanje glede na dano opazovano sekvenco. S pomočjo definicije \wip{ref} začnemo s spremenljivko $\xi$ in jo preslikamo v funkcijo `estimate_xi`~\eqref{koda:estimate_xi}.
+Ko imamo vrednosti $\alpha$ in $\beta$ lahko nadaljujemo z izračunom verjetnosti modela za posamezno stanje glede na dano opazovano sekvenco. S pomočjo definicije \eqref{eq:bw:xi} začnemo s spremenljivko $\xi$ in jo preslikamo v funkcijo `estimate_xi`~\eqref{koda:estimate_xi}.
 
 \input{figures/estimate_xi_algorithm}
 
-Zaradi zveze \wip{ref} med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
+Zaradi zveze \eqref{eq:bw:gamma} med $\xi$ in $\gamma$ lahko slednjo izrazimo v funkciji `estimate_gamma`~\eqref{koda:estimate_gamma} na poenostavljen način.
 
 \input{figures/estimate_gamma_algorithm}
 
-S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede na dano opazovano sekvenco \wip{ref} (`compute_model_probability`~\eqref{koda:model_prob}).
+S pomočjo spremenljivke $\alpha$ lahko, kot je pokazano v \eqref{eq:hmm:prob1}, izračunamo tudi verjetnost modela glede na dano opazovano sekvenco (`compute_model_probability`~\eqref{koda:model_prob}).
 
 \input{figures/model_prob_algorithm}
 
@@ -55,11 +55,11 @@ S pomočjo spremenljivke $\alpha$ lahko izračunamo tudi verjetnost modela glede
 
 Cilj $M$ koraka je s pomočjo izračunanih vrednosti spremenljivk $\gamma$ in $\xi$ ponovno oceniti parametre $\bar{\pi}$, $\bar{a}$ in $\bar{b}$ za nov model.
 
-Funkcija `reestimate_pi`~\eqref{koda:reestimate_pi} verjetnosti začetnih stanj $\bar{\pi}$ izračuna tako, da enostavno prebere izračunane vrednosti spremenljivke $\bar{\gamma}$ za prvi simbol opazovane sekvence.
+Funkcija `reestimate_pi`~\eqref{koda:reestimate_pi} verjetnosti začetnih stanj $\bar{\pi}$ izračuna tako, da enostavno prebere izračunane vrednosti spremenljivke $\bar{\gamma}$ za prvi simbol opazovane sekvence, kot določa enačba \eqref{eq:hmm:reest:pi}.
 
 \input{figures/reestimate_pi_algorithm}
 
-Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\bar{a}$ \wip{ref} v funkcijo `reestimate_a`~\eqref{koda:reestimate_a} in enačbe za izračun nove vrednosti $\bar{b}$ \wip{ref} v funkcijo `reestimate_b`~\eqref{koda:reestimate_b}.
+Na tej točki nam preostane še preslikava enačbe za izračun nove vrednosti $\bar{a}$ \eqref{eq:hmm:reest:a} v funkcijo `reestimate_a`~\eqref{koda:reestimate_a} in enačbe za izračun nove vrednosti $\bar{b}$ \eqref{eq:hmm:reest:b} v funkcijo `reestimate_b`~\eqref{koda:reestimate_b}.
 
 \input{figures/reestimate_a_algorithm}
 \input{figures/reestimate_b_algorithm}
