@@ -213,7 +213,7 @@ S pomočjo $\xi$ in $\gamma$ lahko sedaj ponovno ocenimo parametre in tako dobim
 
 \input{figures/baum_welch_reestimate_equations}
 
-V literaturi \cite{Li2000}\cite{Ramage2007}\cite{Bilmes1997} je dokazano, da za tako pridobljen model $\lambda$ velja ena izmed naslednjih dveh točk:
+V literaturi \cite{Li2000,Ramage2007,Bilmes1997} je dokazano, da za tako pridobljen model $\lambda$ velja ena izmed naslednjih dveh točk:
 
 1. model $\bar{\lambda}$ določa kritično točko kjer velja $\boldsymbol{\bar{\lambda} = \lambda}$;
 2. $\boldsymbol{P(O \given \bar{\lambda}) > P(O \given \lambda)}$, kar pomeni, da smo dobili nov model $\bar{\lambda}$, ki bolje pojasnjuje zaporedje $O$.
