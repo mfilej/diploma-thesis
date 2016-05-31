@@ -16,13 +16,15 @@ Eden izmed načinov na katerega funkcijski programski jeziki lajšajo razumevanj
 
 Za funkcijske jezike je značilen tudi poudarek na oblikovanju in abstrakcji podatkovnih struktur~\cite{Hudak1989}, nekateri jeziki pa nudijo t.i. pattern matching, ki nam podajanje teh podatkovnih struktur znatno olajša~\cite{Juric2015}. Oba koncepta sta se izkazala za zelo uporabna pri implemetaciji našega programa.
 
-Najpogostejša abstrakcija, ki se je ponavljala pri implementaciji programa so rezultati funkcij, ki sprejemajo dva ali tri argumente. Za predstavitev takšnega rezultata torej potrebujemo 2- ali 3-dimenzionalno podatkovno strukturo. 
+Najpogostejša abstrakcija, ki se je ponavljala pri implementaciji programa so rezultati funkcij, ki sprejemajo dva ali tri argumente. Za predstavitev takšnega rezultata torej potrebujemo 2- ali 3-dimenzionalno podatkovno strukturo, ki jo običajno imenujemo matrika.
 
-```
-          [ … … … ]                     [ […] […] […] ]
-f(x, y) = [ … … … ]        f(x, y, z) = [ […] […] […] ]
-          [ … … … ]                     [ […] […] […] ]
-```
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/matrix2d3d.pdf}
+\end{center}
+\caption{2- in 3-dimenzionalni matriki.}
+\label{diag:matrix2d3d}
+\end{figure}
 
 Nemalokrat se take podatkovne strukture predstavljajo s pomočjo polj~\angl[array] ali seznamov v drugih oblikah, vendar se je v našem primeru to izkazalo za nepraktično zaradi podatkovnih tipov, ki so jih Erlang in Elixir ponujata. Seznami so povezani~\angl[linked list], kar pomeni da niso primerni za indeksirano dostopanje do elementov (`list[x]`), n-terke~\angl[tuples], ki to funkcionalnost podpirajo, pa ne nudijo obširnih funkcionalnosti za naštevanje~\angl[enumerate]~\cite{Thomas2014}, ki so pri implementaciji našega programa prav tako nepogrešljive.
 
