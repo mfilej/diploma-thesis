@@ -11,7 +11,7 @@ Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za ko
 \includegraphics[width=\textwidth]{images/github_search.png}
 \end{center}
 \caption{\wip{gh serach}}
-\label{diag:ghsearch}
+\label{diag:compare:ghsearch}
 \end{figure}
 
 Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. Srečali smo se z velikim številom aktivnih in dodelanih projektov, ustvarjenih za neko določeno aplikacijo skritih markovskih modelov, npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots, vendar so za naš problem preveč speifični. Ostale projekte smo si ogledali podrobneje ter preverili, ali imajo dokumentacijo in pod kakšno licenco so izdani.
@@ -48,7 +48,16 @@ Preostale projekte smo podrobneje pregledali, da bi ugotovili, če ustrezajo na�
 - na koncu navedemo se kaj smo pregledali in nismo vzeli v primerjavo (wirecutter stil)
 
 
-python ghmm
+## GHMM
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/compare_ghmm.png}
+\end{center}
+\caption{\wip{Spletna stran projekta GHMM.}}
+\label{diag:compare:ghmm}
+\end{figure}
+
 http://ghmm.sourceforge.net/documentation.html
 
 > If you want more fine-grained control over the learning procedure, you can do single steps and monitor the relevant diagnostics yourself, or employ meta-heuristics such as noise-injection to avoid getting stuck in local maxima. [Currently for continous emissions only]
