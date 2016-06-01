@@ -1,4 +1,4 @@
-# Implementacija rešitve
+# Implementacija lastne rešitve
 
 \wip{Utemeljitev, da smo se odlocili za svojo implementacijo. Navedi obstojece resitve: Python: hmmlearn~\cite{hmmlearn/hmmlearn}, GHMM~\cite{sf/ghmm}, HMM~\cite{guyz/HMM}, pommegranate~\cite{jmschrei/pomegranate}, R: HMM~\cite{r/hmm}, Haskell: markov~\cite{fmap/markov} vecina resitev ni dovoljevala dovoljsne kontrole nad parametri. Nekatere resitve so bile tezke za modifikacijo. Najvecja tezava je bila da vecina resitev se ne zna uciti na vecih sekvencah, kar je nujno za ucenje na daljsih besedilih (utemeljeno kasneje). Gledano za nazaj se je izkazala za dobro idejo za boljse razumevanje. Hkrati pa tudi bolj zapleteno kot pricakovano, za boljsi izkoristek casa in boljse rezultate bi bilo mogoce boljse vzeti katero od obstojecih.}
 
