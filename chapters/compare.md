@@ -16,9 +16,11 @@ Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za ko
 
 Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. Srečali smo se z velikim številom aktivnih in dodelanih projektov, ustvarjenih za neko določeno aplikacijo skritih markovskih modelov, npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots, vendar so za naš problem preveč speifični. Ostale projekte smo si ogledali podrobneje ter preverili, ali imajo dokumentacijo in pod kakšno licenco so izdani.
 
-Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki kot so veliko število parametrov in relacije med njimi vplivajo na to, da je obliko vhodnih podatkov brez dokumentacije zelo težko določiti. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa z primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Projekte, za katere iz teh treh virov nismo uspeli ugotoviti pravilnega načina uporabe smo izločili.
+Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki kot so veliko število parametrov in relacije med njimi vplivajo na to, da je obliko vhodnih podatkov brez dokumentacije zelo težko določiti. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa z primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Projekte, za katere iz teh treh virov nismo uspeli ugotoviti pravilnega načina uporabe smo izločili. 	\wip{Podobno kot za licence Sonnenburg2007 omeni da bi lahko s prilaganjem krajsih clankov poleg kode znatno izboljsali podrocje programske opreme za strojno ucenje.}
 
-\wip{par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno}
+\wip{par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno - Sonnenburg2007 opisuje kako se lahko projekti za strojno ucenje, ce so izdani pod primerno odprtokodno licenco bolje razvijejo; Stewart2006:
+) license restrictiveness and organizational sponsorship interact to influence user perceptions of the likely utility of open source software in such a way that users are most attracted to projects that are sponsored by nonmarket organizations and that employ nonrestrictive licenses
+}
 
 \wip{kje razen na githubu smo se iskali - veliko projektov ima vsaj GH mirror ko ljudje pushajo kopijo - tako smo najdli par projektov ki sicer nimajo uradnega doma na GitHubu}
 
@@ -52,9 +54,10 @@ za posamezen projekt:
 - za uvod citiran opis projekta z njihove strani
 - wikipedia-style sidebar z url-jem, licenco, logotipom, avtorjemn
 
+\vfill
 \pagebreak
 
-## GHMM
+## Projekt GHMM
 
 \begin{wraptable}{r}[1cm]{5.5cm}
 \begin{tabular}{lll} 
@@ -74,7 +77,7 @@ Glede na razširjenost uporabe smo pričakovali, da bo dokumentacija za uporabo 
 
 S pomočjo komentarjev v programski kodi projekta smo kljub pomanjkanju dokumentacije uspelu vspostaviti enostaven model, nismo pa uspeli pridobiti natančnejšega nadzora nad postopkom učenja, da bi se izognili situacijam, ko postopek maksimizacije ostane v lokalnem maksimumu. Orodje sicer podpira tehnike, kot je npr. vrivanje šuma\angl{noise injection}, vendar samo za zvezno oddajanje, ne pa tudi za diskretno oddajanje, ki ga potrebujemo v našem primeru.
 
-Projekt je izdan pod licenco LGPL, kar bi lahko predstavljalo težavo pri vključevanju v industrijskih okoljih, predvsem v primerih uporabe, kjer bi bila potrebne spremembe izvorne kode~\cite{Determann2006}.
+Projekt je izdan pod deloma restriktivno licenco LGPL~\cite{Comino2007}, kar bi lahko predstavljalo težavo pri vključevanju v industrijskih okoljih, predvsem v primerih uporabe, kjer bi bila potrebne spremembe izvorne kode~\cite{Determann2006}.
 
 \begin{figure}
 \begin{center}
@@ -84,9 +87,10 @@ Projekt je izdan pod licenco LGPL, kar bi lahko predstavljalo težavo pri vklju�
 \label{diag:compare:ghmm}
 \end{figure}
 
+\vfill
 \pagebreak
 
-## Hmmlearn
+## Projekt hmmlearn
 
 \begin{wraptable}{r}[1cm]{5.5cm}
 \begin{tabular}{lll} 
@@ -114,6 +118,46 @@ Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, ki dovoljuje upora
 \label{diag:compare:hmmlearn}
 \end{figure}
 
+\vfill
+\pagebreak
+
+## Projekt HMM
+
+\begin{wraptable}{r}[1cm]{5.5cm}
+\begin{tabular}{lll} 
+\\\toprule 
+hmmlearn \\
+\scriptsize{\url{https://github.com/guyz/HMM}} \\\midrule
+\footnotesize{Jezik: python} \\\midrule
+\footnotesize{Licenca: ni podana}\\ \midrule
+\end{tabular}
+\end{wraptable}
+
+Projekt HMM je ogrodje za delo z skritimi markovskimi modeli, zgrajeno na osnovi sklopa programske opreme NumPy\footnote{NumPy je okrajšava za Numerical Python. Ta sklop programske opreme je namenjen v pomoč pri znanstvenih izračunih v programskem okolju python in služi kot temelj številnim znanstveim knjižnjicam~\cite{Walt2011}.}. Implementacija algoritmov, tako kot mnoge druge, temelji na Rabinerjevem članku “A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition” \cite{Rabiner1989} in vključuje tako diskretne kot zvezne modele. Ena izmed prednosti ogrodja, ki jih drugi projekti ne ponujajo, je vgrajena podpora za razširitve, ki uporabnikom omogoča, da napišejo svoje verjetnostne modele. Razširitev je omogočena z uporabo delovanja, podrobnosti pa so opisane v izvorni kodi projekta v datoteki `GMHMM.py`. 
+
+\wip{Non-linear weighing functions}
+
+Ogrodje HMM poleg že omenjenega programskega paketa NumPy, ni odvisno od drugih programskih paketov in knjižnjic. Zaradi tega se je ogrodje izkazalo enostavnejše za namestitev od večine ostalih projektov. 
+
+Zaradi popolnega pomanjkanju dokumentacije smo za zgled uporabe morali pobrskati po izvorni kodi. Izkazalo se je, da ima projekt v datoteki `HMM/hmm/examples/tests.py` nekaj dovolj nazornih primerov uporabe, programski vmesnik pa je dovolj ekspliciten, da smo lahko vspostavili učenje skritih markovskih modelov na podlagi besedila, kasneje pa tudi simulacijo modela. Izvorna koda je dovolj jasno napisana in smiselno organizirana, da smo lahko potrebne podrobnosti implementacije poiskali sami.
+\begin{figure}
+\begin{verbatim}
+words = # vsebuje vhodno besedilo (učno množico)
+alphabet = Alphabet(words)
+hmm_factory = HMMFromMatricesFactory()
+hmm = hmm_factory(alphabet, dist, A, B, pi)
+seq = EmissionSequence(alphabet, words)
+hmm.baumWelch(seq)
+ 
+hmm.sample(20, 15) # Generiranje 20 zaporedij, od
+                   # katerih ima vsako 15 simbolov.
+\end{verbatim}
+\caption{Primer uporabe ogrodja HMM za učenje na podlagi vhodnega besedila (polje \texttt{words}) in začetnih parametrov modela (večdimenzionalana NumPy polja \texttt{A} in \texttt{B} ter polje \texttt{pi}).}
+\end{figure}
+
+Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne licence. Projekt, ki ne vključi licence, ne moremo uporabljati, spreminjati ali deliti, če to ni eksplicitno navedeno s strani avtorjev programske opreme~\cite{web/nolicense}. Menimo tudi, da bi ustrezna, permisivna odprtokodna licenca privabila več razvijalcev k projektu in ga tako pripomogla k višji kvaliteti in širši uporabnosti~\cite{Stewart2006}.
+
+\vfill
 \pagebreak
 
 * * *
@@ -126,4 +170,11 @@ primerjaj performance
 
 mogoce prilepi kaj kode pri vsakemu
 
-na koncu tabela primerjav
+mogoce kaka shema kje ce je smiselno, recimo struktura objektov/classov/klici funkcij itd - ali pa pipeline kako potekajo podatki
+
+mogoce se potozi glede dependencijev pri ostalih, glede nato, da bomo guyz/hmm zaradi tega pohvalili
+
+nekaj bo moglo bit dejanske primerjave. zacni z: “primerjali bomo naslednje stvari: …, … “ in nastej stvari ki smo opisali v posameznem poglavju: dokumentacija, enostavnost uporabe, (kar v tabeli spodaj) - potem z besedami opisi kaj kdo ma in kdo nima.
+
+na koncu tabela primerjav: licenca, dokumentacija, multi-obs, delovanje na veliki mnozici, performance
+
