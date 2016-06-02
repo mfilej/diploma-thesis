@@ -61,12 +61,12 @@ za posamezen projekt:
 \\\toprule 
 GHMM \\
 \scriptsize{\url{http://ghmm.sourceforge.net}} \\\midrule
-\footnotesize{Jeziki: C, Python} \\\midrule
+\footnotesize{Jeziki: C, python} \\\midrule
 \footnotesize{Licenca: LGPL}\\ \midrule
 \end{tabular}
 \end{wraptable}
 
-Projekt GHMM je prosto dostopna knjižnjica za jezik C, ki vsebuje izvedbo učinkovitih podatkovnih struktur in algoritmov za osnovne in razširjene skrite markovske modele z diskretnim in zveznim oddajanjem. Projekt vključuje tudi programsko ovojnico za programski jezik Python, ki ponuja prijaznejši vmesnik in nekaj dodatnih funkcionalnosti ter grafični urejevalnik modelov imenovan HMMEd~\cite{sf/ghmm}.
+Projekt GHMM je prosto dostopna knjižnjica za jezik C, ki vsebuje izvedbo učinkovitih podatkovnih struktur in algoritmov za osnovne in razširjene skrite markovske modele z diskretnim in zveznim oddajanjem. Projekt vključuje tudi programsko ovojnico za programski jezik python, ki ponuja prijaznejši vmesnik in nekaj dodatnih funkcionalnosti ter grafični urejevalnik modelov imenovan HMMEd~\cite{sf/ghmm}.
 
 Knjižnjica se uporablja za širok spekter raziskovalnih, akademskih in industrijskih projektov. Področja uporabe vključujejo finančno matematiko (analiza likvidnosti), fiziologijo (analiza EEG podatkov), računsko lingvistiko in astronomijo (klasifikacija zvezd). V literaturi~\cite{Schliep2004} najdemo navedbe, da je projekt GHMM znatno pripomogel pri načenjanju nekaterih novih raziskovalnih vprašanj.
 
@@ -76,18 +76,54 @@ S pomočjo komentarjev v programski kodi projekta smo kljub pomanjkanju dokument
 
 Projekt je izdan pod licenco LGPL, kar bi lahko predstavljalo težavo pri vključevanju v industrijskih okoljih, predvsem v primerih uporabe, kjer bi bila potrebne spremembe izvorne kode~\cite{Determann2006}.
 
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/compare_ghmm.png}
+\end{center}
+\caption{Posnetek zaslona prikazuje skopo dokumentacijo projekta GHMM.}
+\label{diag:compare:ghmm}
+\end{figure}
+
+\pagebreak
+
+## Hmmlearn
+
+\begin{wraptable}{r}[1cm]{5.5cm}
+\begin{tabular}{lll} 
+\\\toprule 
+hmmlearn \\
+\scriptsize{\url{http://hmmlearn.readthedocs.io}} \\\midrule
+\footnotesize{Jezik: python} \\\midrule
+\footnotesize{Licenca: BSD}\\ \midrule
+\end{tabular}
+\end{wraptable}
+
+Hmmlearn je skupina algoritmov za nenadzorovano učenje in sklepanje za skrite markovske modele. Orodje je napisano v programskem jeziku python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj z dejstvom, da je scikit-learn zero razširnjen projetk pomeni, da je lahko postane hmmlearn zelo zanimiv za široko skupino uporabnikov.
+
+Ob času pregleda je bila na voljo prva javna različica projekta 0.1.1, ki je bila izdana februarja 2015. Prihajajoča\footnote{Različica 0.2.0 je izšla marca 2016.} različica 0.2.0 prinaša veliko novosti, med drugim tudi sposobnost za učenje na mnogoterih opazovanih zaporedjih. Funkcionalnost je bila sicer že na voljo v t.i. razvojni različici, vendar smo tukaj naleteli na odstopanja med novimi razvojnimi vmesniki in dokumentacijo, ki je bila tarkat na voljo samo prejšnjo različico. Tako v praksi učenja modelov na mnogoterih zaporedjih s to knjižnjico nismo uspeli izvesti.
+
+Kljub temu, da je hmmlearn še zgodaj v razvojni fazi, si zaradi obljubljenih enostavnih programskih vmesnikov, scikit-learn kompatibilnosti in že sedaj obsežne dokumentacije  v prihodnosti od tega projekta veliko obetamo in upamo, da bomo še imeli priložnost ga preizkusiti \wip{oblika stavka}.
+
+Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, ki dovoljuje uporabo v komercialne namene in je tako primerna tudi za industrijsko rabo~\cite{Determann2006}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/compare_hmmlearn.png}
+\end{center}
+\caption{Posnetek zaslona prikazuje zgledno urejeno dokumentacijo projekta hmmlearn.}
+\label{diag:compare:hmmlearn}
+\end{figure}
+
+\pagebreak
+
 * * *
 
 ne podpira mnogoterih obs, predstaviti dolgo besedilo kot eno sekvenco je problematicno, ker simboli proti koncu imajo prakticno nicno verjetnost
 
 preveri python 3
 
-LGPL, kar lahko predstavlja težavo pri vključevanju v (komercialnih okoljih/podjetjih/?), predvsem če je potrebna modifikacija~\cite{Determann2006}.
+primerjaj performance
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{images/compare_ghmm.png}
-\end{center}
-\caption{\wip{Skopa dokumentacija projekta GHMM.}}
-\label{diag:compare:ghmm}
-\end{figure}
+mogoce prilepi kaj kode pri vsakemu
+
+na koncu tabela primerjav
