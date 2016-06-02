@@ -24,6 +24,8 @@ Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primer
 
 \wip{kje razen na githubu smo se iskali - veliko projektov ima vsaj GH mirror ko ljudje pushajo kopijo - tako smo najdli par projektov ki sicer nimajo uradnega doma na GitHubu}
 
+\wip{vecinoma smo nasli Python knjiznjice - verjeto zaradi popularnosti Pythona v znanstvenih srenjah in zaradi zelo dobrega package NumPy (se enkrat tista referenca)}
+
 Preostale projekte smo podrobneje pregledali, da bi ugotovili, če ustrezajo naši problemski domeni — učenju skritih markovskih modelov na podlagi daljših besedil. Za učenje modelov želimo uporabiti besedilo ali množico besedil nekega avtorja, ki so dovolj dolga, da predstavljajo dobro reprezentacijo pogostosti pojavljanja izrazov ter besednih zvez in hkrati vsebujejo tudi dovoljšen besedni zaklad. Zato smo se odločili, da bomo uporabili krajše knjige ali zbirge drugih, krajših vrst besedil (esejev, poezije, \dots). Posamezna učna množica bo tako obsegala od 10.0000 do 50.000 besed. Za našo problemsko domeno želimo tudi, da model oddaja diskretne vrednosti (simbole). Skriti markovski modeli lahko oddajajo tudi zvezne vrednosti. Projekte, ki delujejo izključno za zvezne emisije smo izločili.
 
 
@@ -64,12 +66,12 @@ za posamezen projekt:
 \\\toprule 
 GHMM \\
 \scriptsize{\url{http://ghmm.sourceforge.net}} \\\midrule
-\footnotesize{Jeziki: C, python} \\\midrule
+\footnotesize{Jeziki: C, Python} \\\midrule
 \footnotesize{Licenca: LGPL}\\ \midrule
 \end{tabular}
 \end{wraptable}
 
-Projekt GHMM je prosto dostopna knjižnjica za jezik C, ki vsebuje izvedbo učinkovitih podatkovnih struktur in algoritmov za osnovne in razširjene skrite markovske modele z diskretnim in zveznim oddajanjem. Projekt vključuje tudi programsko ovojnico za programski jezik python, ki ponuja prijaznejši vmesnik in nekaj dodatnih funkcionalnosti ter grafični urejevalnik modelov imenovan HMMEd~\cite{sf/ghmm}.
+Projekt GHMM je prosto dostopna knjižnjica za jezik C, ki vsebuje izvedbo učinkovitih podatkovnih struktur in algoritmov za osnovne in razširjene skrite markovske modele z diskretnim in zveznim oddajanjem. Projekt vključuje tudi programsko ovojnico za programski jezik Python, ki ponuja prijaznejši vmesnik in nekaj dodatnih funkcionalnosti ter grafični urejevalnik modelov imenovan HMMEd~\cite{sf/ghmm}.
 
 Knjižnjica se uporablja za širok spekter raziskovalnih, akademskih in industrijskih projektov. Področja uporabe vključujejo finančno matematiko (analiza likvidnosti), fiziologijo (analiza EEG podatkov), računsko lingvistiko in astronomijo (klasifikacija zvezd). V literaturi~\cite{Schliep2004} najdemo navedbe, da je projekt GHMM znatno pripomogel pri načenjanju nekaterih novih raziskovalnih vprašanj.
 
@@ -97,12 +99,12 @@ Projekt je izdan pod deloma restriktivno licenco LGPL~\cite{Comino2007}, kar bi 
 \\\toprule 
 hmmlearn \\
 \scriptsize{\url{http://hmmlearn.readthedocs.io}} \\\midrule
-\footnotesize{Jezik: python} \\\midrule
+\footnotesize{Jezik: Python} \\\midrule
 \footnotesize{Licenca: BSD}\\ \midrule
 \end{tabular}
 \end{wraptable}
 
-Hmmlearn je skupina algoritmov za nenadzorovano učenje in sklepanje za skrite markovske modele. Orodje je napisano v programskem jeziku python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj z dejstvom, da je scikit-learn zero razširnjen projetk pomeni, da je lahko postane hmmlearn zelo zanimiv za široko skupino uporabnikov.
+Hmmlearn je skupina algoritmov za nenadzorovano učenje in sklepanje za skrite markovske modele. Orodje je napisano v programskem jeziku Python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik Python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj z dejstvom, da je scikit-learn zero razširnjen projetk pomeni, da je lahko postane hmmlearn zelo zanimiv za široko skupino uporabnikov.
 
 Ob času pregleda je bila na voljo prva javna različica projekta 0.1.1, ki je bila izdana februarja 2015. Prihajajoča\footnote{Različica 0.2.0 je izšla marca 2016.} različica 0.2.0 prinaša veliko novosti, med drugim tudi sposobnost za učenje na mnogoterih opazovanih zaporedjih. Funkcionalnost je bila sicer že na voljo v t.i. razvojni različici, vendar smo tukaj naleteli na odstopanja med novimi razvojnimi vmesniki in dokumentacijo, ki je bila tarkat na voljo samo prejšnjo različico. Tako v praksi učenja modelov na mnogoterih zaporedjih s to knjižnjico nismo uspeli izvesti.
 
@@ -128,12 +130,12 @@ Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, ki dovoljuje upora
 \\\toprule 
 hmmlearn \\
 \scriptsize{\url{https://github.com/guyz/HMM}} \\\midrule
-\footnotesize{Jezik: python} \\\midrule
+\footnotesize{Jezik: Python} \\\midrule
 \footnotesize{Licenca: ni podana}\\ \midrule
 \end{tabular}
 \end{wraptable}
 
-Projekt HMM je ogrodje za delo z skritimi markovskimi modeli, zgrajeno na osnovi sklopa programske opreme NumPy\footnote{NumPy je okrajšava za Numerical Python. Ta sklop programske opreme je namenjen v pomoč pri znanstvenih izračunih v programskem okolju python in služi kot temelj številnim znanstveim knjižnjicam~\cite{Walt2011}.}. Implementacija algoritmov, tako kot mnoge druge, temelji na Rabinerjevem članku “A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition” \cite{Rabiner1989} in vključuje tako diskretne kot zvezne modele. Ena izmed prednosti ogrodja, ki jih drugi projekti ne ponujajo, je vgrajena podpora za razširitve, ki uporabnikom omogoča, da napišejo svoje verjetnostne modele. Razširitev je omogočena z uporabo delovanja, podrobnosti pa so opisane v izvorni kodi projekta v datoteki `GMHMM.py`. 
+Projekt HMM je ogrodje za delo z skritimi markovskimi modeli, zgrajeno na osnovi sklopa programske opreme NumPy\footnote{NumPy je okrajšava za Numerical Python. Ta sklop programske opreme je namenjen v pomoč pri znanstvenih izračunih v programskem okolju Python in služi kot temelj številnim znanstveim knjižnjicam~\cite{Walt2011}.}. Implementacija algoritmov, tako kot mnoge druge, temelji na Rabinerjevem članku “A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition” \cite{Rabiner1989} in vključuje tako diskretne kot zvezne modele. Ena izmed prednosti ogrodja, ki jih drugi projekti ne ponujajo, je vgrajena podpora za razširitve, ki uporabnikom omogoča, da napišejo svoje verjetnostne modele. Razširitev je omogočena z uporabo delovanja, podrobnosti pa so opisane v izvorni kodi projekta v datoteki `GMHMM.py`. 
 
 \wip{Non-linear weighing functions}
 
