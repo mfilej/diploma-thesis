@@ -165,7 +165,7 @@ Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne li
 \pagebreak
 
 
-## Projekt mshmm
+## Projekt mshmm {#ch:compare:mshmm}
 
 \begin{wraptable}{r}[0.5cm]{5.5cm}
 \begin{tabular}{l} 
@@ -229,8 +229,7 @@ licenca na zalost gpl, precej restriktivna, modificirano kodo bi zelo tezko upor
 
 Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravljajo na platfori Matlab/Octave, vendar izvorne kode pri večini ni bilo na voljo~\cite{Yun2013}. Izjema sta bila projekta iHMM~\cite{Gael2008} in H2M~\cite{Cappe2001}, ki sta omenjena v različnih znanstvenih člankih. Slednji se med drugim uporablja na področjih razpoznavanja govora~\cite{Ramesh1992} in na področju zaznavanja in klasifikacije zvokov (razločevanje med razbitjem stekla, človeškimi vzkliki, streli orožja, eksplozijami, zapiranjem vrat…) \cite{Dufaux2000}. Oba projekta sta se izkazala za neprimerna za našo problemsko domeno, ki zahteva skrite markovske modele z diskretno emisijo, projekta pa podirata samo zvezne~\cite{Cappe2001}.
 
-Za programsko okolje R smo poleg projekta mshmm (ref poglavje, citiraj citiraj OConnell2011) pregledali se:
-> To our knowledge, there are two other software packages available for hidden semi-Markov models [za R]: The first is the AMAPmod software (Godin and Guedon 2007), which is specifically for the exploration of plant architecture. Another R package for for hidden semi-Markov mod- els is hsmm package, Bulla, Bulla, and Nenadic (2010). The mhsmm package is distinguished from hsmm in mainly two aspects: (1) mhsmm has the ability to estimate parameters for multiple observation sequences. (2) mhsmm is extensible because the user can create custom emission distributions.
+Poleg projekta `mshmm` (glej poglavje \ref{ch:compare:mshmm}) je za programsko okolje R na voljo še projekta `HMM` (\url{https://cran.r-project.org/web/packages/HMM}) in `hsmm` (\url{https://cran.r-project.org/web/packages/hsmm}), ki se od `mshmm` razlikujeta v dveh ključnih vidikih~\cite{OConnell2011}. Prvi je ta, da `hsmm` ne podpira uporabniških razširitev za implementacijo novih porazdelitev emisij. Drugi vidik, ki je za našo problemsko domeno pomembnejši, pa je pomanjkanje zmožnosti za obdelavo mnogoterih opazovanih zaporedij, kar projekt naredi neprimeren za uporabo pri generaciji besedil.
 
 
 * * *
