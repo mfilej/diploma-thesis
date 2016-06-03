@@ -16,13 +16,15 @@ Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za ko
 
 Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. Srečali smo se z velikim številom aktivnih in dodelanih projektov, ustvarjenih za neko določeno aplikacijo skritih markovskih modelov, npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots, vendar so za naš problem preveč speifični. Ostale projekte smo si ogledali podrobneje ter preverili, ali imajo dokumentacijo in pod kakšno licenco so izdani.
 
+\wip{napisemo se da smo zahtevali podporo za diskretne hmm in podporo za multiple obs. opisemo vsako posebej, kaj pomeni diskretno in kaj je problem dolgih obs seq ce niso multi obs}
+
 Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki kot so veliko število parametrov in relacije med njimi vplivajo na to, da je obliko vhodnih podatkov brez dokumentacije zelo težko določiti. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa z primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Projekte, za katere iz teh treh virov nismo uspeli ugotoviti pravilnega načina uporabe smo izločili. 	\wip{Podobno kot za licence Sonnenburg2007 omeni da bi lahko s prilaganjem krajsih clankov poleg kode znatno izboljsali podrocje programske opreme za strojno ucenje.}
 
-\wip{par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno - Sonnenburg2007 opisuje kako se lahko projekti za strojno ucenje, ce so izdani pod primerno odprtokodno licenco bolje razvijejo; Stewart2006:
+\wip{lahko recemo, da smo iskali projekte, ki bi bli primerni za uporabo v industriji, zato par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno - Sonnenburg2007 opisuje kako se lahko projekti za strojno ucenje, ce so izdani pod primerno odprtokodno licenco bolje razvijejo; Stewart2006:
 ) license restrictiveness and organizational sponsorship interact to influence user perceptions of the likely utility of open source software in such a way that users are most attracted to projects that are sponsored by nonmarket organizations and that employ nonrestrictive licenses
 }
 
-\wip{kje razen na githubu smo se iskali - veliko projektov ima vsaj GH mirror ko ljudje pushajo kopijo - tako smo najdli par projektov ki sicer nimajo uradnega doma na GitHubu}
+\wip{kje razen na githubu smo se iskali - veliko projektov ima vsaj GH mirror ko ljudje pushajo kopijo - tako smo najdli par projektov ki sicer nimajo uradnega doma na GitHubu. iskali smo tudi preko znanstvenih clankov, smo nasli nekaj projektov, vecinoma starejsih}
 
 \wip{vecinoma smo nasli Python knjiznjice - verjeto zaradi popularnosti Pythona v znanstvenih srenjah in zaradi zelo dobrega package NumPy (se enkrat tista referenca)}
 
@@ -62,12 +64,12 @@ za posamezen projekt:
 ## Projekt GHMM
 
 \begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{lll} 
+\begin{tabular}{l} 
 \\\toprule 
 GHMM \\
 \scriptsize{\url{http://ghmm.sourceforge.net}} \\\midrule
 \footnotesize{Jeziki: C, Python} \\\midrule
-\footnotesize{Licenca: LGPL}\\ \midrule
+\footnotesize{Licenca: GNU LGPL}\\ \midrule
 \end{tabular}
 \end{wraptable}
 
@@ -95,7 +97,7 @@ Projekt je izdan pod deloma restriktivno licenco LGPL~\cite{Comino2007}, kar bi 
 ## Projekt hmmlearn
 
 \begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{lll} 
+\begin{tabular}{l} 
 \\\toprule 
 hmmlearn \\
 \scriptsize{\url{http://hmmlearn.readthedocs.io}} \\\midrule
@@ -126,7 +128,7 @@ Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, ki dovoljuje upora
 ## Projekt HMM
 
 \begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{lll} 
+\begin{tabular}{l} 
 \\\toprule 
 hmmlearn \\
 \scriptsize{\url{https://github.com/guyz/HMM}} \\\midrule
@@ -161,6 +163,75 @@ Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne li
 
 \vfill
 \pagebreak
+
+
+## Projekt mshmm
+
+\begin{wraptable}{r}[0.5cm]{5.5cm}
+\begin{tabular}{l} 
+\\\toprule 
+mshmm \\
+\scriptsize{\url{https://cran.r-project.org/web/packages/mhsmm}} \\\midrule
+\footnotesize{Jeziki: R, C} \\\midrule
+\footnotesize{Licenca: GNU GPL}\\ \midrule
+\end{tabular}
+\end{wraptable}
+
+Mhsmm je sklop programske opreme za sistem za statistično računanje R. Motivacija za nastanek projekta so bile raziskave na področju povezanosti razmnoževanja živine z različnimi indikatorji pristonosti škodljivcev. Skriti markovski modeli so v tem kontekstu pomagali pri dopolnjevanju pomanjkljivih podakov in združevanju ločenih opazovanih zaporedij, ki so bila vzorčena z racličnimi frekvencami~\cite{OConnell2011}. Poglavitne funkcije programskega sklopa so hkratno opazovanje različnih statističnih spremenljivk in podpora za zaporedja z manjkajočimi vrednostmi. Ključni deli programa so napisani v programskem jeziku C, kar zagotavlja hitro izvajanje.
+
+Orodje mshmm je sposobno modelirati tudi t.i. skrite pol-markovske modele. Pri klasičnih skriti markovskih modelih je čas postanka v posameznem stanju geometrično porazdeljen (enakomerni intervali $t, t+1, \dots$; glej poglavje \ref{ch:vir}). Pri modeliranju marsikaterih realnih problemov je ta omejitev nepraktična~\cite{OConnell2011}, vendar za našo problemsko domeno abstrakcija pol-markovskih modelov ni potrebna. Kar je za našo problemsko domeno pomembno je to, da orodje ustreza našim zahtevam za oddajanje diskretnih vrednosti in podporo mnogoterih opazovanih zaporeidij. Uporabnikom orodja je dodatno omogočeno, da poleg vrste vključenih porazdelitev emisij na podlagi uporabniških razširitev implementirajo tudi lastne porazdelitve. Zaradi neizkušenosti v programskem okolju R te funkcionalnosti nismo preizkusili.
+
+Projekt zagotavlja dokumentacijo v obliki PDF datoteke~\cite{OConnell2011}, ki sicer zelo razumno prikaže nekaj primerov uporabe programskega sklopa, vendar smo pri preizkušanju le-tega pogrešali podrobnejšo in celovitejšo dokumentacijo programskega vmesnika, kot jo pričakujemo vzdrževane programske opreme, ki je namenjena širši uporabniški množici.
+
+Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vključevanju projekta v industrijska okolja, predvsem v primerih uporabe, kjer bi bila potrebne sprememba izvorne kode~\cite{Determann2006}.
+
+\begin{figure}[b]
+\begin{center}
+\includegraphics[width=\textwidth]{images/compare_r_mhsmm.pdf}
+\end{center}
+\caption{Izpis orodja 	\texttt{mhsmm} zelo nazorno prikaže delovanje (zveznega) skritega markovskega modela. Horizontalna črta s pomočjo barv prikazuje prehajanje med stanji, krivulja pa prikazuje vrednosti, ki jih je model oddajal.}
+\label{diag:compare:r_mhsmm}
+\end{figure}
+
+\vfill
+\pagebreak
+
+## UDMHMM
+
+\begin{wraptable}{r}[1cm]{5.5cm}
+\begin{tabular}{l} 
+\\\toprule 
+UDMHMM \\
+\scriptsize{\url{http://www.kanungo.com/software/software.html}} \\\midrule
+\footnotesize{Jezik: C} \\\midrule
+\footnotesize{Licenca: GNU GPL}\\ \midrule
+\end{tabular}
+\end{wraptable}
+
+razsiri kratico
+
+ful kul, ne podpira multi obs, vseeno sprejme ful dolgo sekvenco, ne da pa kontrole nad tem da bi dolocli kako se te sekvence procesirajo itd
+
+relativno star, ni aktivnega razvoja
+
+se izkazal za prakticno uporabnega z nekaj podporne kode
+
+potrebuje se nekaj dodatne programske opreme za symbol- >int in obratno konverzijo
+
+licenca na zalost gpl, precej restriktivna, modificirano kodo bi zelo tezko uporabljali v industrijske namene (cite usual)
+
+\vfill
+\pagebreak
+
+## Ostali projekti
+
+\wip{tu bomo opisali kar smo si se ogledali in ni prslo v postev}
+
+Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravljajo na platfori Matlab/Octave, vendar izvorne kode pri večini ni bilo na voljo~\cite{Yun2013}. Izjema sta bila projekta iHMM~\cite{Gael2008} in H2M~\cite{Cappe2001}, ki sta omenjena v različnih znanstvenih člankih. Slednji se med drugim uporablja na področjih razpoznavanja govora~\cite{Ramesh1992} in na področju zaznavanja in klasifikacije zvokov (razločevanje med razbitjem stekla, človeškimi vzkliki, streli orožja, eksplozijami, zapiranjem vrat…) \cite{Dufaux2000}. Oba projekta sta se izkazala za neprimerna za našo problemsko domeno, ki zahteva skrite markovske modele z diskretno emisijo, projekta pa podirata samo zvezne~\cite{Cappe2001}.
+
+Za programsko okolje R smo poleg projekta mshmm (ref poglavje, citiraj citiraj OConnell2011) pregledali se:
+> To our knowledge, there are two other software packages available for hidden semi-Markov models [za R]: The first is the AMAPmod software (Godin and Guedon 2007), which is specifically for the exploration of plant architecture. Another R package for for hidden semi-Markov mod- els is hsmm package, Bulla, Bulla, and Nenadic (2010). The mhsmm package is distinguished from hsmm in mainly two aspects: (1) mhsmm has the ability to estimate parameters for multiple observation sequences. (2) mhsmm is extensible because the user can create custom emission distributions.
+
 
 * * *
 
