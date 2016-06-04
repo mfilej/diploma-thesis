@@ -77,7 +77,7 @@ Do sedaj smo opisali temeljne algoritme našega programa, ki pa smo jih mogli do
 
 Postopek iterativnoega izboljševanja parametrov modela opisan v poglavju \ref{iter} zahteva izbiro nekih začetnih parametrov, ki bodo služili kot vhod v iteracijo~\eqref{koda:main_loop}. Dobra izbira parametra lahko vpliva na to, ali bo maksimizacija pripelajla do lokalnega ali globalnega maksimuma~\cite{Rabiner1989}. V literaturi~\cite{Rabiner1989,Bilmes1997} zasledimo dva nezahtevna pristopa, ki se izkažeta za enako dobra: naključne vrednosti in enakomerno\footnote{Prehodu v vsako stanje dodelimo enako verjetnost.} \cite{Lustrek2004} razporejene vrednosti (seveda pod pogojem, da se držimo omejitev stohastičnosti in da so verjetnosti neničelne). Izjema je $b$ parameter modela, kjer se izkaže, da je dobra začetna ocena vrednosti pomembna~\cite{Rabiner1989}. Oceno lahko pridobimo na več načinov, odvisno od tipa podatkov. V našem primeru je vhod besedilo, tako da smo za vrednosti vzeli relativne frekvence pojavljanja simbolov.
 
-## Podpora za mnogotera opazovana zaporedja
+## Podpora za mnogotera opazovana zaporedja {#ch:model:multiobs}
 
 Baum-Welch algoritem je v osnovi definiran za maksimizacijo parametrov modela glede na dano opazovano sekvenco. Ker želimo v naši nalogi algoritem uporabiti za namen generiranja besedila, moramo za uspešno učenje modela uporabiti dovolj veliko učno množico, npr. krajšo knjigo dolžine $10.000$ besed. Takšno učno zaporedje nam predstavlja dve težavi: 1) Opazovano zaporedje takšne dolžine bo v koraku $E$ Baum-Welch algoritma za bolj oddaljene simbole izračunalo zelo majhe verjetnosti, ki bodo povzročile napako podkoračitve~\angl[underflow] (s to težavo smo se večkrat srečali zato jo bomo kasneje podrobneje opisali). 2) Zapis celotnega besedila v obliki enega opazovanja sporoča odvisnost zaporedja — povedi, ki nastopijo kasneje, so odvisno od povedi, ki so nastopile prej — ki je ne želimo modelirati (bolj kot odvisnost med povedmi je za nas zanimiva odvisnost med besedami).~\cite{Zhao2011}
 
@@ -96,7 +96,7 @@ Algoritem za računanje verjetnosti modela~\eqref{koda:model_prob} vrača logari
 
 Nazadnje se obrnemo še k posodobitvam za korak $M$, kjer smo priredili izračun algoritmov za maksimizacijo spremenljivk $\bar{\pi}~\eqref{koda:reestimate_pi}, \bar{a}~\eqref{koda:reestimate_a}$ in $\bar{b}~\eqref{koda:reestimate_b}$. Algoritmom smo dodali dodatno zanko, kjer se sprehodimo čez vsa opazovana zaporedja ($k \leftarrow 1$ do $K$), uporabo spremenljivk $\alpha, \beta, \gamma$ in $\xi$ pa smo zamenjali z novimi različicami $\alpha^k, \beta^k, \gamma^k$ in $\xi^k$. Nove vrednosti v števcih in imenovalcih enačb je bilo potrebno sešteti in tako smo dobili vrednosti za modele z mnogoterimi opazovanimi sekvencami. Pomemben korak pri preverjanju pravilnosti je bil, da se je program tudi po spremembah za primer posameznega opazovanega zaporedja še vedno obnašal na enak način kot prej (prvotne specifikacije za posamezna opazovana zaporedja smo ohranili kar se da nedotaknjene).
 
-## Preprečevanje napake podkoračitve
+## Preprečevanje napake podkoračitve {#ch:model:underflow}
 
 Aplikacija skritih markovskih modelov na dolga opazovana zaporedja zahteva računanje z izredno majnimi verjetnostmi. Takšne majhne vrednosti privedejo do nestabilnosti pri izračunavanju števil v plavajoči vejici~\cite{Mann2006}, med drugim tudi do napake podkoračitve\angl[underflow].
 

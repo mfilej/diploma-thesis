@@ -1,65 +1,13 @@
 # Pregled obstoječih rešitev
 
-V tem poglavju bomo naredili pregled nad obstoječimi orodji za generiranje skritih markovskih modelov. Najprej bomo opisali kakšne vrste funkcionalosti pričakujemo od orodja za uporabo v problemski domeni generiranja besedil. Nato bomo opisali, kako smo poiskali potencialne projekte, ki bi lahko ustrezali našim potrebam in kakšne kriterije smo uporabili, da smo med najdenimi izbrali peščico najobetavnejših, od katerih si bomo vsakega posebej podrobneje ogledali. Za vsak projekt bomo tudi opisali ustreznost za uporabo v problemski domeni generiranja besedil.  Kasneje bomo še na kratko navedli nekaj projetkov, ki smo si jih ogledali, vendar se za njih nismo odločili. Za konec bomo naredili še medsebojno primerjavo opisanih projektov in rezultate strnili v primerjalno tabelo.
+V tem poglavju bomo naredili pregled nad obstoječimi orodji za generiranje skritih markovskih modelov. Najprej bomo opisali kakšne vrste funkcionalosti pričakujemo od orodja za uporabo v problemski domeni generiranja besedil. Nato bomo opisali najobetavnejše projekte, pregledali, kaj ponujajo in za vaskega posebej pregeldali, kako ustrezen je za uporabo v naši problemski domeni. Za tem bomo med temi projekti naredili še medsebojno primerjavo in rezultate strnili v primerjalno tabelo. Navedli in na kratko bomo opisali še nekaj obetavnih projetkov, ki niso ustrezali vsem kriterijm in se zato nismo odločili za podrobnejši pregled. Za konec bomo opisali, kje in kako smo projekte iskali, kako smo seznam najdenih projektov razredčili in kako smo se odlčili, da bi lahko ravno ti opisani projekti ustrezali našim potrebam in kakšne kriterije smo uporabili, da smo med najdenimi izbrali peščico najobetavnejših.
 
-Naša problemska domena je učenje skritih markovskih modelov na podlagi daljših besedil. Za učenje modelov želimo uporabiti besedilo ali množico besedil nekega avtorja, ki so dovolj dolga, da predstavljajo dobro reprezentacijo pogostosti pojavljanja izrazov ter besednih zvez in hkrati vsebujejo tudi dovoljšen besedni zaklad. Zato smo se odločili, da bomo uporabili krajše knjige ali zbirge drugih, krajših vrst besedil (esejev, poezije, \dots). Posamezna učna množica bo tako obsegala od 10.0000 do 50.000 besed.
+Naša problemska domena je učenje skritih markovskih modelov na podlagi daljših besedil. Za učenje modelov želimo uporabiti besedilo ali množico besedil nekega avtorja, ki so dovolj dolga, da predstavljajo dobro reprezentacijo pogostosti pojavljanja izrazov ter besednih zvez in hkrati vsebujejo tudi dovoljšen besedni zaklad. Zato smo se odločili, da bomo kot učne množice za ta orodja uporabili krajše knjige ali zbirge drugih, krajših vrst besedil (esejev, poezije, \dots). Posamezna učna množica bo tako obsegala od 10.000 do 50.000 besed. Če predpostavimo, da bo vsaka beseda predstavljala en simbol oz. en člen opazovanega zaporedja (namesto besede bi lahko izbrali tudi skupino črk (n-gram) ali posamezno črko; dilemo bomo podrobneje opisali v poglavju \wip{referenca na poglavje}, potem bi opazovano zaporedje iz take učne množice predstavljalo 10.000 do 50.000 simbolov. Takšna dolžina zaporedja predstavlja težavo za markovske modele, ker se pri izračunu t.i. *forward* in *backward* vrednosti (glej poglavje \ref{ch:hmm:fb}) začnejo verjetnosti opazovanih simbolov strmo padati, kar privede do napake podkoračitve (glej poglavje \ref{ch:model:underflow}) \cite{Rabiner1989}. Tej težavi se izognemo tako, da besedilo razdelimo na več delov (npr. povedi) in vsakega od teh delov obravnavamo kot krajše opazovano zaporedje, neodvisno od ostlaih (podrobnosti v poglavju \ref{ch:model:multiobs}). Zato bomo pri pregledu projektov, ki bi bili primerni za našo domeno poudarek dali na take, ki lahko na vhodu vzamejo mnogotera opazovana zaporedja.
 
-Za našo problemsko domeno želimo tudi, da model oddaja diskretne vrednosti (simbole). Skriti markovski modeli so lahko zgrajeni tako za oddajanje diskretnih simbolov kot tudi za zvezne vrednosti, vendar slednji za našo problemsko domeno niso primerni.
+Markovske modele ločimo glede na vrsto vrednosti ki, jih opazujejo oz. oddajajo. Diskretne modele imenujemo tiste, ki oddajajo iz diskretne zaloge vrednosti, zvezne pa tiste, ki oddajajo iz zvezne zaloge vrednosti. Za našo problemsko domeno želimo, da model oddaja diskretne vrednosti, ki jim pravimo tudi simboli, zato se bomo osredotočili na projekte, ki modelirajo diskretne modele.
 
-Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za kolaborativni razvoj projektov GitHub\footnote{\url{https://github.com}}. Zaradi pudarka na orodjih za sodelovanje pri razvoju programske opreme je GitHub postal zelo priljubljen pri razvijalcih odprte kode~\cite{McDonald2013}. Ta priljubljenost je pospešila in vzpodbudila sodelovanje na odprtokodnih projektih~\cite{Thung2013}, zato smo se odločili, da iskanje takih projektov, ki bi bili aktivno vzdrževani in imeli za sabo tudi skupine aktivnih uporabnikov začnemo ravno na tem portalu. Skupaj z zmogljivim iskalnikom nam GitHub omogoča pregled nad velikim številom potencialno uporabnih projektov. Dodatno smo si lahko pomagali z indikatorji popularnosti in povezanosti projektov, s katerimi bomo lahko ocenili, če je projekt vzdrževan in ali ima aktivne uporabnike. Takšni indikatorji nam dajo večjo možnost, da bomo našli projekt, ki bo deloval na sodobni strojni in programski opremi~\cite{Dabbish2012}. Iskanje nam je vrnilo preko 700 projektov.
+Izbrane projekte smo si podrobno ogledali, da bi ugotovili, če ustrezajo zgoraj navedenim kriterijem: da modelirajo diskretne markovske modele in da imajo podporo za mnogotera opazovana zaporedja. Poleg tega smo raziskali za kakšen namen so bili razviti, kakšne funkcionalnosti ponujajo in kako dostopni so za uporabo. Pregledali smo tudi dokumentacijo, ki je na voljo in pod kakšno licenco so projekti izdani.
 
-\wip{kje razen na githubu smo se iskali - veliko projektov ima vsaj GH mirror ko ljudje pushajo kopijo - tako smo najdli par projektov ki sicer nimajo uradnega doma na GitHubu. iskali smo tudi preko znanstvenih clankov, smo nasli nekaj projektov, vecinoma starejsih}
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{images/github_search.png}
-\end{center}
-\caption{Posnetek zaslona prikazuje iskalni vmesnik portala GitHub. Indikatorji aktivnosti, kot so število ljudi, ki je projekt označilo kot zanimiv in še pomembneje število ljudi, ki je nameravalo k nekemu projektu prispevati svoje delo, so nam pomagali izbrati perspektivnejše projekte.}
-\label{diag:compare:ghsearch}
-\end{figure}
-
-Da bi naredili pregled projektov praktično izvedljiv v časovnem okviru, določenem za diplomsko nalogo, smo morali množico najdenih projektov razredčiti na hevrističen način, brez da bi vsak projekt posebej pregledali. Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. Srečali smo se z velikim številom aktivnih in dodelanih projektov, ustvarjenih za neko določeno aplikacijo skritih markovskih modelov, npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots, vendar so za naš problem preveč speifični. Ostale projekte smo si ogledali podrobneje ter preverili, ali imajo dokumentacijo in pod kakšno licenco so izdani.
-
-Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki kot so veliko število parametrov in relacije med njimi vplivajo na to, da je obliko vhodnih podatkov brez dokumentacije zelo težko določiti. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa z primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Projekte, za katere iz teh treh virov nismo uspeli ugotoviti pravilnega načina uporabe smo izločili. 	\wip{Podobno kot za licence Sonnenburg2007 omeni da bi lahko s prilaganjem krajsih clankov poleg kode znatno izboljsali podrocje programske opreme za strojno ucenje.}
-
-\wip{lahko recemo, da smo iskali projekte, ki bi bli primerni za uporabo v industriji, zato par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno - Sonnenburg2007 opisuje kako se lahko projekti za strojno ucenje, ce so izdani pod primerno odprtokodno licenco bolje razvijejo; Stewart2006:
-) license restrictiveness and organizational sponsorship interact to influence user perceptions of the likely utility of open source software in such a way that users are most attracted to projects that are sponsored by nonmarket organizations and that employ nonrestrictive licenses
-}
-
-\wip{vecinoma smo nasli Python knjiznjice - verjeto zaradi popularnosti Pythona v znanstvenih srenjah in zaradi zelo dobrega package NumPy (se enkrat tista referenca)}
-
-Preostale projekte smo podrobneje pregledali, da bi ugotovili, če ustrezajo zgoraj navedenim kriterijem: da modelirajo diskretne markovske modele in da imajo podporo za mnogotera opazovana zaporedja. Projekte, ki delujejo izključno za zvezne emisije smo izločili, saj za naš namen niso primerni. Prav tako smo izločili projekte brez podpore za mnogotera opazovana zaporedja.
-
-
-
-  - preizkusili smo ce gre skozi
-
-- kaj smo iskali pri izbiri
-  - dokumentacija
-  - da ni zapusceno (?)
-  - da izgleda kot da kdo uporablja (?)
-  - da je narejeno za splosno uporabo (dosti knjiznic za modele z zveznimi emisijami, mi rabimo diskretne), dosti orodij za delo z dnk sekvenciranjem, napovedovanjem stock marketa
-  - hoteli smo licenco, ki dovoljuje …
-- katere knjiznjice smo izbrali
-- kaj bomo primerjali
-  - primernost za generiranje besedila
-  - multi obs
-  - koliko dolge sekvence sprejme
-  - licenca
-  - performancna ustreznost
-  - dokumentacijo
-  - prednosti/slabosti
-
-
-- primerjamo par kandidatov
-- na koncu navedemo se kaj smo pregledali in nismo vzeli v primerjavo (wirecutter stil)
-
-za posamezen projekt:
-- za uvod citiran opis projekta z njihove strani
-- wikipedia-style sidebar z url-jem, licenco, logotipom, avtorjemn
-
-\vfill
-\pagebreak
 
 ## Projekt GHMM
 
@@ -196,12 +144,12 @@ Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vk
 \vfill
 \pagebreak
 
-## UDMHMM
+## Projekt UMDHMM
 
 \begin{wraptable}{r}[1cm]{5.5cm}
 \begin{tabular}{l} 
 \\\toprule 
-UDMHMM \\
+UMDHMM \\
 \scriptsize{\url{http://www.kanungo.com/software/software.html}} \\\midrule
 \footnotesize{Jezik: C} \\\midrule
 \footnotesize{Licenca: GNU GPL}\\ \midrule
@@ -209,6 +157,8 @@ UDMHMM \\
 \end{wraptable}
 
 razsiri kratico
+
+UMDHMM Hidden Markov Model Toolkit
 
 ful kul, ne podpira multi obs, vseeno sprejme ful dolgo sekvenco, ne da pa kontrole nad tem da bi dolocli kako se te sekvence procesirajo itd
 
@@ -231,6 +181,60 @@ Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravlja
 
 Poleg projekta `mshmm` (glej poglavje \ref{ch:compare:mshmm}) je za programsko okolje R na voljo še projekta `HMM` (\url{https://cran.r-project.org/web/packages/HMM}) in `hsmm` (\url{https://cran.r-project.org/web/packages/hsmm}), ki se od `mshmm` razlikujeta v dveh ključnih vidikih~\cite{OConnell2011}. Prvi je ta, da `hsmm` ne podpira uporabniških razširitev za implementacijo novih porazdelitev emisij. Drugi vidik, ki je za našo problemsko domeno pomembnejši, pa je pomanjkanje zmožnosti za obdelavo mnogoterih opazovanih zaporedij, kar projekt naredi neprimeren za uporabo pri generaciji besedil.
 
+## Kako smo izbirali
+
+Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za kolaborativni razvoj projektov GitHub\footnote{\url{https://github.com}}. Zaradi pudarka na orodjih za sodelovanje pri razvoju programske opreme je GitHub postal zelo priljubljen pri razvijalcih odprte kode~\cite{McDonald2013}. Ta priljubljenost je pospešila in vzpodbudila sodelovanje na odprtokodnih projektih~\cite{Thung2013}, zato smo se odločili, da iskanje takih projektov, ki bi bili aktivno vzdrževani in imeli za sabo tudi skupine aktivnih uporabnikov začnemo ravno na tem portalu. Skupaj z zmogljivim iskalnikom nam GitHub omogoča pregled nad velikim številom potencialno uporabnih projektov. Dodatno smo si lahko pomagali z indikatorji popularnosti in povezanosti projektov, s katerimi bomo lahko ocenili, če je projekt vzdrževan in ali ima aktivne uporabnike. Takšni indikatorji nam dajo večjo možnost, da bomo našli projekt, ki bo deloval na sodobni strojni in programski opremi~\cite{Dabbish2012}. Našli smo tudi projekte, ki ne domujejo na portalu GitHub, ampak imajo tam urejeno zrcalno shrambo. Iskanje nam je vrnilo preko 700 projektov.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/github_search.png}
+\end{center}
+\caption{Posnetek zaslona prikazuje iskalni vmesnik portala GitHub. Indikatorji aktivnosti, kot so število ljudi, ki je projekt označilo kot zanimiv in še pomembneje število ljudi, ki je nameravalo k nekemu projektu prispevati svoje delo, so nam pomagali izbrati perspektivnejše projekte.}
+\label{diag:compare:ghsearch}
+\end{figure}
+
+Poleg portala GitHub smo iskanje opravili še na nekaj drugih mestih. Za delno uspešno se je izkazalo iskanje projektov preko znanstvenih člankov, ki smo jih iskali na portalih Google Scholar (\url{scholar.google.com}), CiteSeerX (\url{citeseerx.ist.psu.edu}), arXiv (\url{arxiv.org}), Microsoft Academic Search (\url{academic.research.microsoft.com/}), …
+
+Da bi naredili pregled projektov praktično izvedljiv v časovnem okviru, določenem za diplomsko nalogo, smo morali množico najdenih projektov razredčiti na hevrističen način, brez da bi vsak projekt posebej pregledali. Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. Srečali smo se z velikim številom aktivnih in dodelanih projektov, ustvarjenih za neko določeno aplikacijo skritih markovskih modelov, npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots, vendar so za naš problem preveč speifični. Kot smo omenili na začetku poglavja smo projekte, ki delujejo izključno za zvezne emisije smo izločili, saj za naš namen niso primerni. Prav tako smo izločili projekte brez podpore za mnogotera opazovana zaporedja. Ostale projekte smo si ogledali podrobneje ter preverili, ali imajo dokumentacijo in pod kakšno licenco so izdani.
+
+Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki kot so veliko število parametrov in relacije med njimi vplivajo na to, da je obliko vhodnih podatkov brez dokumentacije zelo težko določiti. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa z primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Projekte, za katere iz teh treh virov nismo uspeli ugotoviti pravilnega načina uporabe smo izločili. Kot je ugotovil 	Sonnenburg~\cite{Sonnenburg2007}, bi bilo področje programske opreme za strojno učenje veliko bogatejše, če bi projekti poleg izvorne kode priložili krajši članek z opisom uporabe.
+
+\wip{lahko recemo, da smo iskali projekte, ki bi bli primerni za uporabo v industriji, zato par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno - Sonnenburg2007 opisuje kako se lahko projekti za strojno ucenje, ce so izdani pod primerno odprtokodno licenco bolje razvijejo; Stewart2006:
+) license restrictiveness and organizational sponsorship interact to influence user perceptions of the likely utility of open source software in such a way that users are most attracted to projects that are sponsored by nonmarket organizations and that employ nonrestrictive licenses
+}
+
+\wip{vecinoma smo nasli Python knjiznjice - verjeto zaradi popularnosti Pythona v znanstvenih srenjah in zaradi zelo dobrega package NumPy (se enkrat tista referenca)}
+
+
+
+  - preizkusili smo ce gre skozi
+
+- kaj smo iskali pri izbiri
+  - dokumentacija
+  - da ni zapusceno (?)
+  - da izgleda kot da kdo uporablja (?)
+  - da je narejeno za splosno uporabo (dosti knjiznic za modele z zveznimi emisijami, mi rabimo diskretne), dosti orodij za delo z dnk sekvenciranjem, napovedovanjem stock marketa
+  - hoteli smo licenco, ki dovoljuje …
+- katere knjiznjice smo izbrali
+- kaj bomo primerjali
+  - primernost za generiranje besedila
+  - multi obs
+  - koliko dolge sekvence sprejme
+  - licenca
+  - performancna ustreznost
+  - dokumentacijo
+  - prednosti/slabosti
+
+
+- primerjamo par kandidatov
+- na koncu navedemo se kaj smo pregledali in nismo vzeli v primerjavo (wirecutter stil)
+
+za posamezen projekt:
+- za uvod citiran opis projekta z njihove strani
+- wikipedia-style sidebar z url-jem, licenco, logotipom, avtorjemn
+
+\vfill
+\pagebreak
 
 * * *
 
