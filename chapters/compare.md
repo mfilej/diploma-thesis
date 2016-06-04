@@ -1,6 +1,6 @@
 # Pregled obstoječih rešitev
 
-V tem poglavju bomo naredili pregled nad obstoječimi orodji za generiranje skritih markovskih modelov. Najprej bomo opisali kakšne vrste funkcionalosti pričakujemo od orodja za uporabo v problemski domeni generiranja besedil. Nato bomo opisali najobetavnejše projekte, pregledali, kaj ponujajo in za vaskega posebej pregeldali, kako ustrezen je za uporabo v naši problemski domeni. Za tem bomo med temi projekti naredili še medsebojno primerjavo in rezultate strnili v primerjalno tabelo. Navedli in na kratko bomo opisali še nekaj obetavnih projetkov, ki niso ustrezali vsem kriterijm in se zato nismo odločili za podrobnejši pregled. Za konec bomo opisali, kje in kako smo projekte iskali, kako smo seznam najdenih projektov razredčili in kako smo se odlčili, da bi lahko ravno ti opisani projekti ustrezali našim potrebam in kakšne kriterije smo uporabili, da smo med najdenimi izbrali peščico najobetavnejših.
+V tem poglavju bomo naredili pregled nad obstoječimi orodji za generiranje skritih markovskih modelov. Najprej bomo opisali kakšne vrste funkcionalosti pričakujemo od orodja za uporabo v problemski domeni generiranja besedil. Nato bomo opisali najobetavnejše projekte, pregledali, kaj ponujajo in za vaskega posebej pregeldali, kako ustrezen je za uporabo v naši problemski domeni. Za tem bomo med temi projekti naredili še medsebojno primerjavo in rezultate strnili v primerjalno tabelo.  V primerjavo smo vključili tudi lastno implementacijo, opisano v \ref{ch:impl}. poglavju. Navedli in na kratko bomo opisali še nekaj obetavnih projetkov, ki niso ustrezali vsem kriterijm in se zato nismo odločili za podrobnejši pregled. Za konec bomo opisali, kje in kako smo projekte iskali, kako smo seznam najdenih projektov razredčili in utemeljili, zakaj smo menili, da bi ravno ti opisani projekti ustrezali našim potrebam in kakšne kriterije smo uporabili, da smo med najdenimi izbrali peščico najobetavnejših.
 
 Naša problemska domena je učenje skritih markovskih modelov na podlagi daljših besedil. Za učenje modelov želimo uporabiti besedilo ali množico besedil nekega avtorja, ki so dovolj dolga, da predstavljajo dobro reprezentacijo pogostosti pojavljanja izrazov ter besednih zvez in hkrati vsebujejo tudi dovoljšen besedni zaklad. Zato smo se odločili, da bomo kot učne množice za ta orodja uporabili krajše knjige ali zbirge drugih, krajših vrst besedil (esejev, poezije, \dots). Posamezna učna množica bo tako obsegala od 10.000 do 50.000 besed. Če predpostavimo, da bo vsaka beseda predstavljala en simbol oz. en člen opazovanega zaporedja (namesto besede bi lahko izbrali tudi skupino črk (n-gram) ali posamezno črko; dilemo bomo podrobneje opisali v poglavju \wip{referenca na poglavje}, potem bi opazovano zaporedje iz take učne množice predstavljalo 10.000 do 50.000 simbolov. Takšna dolžina zaporedja predstavlja težavo za markovske modele, ker se pri izračunu t.i. *forward* in *backward* vrednosti (glej poglavje \ref{ch:hmm:fb}) začnejo verjetnosti opazovanih simbolov strmo padati, kar privede do napake podkoračitve (glej poglavje \ref{ch:model:underflow}) \cite{Rabiner1989}. Tej težavi se izognemo tako, da besedilo razdelimo na več delov (npr. povedi) in vsakega od teh delov obravnavamo kot krajše opazovano zaporedje, neodvisno od ostlaih (podrobnosti v poglavju \ref{ch:model:multiobs}). Zato bomo pri pregledu projektov, ki bi bili primerni za našo domeno poudarek dali na take, ki lahko na vhodu vzamejo mnogotera opazovana zaporedja.
 
@@ -8,18 +8,19 @@ Markovske modele ločimo glede na vrsto vrednosti ki, jih opazujejo oz. oddajajo
 
 Izbrane projekte smo si podrobno ogledali, da bi ugotovili, če ustrezajo zgoraj navedenim kriterijem: da modelirajo diskretne markovske modele in da imajo podporo za mnogotera opazovana zaporedja. Poleg tega smo raziskali za kakšen namen so bili razviti, kakšne funkcionalnosti ponujajo in kako dostopni so za uporabo. Pregledali smo tudi dokumentacijo, ki je na voljo in pod kakšno licenco so projekti izdani.
 
+\vfill
+\pagebreak
 
 ## Projekt GHMM
 
-\begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{l} 
-\\\toprule 
-GHMM \\
-\scriptsize{\url{http://ghmm.sourceforge.net}} \\\midrule
-\footnotesize{Jeziki: C, Python} \\\midrule
-\footnotesize{Licenca: GNU LGPL}\\ \midrule
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jeziki \\
+\url{http://ghmm.sourceforge.net} & GNU LGPL  & C/Python \\\midrule
 \end{tabular}
-\end{wraptable}
+\end{center}
 
 Projekt GHMM je prosto dostopna knjižnjica za jezik C, ki vsebuje izvedbo učinkovitih podatkovnih struktur in algoritmov za osnovne in razširjene skrite markovske modele z diskretnim in zveznim oddajanjem. Projekt vključuje tudi programsko ovojnico za programski jezik Python, ki ponuja prijaznejši vmesnik in nekaj dodatnih funkcionalnosti ter grafični urejevalnik modelov imenovan HMMEd~\cite{sf/ghmm}.
 
@@ -27,7 +28,7 @@ Knjižnjica se uporablja za širok spekter raziskovalnih, akademskih in industri
 
 Glede na razširjenost uporabe smo pričakovali, da bo dokumentacija za uporabo orodja GHMM obširnejša. Tudi spletna stran projekta navaja, da ima orodje veliko težavo s pomanjkanjem dokumentacije in potencialne uporabnike napoti k branju Rabinerjevega ‘Tutorial on Hidden Markov Models’~\cite{Rabiner1989}, ki je sicer odličen vir za razumevanje skritih markovskih modelov, vendar ne nudi pomoči pri uporabi knjižnjice.
 
-S pomočjo komentarjev v programski kodi projekta smo kljub pomanjkanju dokumentacije uspelu vspostaviti enostaven model, nismo pa uspeli pridobiti natančnejšega nadzora nad postopkom učenja, da bi se izognili situacijam, ko postopek maksimizacije ostane v lokalnem maksimumu. Orodje sicer podpira tehnike, kot je npr. vrivanje šuma\angl{noise injection}, vendar samo za zvezno oddajanje, ne pa tudi za diskretno oddajanje, ki ga potrebujemo v našem primeru.
+S pomočjo komentarjev v programski kodi projekta smo kljub pomanjkanju dokumentacije uspelu vspostaviti enostaven model, nismo pa uspeli pridobiti natančnejšega nadzora nad postopkom učenja, da bi se izognili situacijam, ko postopek maksimizacije ostane v lokalnem maksimumu. Orodje sicer podpira tehnike, kot je npr. vrivanje šuma\angl[noise injection], vendar samo za zvezno oddajanje, ne pa tudi za diskretno oddajanje, ki ga potrebujemo v našem primeru.
 
 Projekt je izdan pod deloma restriktivno licenco LGPL~\cite{Comino2007}, kar bi lahko predstavljalo težavo pri vključevanju v industrijskih okoljih, predvsem v primerih uporabe, kjer bi bila potrebne spremembe izvorne kode~\cite{Determann2006}.
 
@@ -39,55 +40,18 @@ Projekt je izdan pod deloma restriktivno licenco LGPL~\cite{Comino2007}, kar bi 
 \label{diag:compare:ghmm}
 \end{figure}
 
-\vfill
-\pagebreak
-
-## Projekt hmmlearn
-
-\begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{l} 
-\\\toprule 
-hmmlearn \\
-\scriptsize{\url{http://hmmlearn.readthedocs.io}} \\\midrule
-\footnotesize{Jezik: Python} \\\midrule
-\footnotesize{Licenca: BSD}\\ \midrule
-\end{tabular}
-\end{wraptable}
-
-Hmmlearn je skupina algoritmov za nenadzorovano učenje in sklepanje za skrite markovske modele. Orodje je napisano v programskem jeziku Python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik Python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj z dejstvom, da je scikit-learn zero razširnjen projetk pomeni, da je lahko postane hmmlearn zelo zanimiv za široko skupino uporabnikov.
-
-Ob času pregleda je bila na voljo prva javna različica projekta 0.1.1, ki je bila izdana februarja 2015. Prihajajoča\footnote{Različica 0.2.0 je izšla marca 2016.} različica 0.2.0 prinaša veliko novosti, med drugim tudi sposobnost za učenje na mnogoterih opazovanih zaporedjih. Funkcionalnost je bila sicer že na voljo v t.i. razvojni različici, vendar smo tukaj naleteli na odstopanja med novimi razvojnimi vmesniki in dokumentacijo, ki je bila tarkat na voljo samo prejšnjo različico. Tako v praksi učenja modelov na mnogoterih zaporedjih s to knjižnjico nismo uspeli izvesti.
-
-Kljub temu, da je hmmlearn še zgodaj v razvojni fazi, si zaradi obljubljenih enostavnih programskih vmesnikov, scikit-learn kompatibilnosti in že sedaj obsežne dokumentacije  v prihodnosti od tega projekta veliko obetamo in upamo, da bomo še imeli priložnost ga preizkusiti \wip{oblika stavka}.
-
-Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, ki dovoljuje uporabo v komercialne namene in je tako primerna tudi za industrijsko rabo~\cite{Determann2006}.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{images/compare_hmmlearn.png}
-\end{center}
-\caption{Posnetek zaslona prikazuje zgledno urejeno dokumentacijo projekta hmmlearn.}
-\label{diag:compare:hmmlearn}
-\end{figure}
-
-\vfill
-\pagebreak
-
 ## Projekt HMM
 
-\begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{l} 
-\\\toprule 
-hmmlearn \\
-\scriptsize{\url{https://github.com/guyz/HMM}} \\\midrule
-\footnotesize{Jezik: Python} \\\midrule
-\footnotesize{Licenca: ni podana}\\ \midrule
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jezik \\
+\url{https://github.com/guyz/HMM} & ni podana  & Python \\\midrule
 \end{tabular}
-\end{wraptable}
+\end{center}
 
-Projekt HMM je ogrodje za delo z skritimi markovskimi modeli, zgrajeno na osnovi sklopa programske opreme NumPy\footnote{NumPy je okrajšava za Numerical Python. Ta sklop programske opreme je namenjen v pomoč pri znanstvenih izračunih v programskem okolju Python in služi kot temelj številnim znanstveim knjižnjicam~\cite{Walt2011}.}. Implementacija algoritmov, tako kot mnoge druge, temelji na Rabinerjevem članku “A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition” \cite{Rabiner1989} in vključuje tako diskretne kot zvezne modele. Ena izmed prednosti ogrodja, ki jih drugi projekti ne ponujajo, je vgrajena podpora za razširitve, ki uporabnikom omogoča, da napišejo svoje verjetnostne modele. Razširitev je omogočena z uporabo delovanja, podrobnosti pa so opisane v izvorni kodi projekta v datoteki `GMHMM.py`. 
-
-\wip{Non-linear weighing functions}
+Projekt HMM je ogrodje za delo z skritimi markovskimi modeli, zgrajeno na osnovi sklopa programske opreme NumPy\footnote{NumPy je okrajšava za Numerical Python. Ta sklop programske opreme je namenjen v pomoč pri znanstvenih izračunih v programskem okolju Python in služi kot temelj številnim znanstveim knjižnjicam~\cite{Walt2011}.}. Implementacija algoritmov, tako kot pri mnogih drugih projektih, temelji na Rabinerjevem članku “A Tutorial on Hidden Markov Models and Selected Applications in Speech Recognition” \cite{Rabiner1989} in vključuje tako diskretne kot zvezne modele. Ena izmed prednosti ogrodja, ki ni bila prisotna pri vseh projektih, je eksplicitna podpora za razširitve, ki uporabnikom omogoča, da napišejo svoje vrste verjetnostnih modelov. Razširitev je omogočena z uporabo delovanja, podrobnosti pa so opisane v izvorni kodi projekta v datoteki `GMHMM.py`. Poleg izvedbe celotnega verjetnostnega modela po meri se lahko odločimo tudi za delno prilagoditev z prepisom funkcij, ki opazovanim simbolom nelinearno določajo težo (privzeto je teža za vsa opazovanja enaka).
 
 Ogrodje HMM poleg že omenjenega programskega paketa NumPy, ni odvisno od drugih programskih paketov in knjižnjic. Zaradi tega se je ogrodje izkazalo enostavnejše za namestitev od večine ostalih projektov. 
 
@@ -107,27 +71,49 @@ hmm.sample(20, 15) # Generiranje 20 zaporedij, od
 \caption{Primer uporabe ogrodja HMM za učenje na podlagi vhodnega besedila (polje \texttt{words}) in začetnih parametrov modela (večdimenzionalana NumPy polja \texttt{A} in \texttt{B} ter polje \texttt{pi}).}
 \end{figure}
 
-Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne licence. Projekt, ki ne vključi licence, ne moremo uporabljati, spreminjati ali deliti, če to ni eksplicitno navedeno s strani avtorjev programske opreme~\cite{web/nolicense}. Menimo tudi, da bi ustrezna, permisivna odprtokodna licenca privabila več razvijalcev k projektu in ga tako pripomogla k višji kvaliteti in širši uporabnosti~\cite{Stewart2006}.
+Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne licence. Takšnega projekta, ki ne vključuje licence, ne moremo uporabljati, spreminjati ali deliti, če to ni eksplicitno navedeno s strani avtorjev programske opreme~\cite{web/nolicense}. Menimo tudi, da bi ustrezna, permisivna odprtokodna licenca privabila več razvijalcev k projektu in ga tako pripomogla k višji kvaliteti in širši uporabnosti~\cite{Stewart2006}.
 
-\vfill
-\pagebreak
+## Projekt hmmlearn
 
-
-## Projekt mshmm {#ch:compare:mshmm}
-
-\begin{wraptable}{r}[0.5cm]{5.5cm}
-\begin{tabular}{l} 
-\\\toprule 
-mshmm \\
-\scriptsize{\url{https://cran.r-project.org/web/packages/mhsmm}} \\\midrule
-\footnotesize{Jeziki: R, C} \\\midrule
-\footnotesize{Licenca: GNU GPL}\\ \midrule
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jezik \\
+\url{http://hmmlearn.readthedocs.io} & BSD  & Python \\\midrule
 \end{tabular}
-\end{wraptable}
+\end{center}
+
+Hmmlearn je skupina algoritmov za nenadzorovano učenje in sklepanje za skrite markovske modele. Orodje je napisano v programskem jeziku Python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik Python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj z dejstvom, da je scikit-learn zelo razširnjen projetk pomeni, da je lahko postane hmmlearn zelo zanimiv za široko skupino uporabnikov. Podobno kot `HMM` tudi `hmmlearn` uporabnikom preko mehanizma dedovanja nudi podporo za implementacijo verjetnostnih modelov po meri. Podrobnosti so opisane v dokumentaciji projekta.
+
+Ob času pregleda je bila na voljo prva javna različica projekta 0.1.1, ki je bila izdana februarja 2015. Prihajajoča\footnote{Različica 0.2.0 je izšla marca 2016.} različica 0.2.0 prinaša veliko novosti, med drugim tudi sposobnost za učenje na mnogoterih opazovanih zaporedjih. Funkcionalnost je bila sicer že na voljo v t.i. razvojni različici, vendar smo tukaj naleteli na odstopanja med novimi razvojnimi vmesniki in dokumentacijo, ki je bila tarkat na voljo samo za prejšnjo različico. Tako v praksi učenja modelov na mnogoterih zaporedjih s to knjižnjico nismo uspeli izvesti.
+
+Kljub temu, da je hmmlearn še zgodaj v razvojni fazi, si zaradi obljubljenih enostavnih programskih vmesnikov, scikit-learn kompatibilnosti in že sedaj obsežne dokumentacije  v prihodnosti od tega projekta veliko obetamo in upamo, da bomo še imeli priložnost ga preizkusiti \wip{oblika stavka}.
+
+Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, ki dovoljuje uporabo v komercialne namene in je tako primerna tudi za industrijsko rabo~\cite{Determann2006}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/compare_hmmlearn.png}
+\end{center}
+\caption{Posnetek zaslona prikazuje zgledno urejeno dokumentacijo projekta hmmlearn.}
+\label{diag:compare:hmmlearn}
+\end{figure}
+
+## Projekt mhsmm {#ch:compare:mhsmm}
+
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jezik \\
+\url{https://cran.r-project.org/web/packages/mhsmm} & GNU GPL  & R \\\midrule
+\end{tabular}
+\end{center}
 
 Mhsmm je sklop programske opreme za sistem za statistično računanje R. Motivacija za nastanek projekta so bile raziskave na področju povezanosti razmnoževanja živine z različnimi indikatorji pristonosti škodljivcev. Skriti markovski modeli so v tem kontekstu pomagali pri dopolnjevanju pomanjkljivih podakov in združevanju ločenih opazovanih zaporedij, ki so bila vzorčena z racličnimi frekvencami~\cite{OConnell2011}. Poglavitne funkcije programskega sklopa so hkratno opazovanje različnih statističnih spremenljivk in podpora za zaporedja z manjkajočimi vrednostmi. Ključni deli programa so napisani v programskem jeziku C, kar zagotavlja hitro izvajanje.
 
-Orodje mshmm je sposobno modelirati tudi t.i. skrite pol-markovske modele. Pri klasičnih skriti markovskih modelih je čas postanka v posameznem stanju geometrično porazdeljen (enakomerni intervali $t, t+1, \dots$; glej poglavje \ref{ch:vir}). Pri modeliranju marsikaterih realnih problemov je ta omejitev nepraktična~\cite{OConnell2011}, vendar za našo problemsko domeno abstrakcija pol-markovskih modelov ni potrebna. Kar je za našo problemsko domeno pomembno je to, da orodje ustreza našim zahtevam za oddajanje diskretnih vrednosti in podporo mnogoterih opazovanih zaporeidij. Uporabnikom orodja je dodatno omogočeno, da poleg vrste vključenih porazdelitev emisij na podlagi uporabniških razširitev implementirajo tudi lastne porazdelitve. Zaradi neizkušenosti v programskem okolju R te funkcionalnosti nismo preizkusili.
+Orodje mhsmm je sposobno modelirati tudi t.i. skrite pol-markovske modele. Pri klasičnih skriti markovskih modelih je čas postanka v posameznem stanju geometrično porazdeljen (enakomerni intervali $t, t+1, \dots$; glej poglavje \ref{ch:vir}). Pri modeliranju marsikaterih realnih problemov je ta omejitev nepraktična~\cite{OConnell2011}, vendar za našo problemsko domeno abstrakcija pol-markovskih modelov ni potrebna. Kar je za našo problemsko domeno pomembno je to, da orodje ustreza našim zahtevam za oddajanje diskretnih vrednosti in podporo mnogoterih opazovanih zaporeidij. Uporabnikom orodja je dodatno omogočeno, da poleg vrste vključenih porazdelitev emisij na podlagi uporabniških razširitev implementirajo tudi lastne porazdelitve. Zaradi neizkušenosti v programskem okolju R te funkcionalnosti nismo preizkusili.
 
 Projekt zagotavlja dokumentacijo v obliki PDF datoteke~\cite{OConnell2011}, ki sicer zelo razumno prikaže nekaj primerov uporabe programskega sklopa, vendar smo pri preizkušanju le-tega pogrešali podrobnejšo in celovitejšo dokumentacijo programskega vmesnika, kot jo pričakujemo vzdrževane programske opreme, ki je namenjena širši uporabniški množici.
 
@@ -141,28 +127,26 @@ Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vk
 \label{diag:compare:r_mhsmm}
 \end{figure}
 
-\vfill
-\pagebreak
-
 ## Projekt UMDHMM
 
-\begin{wraptable}{r}[1cm]{5.5cm}
-\begin{tabular}{l} 
-\\\toprule 
-UMDHMM \\
-\scriptsize{\url{http://www.kanungo.com/software/software.html}} \\\midrule
-\footnotesize{Jezik: C} \\\midrule
-\footnotesize{Licenca: GNU GPL}\\ \midrule
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jezik \\
+\url{http://www.kanungo.com/software/software.html} & GNU GPL  & C \\\midrule
 \end{tabular}
-\end{wraptable}
+\end{center}
 
 razsiri kratico
 
 UMDHMM Hidden Markov Model Toolkit
 
-ful kul, ne podpira multi obs, vseeno sprejme ful dolgo sekvenco, ne da pa kontrole nad tem da bi dolocli kako se te sekvence procesirajo itd
+ful kul, podpira multi obs, ne vemo na kak nacin razdeli ful dolgo sekvenco, ne da pa kontrole nad tem da bi dolocli kako se te sekvence procesirajo itd
 
 relativno star, ni aktivnega razvoja
+
+ni knjiznjice, samo izvrsilne datoteke
 
 se izkazal za prakticno uporabnega z nekaj podporne kode
 
@@ -170,16 +154,30 @@ potrebuje se nekaj dodatne programske opreme za symbol- >int in obratno konverzi
 
 licenca na zalost gpl, precej restriktivna, modificirano kodo bi zelo tezko uporabljali v industrijske namene (cite usual)
 
-\vfill
-\pagebreak
+## Primerjava
+
+\input{figures/comparison_table}
+
+Ugotovili smo, da vsi pregledani projekti podpirajo skrite markovske modele z diskretnim oddajanje vrednosti. Z izjemo projektov `UMDHMM` in ‘Lawrence’ enako velja tudi za zvezno oddajanje vrednosti. Vsi projekti imajo tudi podporo za mnogotera opazovana zaporedja, čeprav v času pregleda različica knjižnjice `hmmlearn` še ni bila pripravljena za uporabo. Projekta `mhsmm` in `GHMM` ponujata tudi grafični prikaz markovskih modelov. Slednji dodatno ponuja tudi grafičnim vmesnik za gradnjo in urejanje modelov.
+
+Projekta `hmmlearn` in `HMM` sta izvedena izključno v programskem jeziku Python, projekt `GHMM` pa ponuja programsko ovojnico za integracijo z jedrom, izvedenim v programskem jeziku C. Priljubljenost jezika Python na tem področju gre najverjetneje pripisati splošni priljubljenosti v znanstvenih in akademskih okoljih ter razširjenosti in zrelosti knjižnjic za numerično in znanstveno računanje NumPy in SciPy~\cite{Walt2011}.
+
+Z izjemo `UMDHMM` so vsi ostali projekti izvedeni kot knjižnjice (angl. *library*), ki jih lahko kličemo iz lastne programske kode (v tistih primerih, kjer licence to dovoljujejo). Čeprav se nekateri projekti ne opredeljujejo kot knjžnjice ampak kot ogrodja (angl. *framework*) ali sklopi programske opreme (angl. *package*) to na naše preverjanje ni imelo bistvenega vpliva. Poleg zmožnosti uporabe v lastni programski kodi smo si ogledali tudi odprtost za razširitve. V tem pogledu sta najbolj odprti knjižnjici `HMM` in `hmmlearn`, ki eksplicitno podpirata možnost 
+implementacije verjetnostnih modelov po meri. Delno razširljivost nudi tudi projekt `mhsmm`, ki omogoča razširitve z porazdelitvami verjetnosti oddajanja po meri.
+
+Na področju dokumentacije je najbolj informativen projekt `hmmlearn`. Po tem izgledu smo skušali temeljito dokumentirati tako izvorno kodo kot tudi primere uporabe projekta `Lawrence`. Pri nekaterih projektih smo pomanjkanje dokumentacije lahko nadoknadili s primeri uporabe in deloma tudi z branjem izvorne kode. Kljub temu bi bili bolje dokumentirani projekti veliko lažji za uporabo in privlačnejši za širšo množico uporabnikov~\cite{Sonnenburg2007}.
+
+edini tezaven projekt je HMM ker nima licence. Ostali imajo vsi odprtokodne licence, ki dovoljuje uporabo vsaj v odprtokodnih okoljih. Najbol permisiven je hmmlearn z BSD licenco, ki predpisuje zelo malo omejitev in dovoljuje vključitev tudi v zaprtokodne in profitne projekte. Po tem izgledu smo tudi projektu `Lawrence` odprli pod podobno licenco (MIT) \cite{Stewart2006}.
+
+hmmlearn najnovejsi in najobetavnejsi
 
 ## Ostali projekti
 
 \wip{tu bomo opisali kar smo si se ogledali in ni prslo v postev}
 
-Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravljajo na platfori Matlab/Octave, vendar izvorne kode pri večini ni bilo na voljo~\cite{Yun2013}. Izjema sta bila projekta iHMM~\cite{Gael2008} in H2M~\cite{Cappe2001}, ki sta omenjena v različnih znanstvenih člankih. Slednji se med drugim uporablja na področjih razpoznavanja govora~\cite{Ramesh1992} in na področju zaznavanja in klasifikacije zvokov (razločevanje med razbitjem stekla, človeškimi vzkliki, streli orožja, eksplozijami, zapiranjem vrat…) \cite{Dufaux2000}. Oba projekta sta se izkazala za neprimerna za našo problemsko domeno, ki zahteva skrite markovske modele z diskretno emisijo, projekta pa podirata samo zvezne~\cite{Cappe2001}.
+Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravljajo na platfori Matlab/Octave, vendar izvorne kode pri večini ni bilo na voljo~\cite{Yun2013}. Izjema sta bila projekta iHMM~\cite{Gael2008} in H2M~\cite{Cappe2001}, ki sta omenjena v citiranih znanstvenih člankih. Slednji se med drugim uporablja na področjih razpoznavanja govora~\cite{Ramesh1992} in na področju zaznavanja in klasifikacije zvokov (razločevanje med razbitjem stekla, človeškimi vzkliki, streli orožja, eksplozijami, zapiranjem vrat…) \cite{Dufaux2000}. Oba projekta sta se izkazala za neprimerna za našo problemsko domeno, ki zahteva skrite markovske modele z diskretno emisijo, projekta pa podirata samo zvezne~\cite{Cappe2001}.
 
-Poleg projekta `mshmm` (glej poglavje \ref{ch:compare:mshmm}) je za programsko okolje R na voljo še projekta `HMM` (\url{https://cran.r-project.org/web/packages/HMM}) in `hsmm` (\url{https://cran.r-project.org/web/packages/hsmm}), ki se od `mshmm` razlikujeta v dveh ključnih vidikih~\cite{OConnell2011}. Prvi je ta, da `hsmm` ne podpira uporabniških razširitev za implementacijo novih porazdelitev emisij. Drugi vidik, ki je za našo problemsko domeno pomembnejši, pa je pomanjkanje zmožnosti za obdelavo mnogoterih opazovanih zaporedij, kar projekt naredi neprimeren za uporabo pri generaciji besedil.
+Poleg projekta `mhsmm` (glej poglavje \ref{ch:compare:mhsmm}) je za programsko okolje R na voljo še projekta `HMM` (\url{https://cran.r-project.org/web/packages/HMM}) in `hsmm` (\url{https://cran.r-project.org/web/packages/hsmm}), ki se od `mhsmm` razlikujeta v dveh ključnih vidikih~\cite{OConnell2011}. Prvi je ta, da `hsmm` ne podpira uporabniških razširitev za implementacijo novih porazdelitev emisij. Drugi vidik, ki je za našo problemsko domeno pomembnejši, pa je pomanjkanje zmožnosti za obdelavo mnogoterih opazovanih zaporedij, kar projekt naredi neprimeren za uporabo pri generaciji besedil.
 
 ## Kako smo izbirali
 
@@ -231,19 +229,19 @@ Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primer
 
 za posamezen projekt:
 - za uvod citiran opis projekta z njihove strani
-- wikipedia-style sidebar z url-jem, licenco, logotipom, avtorjemn
-
-\vfill
-\pagebreak
 
 * * *
 
 ne podpira mnogoterih obs, predstaviti dolgo besedilo kot eno sekvenco je problematicno, ker simboli proti koncu imajo prakticno nicno verjetnost
 
+
+kaj bi lahko se primerjali:
 preveri python 3
-
 primerjaj performance
-
+gui
+dump/load
+scaling
+delovanje na veliki mnozici,
 mogoce prilepi kaj kode pri vsakemu
 
 mogoce kaka shema kje ce je smiselno, recimo struktura objektov/classov/klici funkcij itd - ali pa pipeline kako potekajo podatki
