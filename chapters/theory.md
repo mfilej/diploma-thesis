@@ -113,9 +113,10 @@ Za markovske modele velja, da so v vsakem trenutku v enem izmed $N$ stanj iz mno
 
 Skriti markovski model $\lambda$ je definiran v obliki\footnote{Zapis običajno poenostavimo z $\lambda = (A, B, \pi)$.}
 
-$$
+\begin{equation}
 \lambda = (A, B, \pi, N, M),
-$$
+\label{eq:theory:model}
+\end{equation}
 
 \noindent kjer so $A, B, \pi, N$ in $M$, parametri, ki opisujejo model~\cite{Rabiner1989}.
 

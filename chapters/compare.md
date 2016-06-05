@@ -1,4 +1,4 @@
-# Pregled obstoječih rešitev
+# Pregled področja
 
 V tem poglavju bomo naredili pregled nad obstoječimi orodji za generiranje skritih markovskih modelov. Najprej bomo opisali kakšne vrste funkcionalosti pričakujemo od orodja za uporabo v problemski domeni generiranja besedil. Nato bomo opisali najobetavnejše projekte, pregledali, kaj ponujajo in za vaskega posebej pregeldali, kako ustrezen je za uporabo v naši problemski domeni. Za tem bomo med temi projekti naredili še medsebojno primerjavo in rezultate strnili v primerjalno tabelo.  V primerjavo smo vključili tudi lastno implementacijo, opisano v \ref{ch:impl}. poglavju. Navedli in na kratko bomo opisali še nekaj obetavnih projetkov, ki niso ustrezali vsem kriterijm in se zato nismo odločili za podrobnejši pregled. Za konec bomo opisali, kje in kako smo projekte iskali, kako smo seznam najdenih projektov razredčili in utemeljili, zakaj smo menili, da bi ravno ti opisani projekti ustrezali našim potrebam in kakšne kriterije smo uporabili, da smo med najdenimi izbrali peščico najobetavnejših.
 
@@ -138,21 +138,39 @@ URL naslov & Licenca & Jezik \\
 \end{tabular}
 \end{center}
 
-razsiri kratico
+*UMDHMM Hidden Markov Model Toolkit* \cite{Kanungo1999} je projekt Marylandske univerze, ki implementira algoritme Forward-Backward, Viterbi in Baum-Welch za delo z skritimi markovskimi modeli.
 
-UMDHMM Hidden Markov Model Toolkit
+Za razliko od ostalih projektov, ki smo jih pregledali, UMDHMM ne ponuja funkcij v obliki knjižnjice, ki bi jih lahko uporabniki klicali iz lastne programske kode. Glavni vmesnik za uporabo omenjenih algoritmov so programi, namenjeni uporabi preko vmesnika z ukazno vrstico. Projekt obsega programe `genseq`, `testvit`, `esthmm` in `testfor`.
 
-ful kul, podpira multi obs, ne vemo na kak nacin razdeli ful dolgo sekvenco, ne da pa kontrole nad tem da bi dolocli kako se te sekvence procesirajo itd
+\begin{description}
+\item[Program \tt{esthmm}] je jedro projekta, ki na podlagi podanega zaporedja simbolov z uporabo algoritma Baum-Welch (glej poglavje \ref{ch:hmm:bw}) naredi oceno parametrov za skriti markovski model.
+\item[Program \tt{genseq}] uprabi parametre modela, ki jih je generiral program \texttt{esthmm} in na njihovi podlagi generira naključno zaporedje simbolov.
+\item[Program \tt{testvit}] z uporabo algoritma Viterbi oceni, katero zaporedje stanj je najbolj verjetno za neko dano zaporedje simbolov.
+\item[Program \tt{testfor}] z uporabo algoritma Forward (glej poglavje \ref{ch:hmm:fb}) izračuna verjetnost opazovanega zaporedja glede na model; $P(O \given \lambda)$.
+\end{description}
 
-relativno star, ni aktivnega razvoja
+Za primer (prikazan na sliki \ref{fig:compare:umdhmm}) vzemimo uporabo programa za ocenjevanja parametrov modela. Podati je potrebno parametra $N$ in $M$, ki določata število stanj modela  in število simbolov, ki jih model oddaja. Zaporedje, ki predstavlja učno množico za model je shranjeno v datoteki \texttt{input.seq} v obliki zaporedja številk stanj. Rezultat bo izpisan na standardni izhod v obliki parametrov modela $\lambda = (A, B, \pi, N, M)$ \eqref{eq:theory:model}.
 
-ni knjiznjice, samo izvrsilne datoteke
+\input{figures/compare_umdhmm_example}
 
-se izkazal za prakticno uporabnega z nekaj podporne kode
+Preprostost vmesnik z ukazno vrstico nam je omogočila, da smo na podlagi vhodnega zaporedja na enostaven način zgradili model in pričeli z simulacijo. Hkrati tak vmesnik pomeni, da nimamo tako podrobnega nadzora nad vnosom vhodnih podatkov, kot bi ga imeli z neposrednim klicem funkcij programskega vmesnika. Program kot vhod sprejme eno zaporedje, uporabnik pa nima nadzora nad tem, kako se to zaporedje razdeli pred učenjem modela. V projektu smo sicer našli navedbe, da program podpira učenje modela na podlagi mnogoterih opazovanih zaporedij, vendar  zaradi omenjenega pomanjkanja nadzora nismo uspeli ugotoviti po kakšnem principu se zaporedja obravnavajo.
 
-potrebuje se nekaj dodatne programske opreme za symbol- >int in obratno konverzijo
+V literaturi~\cite{Zhou2005} smo našli navedbe, da se projekt uporablja za predikcijo pri modeliranju in analizi struktur beljakovinskih molekul. Pri analizi avtorji navajajo, da  program UMDHMM delno spremenili, vendar izvorna koda ni bila na voljo (čeprav licenca GPL, pod katero je projekt izdan, to zahteva~\cite{Determann2006}), da bi te spremembe lahko pregledali.
 
-licenca na zalost gpl, precej restriktivna, modificirano kodo bi zelo tezko uporabljali v industrijske namene (cite usual)
+Za branje dokumentacije nas projekt napoti na priloženo PDF datoteko, ki pa vsebuje samo splošne informacije o teoriji skritih markovskih modelov, ne poda pa navodil za uporabo priloženih programov. Vsakega izmed programov lahko v ukazni vrstici poženemo brez parametrov in tako dobimo kratek priročnik uporabe, npr:
+
+```
+$ esthmm
+Usage1: esthmm [-v] -N <num_states> -M <num_symbols> <file.seq>
+Usage2: esthmm [-v] -S <seed> -N <num_states> -M <num_symbols> <file.seq>
+Usage3: esthmm [-v] -I <mod.hmm> <file.seq>
+  N - number of states
+  M - number of symbols
+  S - seed for random number genrator
+  I - mod.hmm is a file with the initial model parameters
+  file.seq - file containing the obs. seqence
+  v - prints out number of iterations and log prob
+```
 
 ## Primerjava
 
@@ -169,7 +187,7 @@ Na področju dokumentacije je najbolj informativen projekt `hmmlearn`. Po tem iz
 
 edini tezaven projekt je HMM ker nima licence. Ostali imajo vsi odprtokodne licence, ki dovoljuje uporabo vsaj v odprtokodnih okoljih. Najbol permisiven je hmmlearn z BSD licenco, ki predpisuje zelo malo omejitev in dovoljuje vključitev tudi v zaprtokodne in profitne projekte. Po tem izgledu smo tudi projektu `Lawrence` odprli pod podobno licenco (MIT) \cite{Stewart2006}.
 
-hmmlearn najnovejsi in najobetavnejsi
+\wip{hmmlearn najnovejsi in najobetavnejsi}
 
 ## Ostali projekti
 
@@ -201,54 +219,21 @@ Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primer
 ) license restrictiveness and organizational sponsorship interact to influence user perceptions of the likely utility of open source software in such a way that users are most attracted to projects that are sponsored by nonmarket organizations and that employ nonrestrictive licenses
 }
 
-\wip{vecinoma smo nasli Python knjiznjice - verjeto zaradi popularnosti Pythona v znanstvenih srenjah in zaradi zelo dobrega package NumPy (se enkrat tista referenca)}
-
-
-
-  - preizkusili smo ce gre skozi
-
-- kaj smo iskali pri izbiri
-  - dokumentacija
-  - da ni zapusceno (?)
-  - da izgleda kot da kdo uporablja (?)
-  - da je narejeno za splosno uporabo (dosti knjiznic za modele z zveznimi emisijami, mi rabimo diskretne), dosti orodij za delo z dnk sekvenciranjem, napovedovanjem stock marketa
-  - hoteli smo licenco, ki dovoljuje …
-- katere knjiznjice smo izbrali
-- kaj bomo primerjali
-  - primernost za generiranje besedila
-  - multi obs
-  - koliko dolge sekvence sprejme
-  - licenca
-  - performancna ustreznost
-  - dokumentacijo
-  - prednosti/slabosti
-
-
-- primerjamo par kandidatov
-- na koncu navedemo se kaj smo pregledali in nismo vzeli v primerjavo (wirecutter stil)
-
-za posamezen projekt:
-- za uvod citiran opis projekta z njihove strani
 
 * * *
 
-ne podpira mnogoterih obs, predstaviti dolgo besedilo kot eno sekvenco je problematicno, ker simboli proti koncu imajo prakticno nicno verjetnost
-
-
 kaj bi lahko se primerjali:
-preveri python 3
-primerjaj performance
-gui
-dump/load
-scaling
-delovanje na veliki mnozici,
-mogoce prilepi kaj kode pri vsakemu
+- primerjaj performance
+- gui
+- dump/load
+- scaling
+- delovanje na veliki mnozici, kako dolge sekvence sprejme
+- mogoce prilepi kaj kode pri vsakemu (del api-ja, funkcije, al pa  opis po modulih kaj omogoca kateri)
+- kateri vmesniki omogocajo da das kar simbole, kateri zahtevajo da zakodiras v indekse
+- prednosti/slabosti
 
 mogoce kaka shema kje ce je smiselno, recimo struktura objektov/classov/klici funkcij itd - ali pa pipeline kako potekajo podatki
 
 mogoce se potozi glede dependencijev pri ostalih, glede nato, da bomo guyz/hmm zaradi tega pohvalili
 
 nekaj bo moglo bit dejanske primerjave. zacni z: “primerjali bomo naslednje stvari: …, … “ in nastej stvari ki smo opisali v posameznem poglavju: dokumentacija, enostavnost uporabe, (kar v tabeli spodaj) - potem z besedami opisi kaj kdo ma in kdo nima.
-
-na koncu tabela primerjav: licenca, dokumentacija, multi-obs, delovanje na veliki mnozici, performance
-

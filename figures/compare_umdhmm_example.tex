@@ -1,0 +1,22 @@
+\begin{figure}
+\begin{verbatim}
+$ cat input.seq 
+T= 10
+1 1 1 1 2 1 2 2 2 2
+$ esthmm -N 3 -M 2 -v input.seq
+M= 2
+N= 3
+A:
+0.998560 0.001067 0.002373 
+0.001582 0.646206 0.354212 
+0.364515 0.001455 0.636030 
+B:
+0.088618 0.912382 
+0.999334 0.001666 
+0.650811 0.350189 
+pi:
+0.001000 0.999800 0.001199
+\end{verbatim}
+\caption{Primer uporabe orodja \tt{esthmm}.}
+\label{fig:compare:umdhmm}
+\end{figure}
