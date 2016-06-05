@@ -18,7 +18,7 @@ Izbrane projekte smo si podrobno ogledali, da bi ugotovili, če ustrezajo zgoraj
 \footnotesize
 \\\toprule
 URL naslov & Licenca & Jeziki \\
-\url{http://ghmm.sourceforge.net} & GNU LGPL  & C/Python \\\midrule
+\url{http://ghmm.sourceforge.net} & GNU LGPL  & Python, C \\\midrule
 \end{tabular}
 \end{center}
 
@@ -115,9 +115,7 @@ Mhsmm je sklop programske opreme za sistem za statistično računanje R. Motivac
 
 Orodje mhsmm je sposobno modelirati tudi t.i. skrite pol-markovske modele. Pri klasičnih skriti markovskih modelih je čas postanka v posameznem stanju geometrično porazdeljen (enakomerni intervali $t, t+1, \dots$; glej poglavje \ref{ch:vir}). Pri modeliranju marsikaterih realnih problemov je ta omejitev nepraktična~\cite{OConnell2011}, vendar za našo problemsko domeno abstrakcija pol-markovskih modelov ni potrebna. Kar je za našo problemsko domeno pomembno je to, da orodje ustreza našim zahtevam za oddajanje diskretnih vrednosti in podporo mnogoterih opazovanih zaporeidij. Uporabnikom orodja je dodatno omogočeno, da poleg vrste vključenih porazdelitev emisij na podlagi uporabniških razširitev implementirajo tudi lastne porazdelitve. Zaradi neizkušenosti v programskem okolju R te funkcionalnosti nismo preizkusili.
 
-Projekt zagotavlja dokumentacijo v obliki PDF datoteke~\cite{OConnell2011}, ki sicer zelo razumno prikaže nekaj primerov uporabe programskega sklopa, vendar smo pri preizkušanju le-tega pogrešali podrobnejšo in celovitejšo dokumentacijo programskega vmesnika, kot jo pričakujemo vzdrževane programske opreme, ki je namenjena širši uporabniški množici.
-
-Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vključevanju projekta v industrijska okolja, predvsem v primerih uporabe, kjer bi bila potrebne sprememba izvorne kode~\cite{Determann2006}.
+Funkcionalnost, ki je pri preostalih projektih nismo zasledili, je sposobnost prikaza emisij modela na zalo nazoren, grafični način. Primer izpisa je prikazan na sliki \ref{diag:compare:r_mhsmm}.
 
 \begin{figure}[b]
 \begin{center}
@@ -126,6 +124,10 @@ Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vk
 \caption{Izpis orodja 	\texttt{mhsmm} zelo nazorno prikaže delovanje (zveznega) skritega markovskega modela. Horizontalna črta s pomočjo barv prikazuje prehajanje med stanji, krivulja pa prikazuje vrednosti, ki jih je model oddajal.}
 \label{diag:compare:r_mhsmm}
 \end{figure}
+
+Dokumentacijo projekta najdemo v obliki datoteke PDF~\cite{OConnell2011}, ki sicer zelo razumno prikaže nekaj primerov uporabe programskega sklopa, vendar smo pri preizkušanju le-tega pogrešali podrobnejšo in celovitejšo dokumentacijo programskega vmesnika, kot jo pričakujemo vzdrževane programske opreme, ki je namenjena širši uporabniški množici.
+
+Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vključevanju projekta v industrijska okolja, predvsem v primerih uporabe, kjer bi bila potrebne sprememba izvorne kode~\cite{Determann2006}.
 
 ## Projekt UMDHMM
 
@@ -191,7 +193,7 @@ edini tezaven projekt je HMM ker nima licence. Ostali imajo vsi odprtokodne lice
 
 ## Ostali projekti
 
-\wip{tu bomo opisali kar smo si se ogledali in ni prslo v postev}
+Omenili bomo še nekaj projektov, ki niso bili ustrezni za primerjavo, vendar za njih menimo, da so na tem prodročju dovolj pomembni in so zato vredni omembe.
 
 Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravljajo na platfori Matlab/Octave, vendar izvorne kode pri večini ni bilo na voljo~\cite{Yun2013}. Izjema sta bila projekta iHMM~\cite{Gael2008} in H2M~\cite{Cappe2001}, ki sta omenjena v citiranih znanstvenih člankih. Slednji se med drugim uporablja na področjih razpoznavanja govora~\cite{Ramesh1992} in na področju zaznavanja in klasifikacije zvokov (razločevanje med razbitjem stekla, človeškimi vzkliki, streli orožja, eksplozijami, zapiranjem vrat…) \cite{Dufaux2000}. Oba projekta sta se izkazala za neprimerna za našo problemsko domeno, ki zahteva skrite markovske modele z diskretno emisijo, projekta pa podirata samo zvezne~\cite{Cappe2001}.
 
@@ -215,9 +217,7 @@ Da bi naredili pregled projektov praktično izvedljiv v časovnem okviru, določ
 
 Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki kot so veliko število parametrov in relacije med njimi vplivajo na to, da je obliko vhodnih podatkov brez dokumentacije zelo težko določiti. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa z primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Projekte, za katere iz teh treh virov nismo uspeli ugotoviti pravilnega načina uporabe smo izločili. Kot je ugotovil 	Sonnenburg~\cite{Sonnenburg2007}, bi bilo področje programske opreme za strojno učenje veliko bogatejše, če bi projekti poleg izvorne kode priložili krajši članek z opisom uporabe.
 
-\wip{lahko recemo, da smo iskali projekte, ki bi bli primerni za uporabo v industriji, zato par besed o licencah ce se bo izkazalo da kateri potencialen projekt ni imel licence ali pa je imel prevec restriktivno - Sonnenburg2007 opisuje kako se lahko projekti za strojno ucenje, ce so izdani pod primerno odprtokodno licenco bolje razvijejo; Stewart2006:
-) license restrictiveness and organizational sponsorship interact to influence user perceptions of the likely utility of open source software in such a way that users are most attracted to projects that are sponsored by nonmarket organizations and that employ nonrestrictive licenses
-}
+Želeli smo izpostaviti predvsem projekte, ki bi bili uporabni za namen generiranja besedil, hkrati pa bi uporabni za čimširšo množico. To poleg že omenjene dokumentacije vključuje tudi licenco, ki dovoljuje uporabo projekta čimširši ciljni publiki — to pomeni posameznikom in vsem ostalim uporabnikom odprte kode, ki želijo projekt uporabiti v lastne, neprofitne namene, kot tudi razvijalcem v industriji, ki bi želeli projekte uporabiti v profitne namene. V literaturi najdemo navedbe, da se projekti za strojno učenje, ki so izdani pod permisivnimi licencami, bolje razvijejo~\cite{Sonnenburg2007} ter da nerestriktivne licence na odprtokodnih orodjih na lažje privabijo potencialne uporabnike~\cite{Stewart2006}.
 
 
 * * *
