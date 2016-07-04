@@ -16,19 +16,25 @@ defmodule Mix.Tasks.Artisan.Decode do
     "T= " <> rest = IO.read(:stdio, :all)
     {_len, "\n" <> rest} = Integer.parse(rest)
 
-    seq =
-      String.rstrip(rest)
-      |> String.splitter(" ")
-      |> Stream.map(fn key ->
-        case Integer.parse(key) do
-          {key, ""} ->  key
-          :error -> raise("can't parse stdin at #{inspect(key)}")
-        end
-      end)
-
     key_map = File.read!(key_file) |> Artisan.KeySeq.KeyFile.parse
 
-    Artisan.KeySeq.decode(seq, key_map)
-    |> IO.puts
+    String.splitter(rest, "\n",  trim: true)
+    |> Enum.map(fn line ->
+      line_to_list_of_keys(line)
+      |> Artisan.KeySeq.decode(key_map)
+      |> IO.puts
+    end)
+  end
+
+  defp line_to_list_of_keys(line) do
+    line
+    |> String.rstrip
+    |> String.splitter(" ", trim: true)
+    |> Stream.map(fn key ->
+      case Integer.parse(key) do
+        {key, ""} ->  key
+        :error -> raise("can't parse stdin at #{inspect(key)}")
+      end
+    end)
   end
 end
