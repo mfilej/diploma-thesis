@@ -28,9 +28,10 @@ defmodule Mix.Tasks.Artisan.KeySeq do
     seq_file = "#{name}.seq"
 
     File.write!(key_file, key_out)
-    IO.puts "Key file written to #{key_file}"
+    IO.puts :stderr, "Key file written to #{key_file}"
     File.write!(seq_file, [len_str | seq_out])
-    IO.puts "Sequence file written to #{seq_file}"
-    IO.puts "Number of symbols in alphabet: #{length(key)}"
+    IO.puts :stderr, "Sequence file written to #{seq_file}"
+    IO.puts :stderr, "Number of symbols in alphabet: #{length(key)}"
+    IO.puts "#{length(key)}"
   end
 end
