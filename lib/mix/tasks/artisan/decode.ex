@@ -12,17 +12,30 @@ defmodule Mix.Tasks.Artisan.Decode do
       cat example.seq | mix artisan.decode example.key
   """
 
-  def run([key_file]) do
+  def run(args) do
+    key_file = hd(args)
+    offset = Enum.at(args, 1, :no_offset)
+
     "T= " <> rest = IO.read(:stdio, :all)
     {_len, "\n" <> rest} = Integer.parse(rest)
 
-    key_map = File.read!(key_file) |> Artisan.KeySeq.KeyFile.parse
+    key_map =
+      File.read!(key_file)
+      |> Artisan.KeySeq.KeyFile.parse
+      |> apply_key_file_offset(offset)
 
     String.splitter(rest, "\n",  trim: true)
     |> Enum.map(fn line ->
       line_to_list_of_keys(line)
       |> Artisan.KeySeq.decode(key_map)
       |> IO.puts
+    end)
+  end
+
+  defp apply_key_file_offset(key_file, :no_offset), do: key_file
+  defp apply_key_file_offset(key_file, "-1") do
+    Enum.reduce(key_file, Map.new, fn ({index, word}, offset_map) ->
+      Map.put(offset_map, index - 1, word)
     end)
   end
 
