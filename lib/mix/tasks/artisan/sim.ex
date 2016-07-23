@@ -17,7 +17,7 @@ defmodule Mix.Tasks.Artisan.Sim do
   """
 
   def run([hmm_file, len]) do
-    :random.seed(:os.timestamp())
+    :rand.seed(:os.timestamp())
     {len, _} = Integer.parse(len)
 
     seq = File.read!(hmm_file)
