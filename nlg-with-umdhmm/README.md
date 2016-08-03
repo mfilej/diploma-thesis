@@ -10,7 +10,7 @@
     wget http://www.kanungo.com/software/umdhmm-v1.02.tar
     tar xvf umdhmm-v1.02.tar
     cd umdhmm-v1.02/
-    rm esthmm genseq testfor testvit
+    rm esthmm genseq testfor testvit *.o
     env CPPFLAGS=-I/usr/include/malloc/ make all
 
 The last step may depend on your platform. Only tested on OS X 10.11.4 with
