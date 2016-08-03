@@ -16,7 +16,7 @@ work_dir=$(abs_path $1)
 hmmlearn_dir="nlg-with-hmmlearn"
 umdhmm_dir="nlg-with-umdhmm"
 corpus_file=$(abs_path $2)
-input_file=$work_dir/input.txt
+input_file=$work_dir/_input.txt
 counts_file=$work_dir/counts.txt
 train_lines=5000
 gen_lines=5000
@@ -59,7 +59,8 @@ function test_freq {
   local num_states
   local "${@}"
 
-  local out_file="$work_dir/hmmlearn.freq.$num_states.gen"
+  local tmp_file="$work_dir/hmmlearn.freq.$num_states.gen"
+  local out_file="${tmp_file/hmmlearn.freq/freq}"
 
   (
     cd "$hmmlearn_dir"
@@ -75,8 +76,10 @@ function test_freq {
       "-d=$counts_file" \
       "$work_dir/hmmlearn.freq.$num_states.freqdist" \
       "$work_dir/hmmlearn.freq.$num_states.le" \
-      > "$out_file"
+      > "$tmp_file"
   )
+
+  mv "$tmp_file" "$out_file"
 
   echo "$out_file"
 } 
