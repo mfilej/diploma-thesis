@@ -1,0 +1,3 @@
+[submodule "nlg-with-hmmlearn"]
+	path = nlg-with-hmmlearn
+	url = git@github.com:mfilej/nlg-with-hmmlearn.git
