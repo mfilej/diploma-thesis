@@ -117,7 +117,7 @@ function count_verbs {
   local text_file="$1"
 
   (
-    cd txt-kres
+    cd cckres-plain
     ./examples/count_verbs.rb morphosyntax_dict.txt "$text_file" \
       | sort -n \
       | uniq -c \
