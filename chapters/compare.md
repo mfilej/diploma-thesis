@@ -1,4 +1,4 @@
-# Pregled področja
+# Pregled področja {#ch:comp}
 
 V tem poglavju bomo opravili pregled obstoječih orodij za delo s skritimi markovskimi modeloi. Najprej bomo opisali, kakšne vrste funkcionalosti pričakujemo od orodja, ki ga želimo uporabiti v problemski domeni generiranja besedil. Nato bomo opisali najobetavnejše projekte, primerjali vrste funkcionalnosti, ki jih le-ti ponujajo, in za vaskega posebej navedli njegovo ustreznost za uporabo v naši problemski domeni. Nadaljevali bomo s primerjavo projektov, v katero smo vključili tudi lastno implementacijo, opisano v \ref{ch:impl}. poglavju. Rezultate bomo prikazali v primerjalni tabeli.  Navedli bomo še nekaj drugih obetavnih projetkov, ki ne ustrezajo vsem kriterijem in jih zato tudi nismo podrobneje pregledali. Opisali bomo, kje in kako smo projekte iskali in kako smo seznam najdenih projektov razredčili. Na koncu bomo utemeljili še naš izbor projektov.
 

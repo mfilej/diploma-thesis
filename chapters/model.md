@@ -1,4 +1,4 @@
-# Modeliranje skritih markovskih modelov
+# Modeliranje skritih markovskih modelov {#ch:model}
 
 Eden izmed večjih izzivov naloge je bila preslikava matematičnih algoritmov za modeliranje skritih markovskih modelov v programsko kodo. V tem delu bomo skušali opisati postopek preslikave, za bistvene algoritme bomo navedli psevdokodo, na koncu pa bomo razložili s kakšnimi težavami smo se srečevali in kako smo jih rešili. Postopek izgradnje modela bi lahko v grobem zastavili na naslednji način, kot je prikazan na sliki \ref{diag:baum_welch}.
 

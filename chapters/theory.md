@@ -1,4 +1,4 @@
-# Teoretične osnove skritih markovskih modelov#Teoretične osnove
+# Teoretične osnove skritih markovskih modelov #Teoretične osnove {#ch:theo}
 
 Verjetnostna teorija je ključnega pomena pri
 razumevanju, izražanju in obdelavi koncepta negotovosti. Skupaj z teorijo odločanja nam omogočata, da na podlagi vseh informacij, ki jih imamo na voljo, opravimo optimalne napovedi, četudi so ti podatki nepopolni ali dvoumni~\cite{Bishop2006}.
