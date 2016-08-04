@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+open -aTeXShop diploma.pdf
