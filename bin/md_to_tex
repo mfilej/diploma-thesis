@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
 set -e
+set -u
+set -o pipefail
+
+bin_dir=`dirname $0`
 
 pandoc --chapters \
   -f markdown_github+tex_math_dollars+raw_tex+header_attributes-hard_line_breaks \
   -t latex \
-  "$@"
+  "$1" \
+  | "$bin_dir/recite" \
+  | "$bin_dir/resection" \
+  > "$2"

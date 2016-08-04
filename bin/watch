@@ -4,6 +4,8 @@
 # Requires fsevent_watch (brew install fsevent_watch).
 
 set -e
+set -u
+set -o pipefail
 
 watch() {
   fsevent_watch -F
