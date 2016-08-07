@@ -1,0 +1,2 @@
+brew 'fswatch'
+brew 'pandoc'
