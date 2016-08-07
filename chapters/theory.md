@@ -1,11 +1,11 @@
 # Skriti markovski modeli {#ch:theo}
 
-Za verjetnostne porazdelitve, ki sestavljajo statistične modele, predpostavljamo, da aproksimirajo pojave iz realnega sveta. Ti približki so včasih dovolj dobri, da lahko te pojave z zadostno natančnostjo napovedujemo ali generiramo vzorce, ki so reprezentativni za statistično populacijo. Primer takih statističnih modelov so skriti markovski modeli. Uporabni so pri sekvenciranju DNA molekul, prepoznavanju govora, napovedovanju gibanj na finančnih trgih, ipd. V tem poglavju bomo spoznali teoretične temelje, ki omogočajo obstoj skritih markovskih modelov.
+Za verjetnostne porazdelitve, ki sestavljajo statistične modele, predpostavljamo, da aproksimirajo pojave iz realnega sveta. Ti približki so včasih dovolj dobri, da lahko pojave z zadostno natančnostjo napovedujemo ali tvorimo za statistično populacijo reprezentativne vzorce. Primer takih statističnih modelov so skriti markovski modeli. Uporabni so pri sekvenciranju DNA molekul, prepoznavanju govora, napovedovanju gibanj na finančnih trgih, ipd. V tem poglavju bomo predstavili teoretične temelje, ki omogočajo obstoj skritih markovskih modelov.
 
 Verjetnostna teorija je ključnega pomena pri
-razumevanju, izražanju in obravnavi koncepta negotovosti. Skupaj s teorijo odločanja nam omogočata, da na podlagi vseh informacij, ki jih imamo na voljo, opravimo optimalne napovedi, četudi so ti podatki nepopolni ali dvoumni~\cite{Bishop2006}.
+razumevanju, izražanju in obravnavi koncepta negotovosti. Skupaj s teorijo odločanja omogočata, da na podlagi vseh razpoložljivih informacij, pa čeprav nepopolnih ali dvoumnih, opravimo optimalne napovedi ~\cite{Bishop2006}.
 
-V tem delu smo po \cite{Bishop2006} povzeli nekaj konceptov verjetnostne teorije, ki so ključnega pomena za razlago teoretičnih osnov skritih markovskih modelov.
+V nadaljevanju bomo po \cite{Bishop2006} povzeli nekaj konceptov verjetnostne teorije, ki so ključnega pomena za razlago teoretičnih osnov skritih markovskih modelov.
 
 \begin{description}
     \item[Pravilo vsote:] $$p(X) = \sum_{Y} p(X, Y)$$
@@ -32,7 +32,13 @@ p(X, Y) = p(X)p(Y)
 
 ## Diskretni viri informacij {#ch:theo:vir}
 
-Teorija informacije obravnava *diskretne vire informacije*, t.j. *naključne procese*, ki oddajajo informacijo zajeto v diskretnih signalih. Njihovo matematično modeliranje temelji na opazovanju nizov simbolov, ki jih le-ti oddajajo. Končni, neprazni množici teh simbolov $V = \{v_1, v_2, \dots, v_K\}, K \in \mathbb{N}$ pravimo tudi *abeceda vira*. Niz naključnih spremenljivk $$\{X_t, t = 1, 2, \dots, n\},$$ ki ustrezajo simbolom, ki jih vir oddaja, označimo z $X_1, X_2, \dots, X_n$, kjer $X_n$ označuje $n$-ti simbol oddane sekvence. Enačba \eqref{eq:porazd} definira porazdelitev verjetnosti, da vir odda znak $x_1$ v trenutku $t = 1$, $x_2$ v trenutku $t = 2$, \dots\ in znak $x_n$ v trenutku $t$, enačba \eqref{eq:stac} pa definira lastnost *stacionarnosti*. Za stacionarne vire pravimo, da se njihove verjetnostne lastnosti s časom ne spreminjajo~\cite{Pavesic2010}.
+Teorija informacij obravnava *diskretne vire informacije*, t.j. *naključne procese*, ki oddajajo informacijo zajeto v diskretnih signalih. Modeliranje diskretnih virov temelji na opazovanju nizov simbolov, ki jih viri oddajajo. Končni, neprazni množici simbolov $V = \{v_1, v_2, \dots, v_K\}, K \in \mathbb{N}$ pravimo tudi *abeceda vira*.
+
+Simboli, ki jih vir oddaja, ustrezajo nizu naključnih spremenljivk $$\{X_t, t = 1, 2, \dots, n\}.$$
+
+Označimo jih z $X_1, X_2, \dots, X_n$, kjer $X_n$ označuje $n$-ti simbol oddanega zaporedja. Enačba \eqref{eq:porazd} opisuje porazdelitev verjetnosti, da vir odda znak $x_1$ v trenutku $t = 1$, znak $x_2$ v trenutku $t = 2$, \dots\ in znak $x_n$ v trenutku $t$.
+
+Enačba \eqref{eq:stac} definira lastnost *stacionarnosti*. Za stacionarne vire pravimo, da se njihove verjetnostne lastnosti s časom ne spreminjajo~\cite{Pavesic2010}.
  
 \begin{equation}
 P(X_1 = x_1, \dots, X_n = x_n) = P(X_1 = x_1, \dots, X_n = x_n) \geq 0
@@ -43,14 +49,16 @@ P(X_1 = x_1, \dots, X_n = x_n) = P(X_1 = x_1, \dots, X_n = x_n) \geq 0
 P(X_{k+1} = x_1, \dots, X_{k+n} = x_n) = P(x_1, \dots, x_n)\label{eq:stac}
 \end{equation}
 
-Lastnost *ergodičnosti* pomeni, da lahko porazdelitev verjetnosti vira določimo iz samo enega dovolj dolgega niza simbolov~\cite{Pavesic2010}. Jezike lahko definiramo kot ergodične vire~\cite{Bruen2005}.
+Lastnost *ergodičnosti* pomeni, da lahko porazdelitev verjetnosti vira\footnote{Tudi jezike lahko definiramo kot ergodične vire~\cite{Bruen2005}.} določimo na podlagi enega samega, ustrezno dolgega niza simbolov~\cite{Pavesic2010}.
 
-Diskretne vire nadaljno delimo na:
+Diskretne vire delimo na:
 
-* vire *brez spomina*, za katere velja, da verjetnost za v danem trenutku oddan simbol ni odvisna od predhodno oddanega zaporedja simbolov;
-* vire *s spominom*, za katere velja, da je oddaja simbola v danem trenutku odvisna od določenega števila ($k$) predhodno oddanih simbolov. Število $k$ določa *red* vira.
+* vire *brez spomina*, za katere velja, da verjetnost v danem trenutku oddanega simbola ni odvisna od predhodno oddanega zaporedja simbolov;
+* vire *s spominom*, za katere velja, da je oddaja simbola v danem trenutku odvisna od števila ($k$) predhodno oddanih simbolov. Število $k$ določa *red* vira.
 
-Vire s spominom prvega reda imenujemo *markovski*\footnote{V slovenski literaturi najdemo prevoda \emph{markovov}~\cite{Pavesic2010} in \emph{markovski}~\cite{Gyergyk1988}. V tem  besedilu smo se odločili za uporabo slednjega.} \eqref{eq:markovski}. Za markovske vire velja, da je oddaja simbola v $n$-tem trenutku odvisna le od simbola, ki je oddan v trenutku $n-1$. Enačba \eqref{eq:preh} definira še *prehodno verjetnost* $p_{ij}$, t.j. verjetnost, da je vir v trenutku $n+1$ oddal znak $x_j \in A$ pri pogoju, da je v trenutku $n$ oddal znak $x_i \in A$~\cite{Pavesic2010}.
+Vire s spominom prvega reda imenujemo *markovski viri*\footnote{V slovenski literaturi najdemo prevoda \emph{markovov}~\cite{Pavesic2010} in \emph{markovski}~\cite{Gyergyk1988}. V tem  besedilu smo se odločili za uporabo slednjega.} \eqref{eq:markovski}. Za le-te velja, da je oddaja simbola v trenutku $t$ odvisna le od simbola, ki je oddan v trenutku $t-1$.
+
+Enačba \eqref{eq:preh} definira še *prehodno verjetnost* $p_{ij}$, t.j. verjetnost, da je vir v trenutku $n+1$ oddal znak $x_j \in A$ pri pogoju, da je v trenutku $n$ oddal znak $x_i \in A$~\cite{Pavesic2010}.
 
 \begin{align}
 \begin{split}
@@ -65,7 +73,7 @@ p_{ij} = P(X{n+1} = x_j \given X_n = xi)
 \label{eq:preh}
 \end{equation}
 
-Če privzamemo, da vsebuje abeceda $|A| = m$ simbolov, potem lahko določimo $1 \leq i, j \leq m$. Sedaj vrednosti $p_{ij}$ sestavljajo *matriko prehodnih verjetnosti* $P = [p_{ij}]$ (slika \ref{diag:prehmat}).
+Če privzamemo, da vsebuje abeceda $|A| = m$ simbolov, potem lahko določimo $1 \leq i, j \leq m$. Vrednosti $p_{ij}$ sestavljajo *matriko prehodnih verjetnosti* $P = [p_{ij}]$ (slika \ref{diag:prehmat}).
 
 \begin{figure}
 $$
@@ -105,7 +113,7 @@ Slika \ref{diag:markov_latent} prestavlja osnovo, iz katere med drugim izhajajo 
 
 Za markovske modele velja, da so v vsakem trenutku v enem izmed $N$ stanj iz množice $S = \{S_1, S_2, \dots, S_N\}$. Ob časih $t = 0, 1, \dots, T$ prehajajo med različnimi stanji $S_n, n \in N$.
 
-_Skriti_ markovski modeli so izpeljanka markoviskih modelov, kjer opazovalci poznajo le neko vejrentostno funkcijo stanja, samo stanje pa je skrito~\cite{Lustrek2004}.
+_Skriti_ markovski modeli so izpeljanka markovskih modelov, za katere opazovalci poznajo le vejrentostno funkcijo stanja. Stanje, v katerem se model v določenem trenutku nahaja, pa opazovalcem ostane skrito~\cite{Lustrek2004}.
 
 \begin{figure}
 \begin{center}
@@ -122,14 +130,14 @@ Skriti markovski model $\lambda$ je definiran v obliki\footnote{Zapis običajno 
 \label{eq:theory:model}
 \end{equation}
 
-\noindent kjer so $A, B, \pi, N$ in $M$, parametri, ki opisujejo model~\cite{Rabiner1989}.
+\noindent kjer so $A, B, \pi, N$ in $M$ parametri, ki opisujejo model~\cite{Rabiner1989}.
 
 \begin{description}
 
 \item[$\boldsymbol{N}\dots$] Število stanj modela.
 
-\item[$\boldsymbol{M}\dots$] Število različnih simbolov opazovanja oz. velikost abecede.
-\item[$\boldsymbol{A}\dots$] Matrika verjetnosti prehodov stanj $A = [a_{ij}]$, ki opisuje verjetnost, da se bo sistem ob času $t+1$ znašel v stanju $S_j$ ob dejstvu, da je ob času $t$ bil v stanju $S_i$:
+\item[$\boldsymbol{M}\dots$] Število različnih opazovanih simbolov oz. velikost abecede.
+\item[$\boldsymbol{A}\dots$] Matrika verjetnosti prehodov stanj $A = [a_{ij}]$, ki opisuje verjetnost, da se bo sistem ob času $t+1$ znašel v stanju $S_j$ ob dejstvu, da je bil ob času $t$ v stanju $S_i$:
 
 \begin{equation}
 a_{ij} = P(q_{t+1} = S_j \given q_t = S_i),\qquad 1 \leq i, j \leq N.
@@ -163,19 +171,19 @@ Primerno definirani skriti markovski modeli lahko delujejo kot generatorji zapor
 4. opravimo prehod v novo stanje $q_{t+1} = S_j$ glede na prehodne verjentosti iz stanja $S_i$, ki jih določa $a_{ij}$;
 5. nastavimo $t = t + 1$; če je $t < T$ se vrnemo na točko 3; sicer postopek zaključimo.
 
-Omenjeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno opazovano zaporedje najverjetneje nastalo~\cite{Rabiner1989}.
+Navedeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno opazovano zaporedje najverjetneje nastalo~\cite{Rabiner1989}.
 
-### Tri osnovna vprašanja skritih markovskih modelov {#ch:hmm:3prob}
+### Temeljni problemi skritih markovskih modelov {#ch:hmm:3prob}
 
-Za uporabo skritih markovskih modelov pri reševanju praktičnih izzivov moramo najprej odgovoriti na tri osnovna vprašanja, ki smo jih povzeli po \cite{Rabiner1989}:
+Pred uporabo skritih markovskih modelov za reševanje praktičnih izzivov moramo najprej rešiti temeljne probleme, ki smo jih povzeli po \cite{Rabiner1989}:
 
-1. Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda = (A, B, \pi)$ določiti $P(O | \lambda)$ — t.j. verjetnost opazovanega zaporedja glede na model. To vprašanje lahko zastavimo tudi na drugačen način: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
-2.  Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda$ izbrati pripadajoče zaporedje stanj $Q = q_1  q_2 \cdots q_T$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). To vprašanje obravnava *skriti* del modela.
-3. Prilagoditi parametre modela $\lambda = (A, B, \pi)$, tako, da maksimiziramo $P(O | \lambda)$.
+1. Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda = (A, B, \pi)$ moramo določiti $P(O | \lambda)$ — t.j. verjetnost opazovanega zaporedja glede na model. Ta problem lahko zastavimo tudi kot vprašanje: kako dobro se določen model prilega danemu opazovanemu zaporedju? Če izbiramo med konkurenčnimi modeli nam odgovor na to vprašanje pomaga izbrati najboljšega.
+2.  Glede na dano opazovano zaporedje $O = \obsseq{1}{2}{T}$ in model $\lambda$ moramo izbrati pripadajoče zaporedje stanj $Q = q_1  q_2 \cdots q_T$, ki se najbolje prilega opazovanemu zaporedju (ga najbolj smiselno pojasnjuje). Ta problem obravnava *skriti* del modela.
+3. Prilagoditi moramo parametre modela $\lambda = (A, B, \pi)$, tako da maksimiziramo $P(O | \lambda)$. Opazovana zaporedja, ki jih uporabljamo za optimizacijo parametrov modela, imenujemo *učna zaporedja*, ker z njimi model učimo.
 
-Opazovana zaporedja, ki jih uporabimo za optimizacijo parametrov modela imenujemo *učna zaporedja*, ker z njimi model “učimo”. Problem učenja je v večini primerov najpomembnejši od treh, ker nam omogoča modeliranje pojavov iz resničnega sveta~\cite{Rabiner1989}.
+Rešitev zadnjega izmed zgoraj naštetih problemov je običajno najpomembnejša, ker nam omogoča modeliranje pojavov iz resničnega sveta~\cite{Rabiner1989}.
 
-V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili odgovore na prvo in tretje vprašanje, katerih rešitev je ključna za izvedbo naše naloge.
+V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitve prvega in tretjega problema, ki so ključne za izvedbo našeega dela.
 
 ## Algoritem *Forward-backward* {#ch:hmm:fb}
 
@@ -187,13 +195,13 @@ V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili odgovore na prvo
 
 \item[Vrednost $\boldsymbol{\beta_t(i)}$ \eqref{eq:fw:back}]
 
-opisuje verjetnost delnega opazovanega zaporedja $\obsseq{t}{t+1}{T}$, glede na to, da se je bil model $\lambda$ ob času $t$ v stanju $S_i$. Izračun poteka na podoben način, le da se najprej postavi končna vrednost $1$ \eqref{eq:fw:back:init}, nato pa se izračunajo ostale vrednosti v obratnem vrstnem redu od $T-1$ do $1$ \eqref{eq:fw:back:loop}.
+opisuje verjetnost delnega opazovanega zaporedja $\obsseq{t}{t+1}{T}$, ob pogoju, da je bil model $\lambda$ ob času $t$ v stanju $S_i$. Izračun poteka na podoben način, le da se najprej postavi končna vrednost $1$ \eqref{eq:fw:back:init}, nato pa se izračunajo ostale vrednosti v obratnem vrstnem redu od $T-1$ do $1$ \eqref{eq:fw:back:loop}.
 \end{description}
 \fussy
 
 \input{figures/forward_backward_equations}
 
-Ko izračunamo vrednost $\alpha$ dobimo odgovor na prvo vprašanje, opisano v poglavju \ref{ch:hmm:3prob}. Enačbo \eqref{eq:hmm:prob1} bomo kasneje uporabili kot oceno primernosti modela.
+Ko izračunamo vrednost $\alpha$, dobimo rešitev prvega problema, opisanega v poglavju \ref{ch:hmm:3prob}. Enačbo \eqref{eq:hmm:prob1} bomo kasneje uporabili kot oceno primernosti modela.
 
 \begin{equation}
 P(O \given \lambda) = \sum_{i=1}^N \alpha_T(i)
@@ -212,13 +220,13 @@ Za opis algoritma *Baum-Welch* je potrebno najprej definirati še vrednosti $\xi
 
 \input{figures/baum_welch_gamma_xi_equations}
 
-S pomočjo $\xi$ in $\gamma$ lahko sedaj ponovno ocenimo parametre in tako dobimo nov model $\bar{\lambda} = (\bar{A}, \bar{B}, \bar{\pi})$.
+S pomočjo $\xi$ in $\gamma$ lahko izvedemo ponovno oceno parametrov modela in tako dobimo nov model $\bar{\lambda} = (\bar{A}, \bar{B}, \bar{\pi})$.
 
 \input{figures/baum_welch_reestimate_equations}
 
 V literaturi \cite{Li2000,Ramage2007,Bilmes1997} je dokazano, da za tako pridobljen model $\bar{\lambda}$ velja ena izmed naslednjih dveh točk:
 
-1. model $\bar{\lambda}$ določa kritično točko kjer velja $\boldsymbol{\bar{\lambda} = \lambda}$;
+1. model $\bar{\lambda}$ določa kritično točko, kjer velja $\boldsymbol{\bar{\lambda} = \lambda}$;
 2. $\boldsymbol{P(O \given \bar{\lambda}) > P(O \given \lambda)}$, kar pomeni, da smo dobili nov model $\bar{\lambda}$, ki bolje pojasnjuje zaporedje $O$ kot njegov predhodnik.
 
 Na podlagi zgornjih dveh točk lahko model iterativno izboljšujemo tako, da $\lambda$ vsakič zamenjamo z izračuannim $\bar{\lambda}$, dokler se ne približamo kritični točki~\cite{Rabiner1989}.
