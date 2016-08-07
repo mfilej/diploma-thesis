@@ -8,16 +8,11 @@ set -u
 set -o pipefail
 
 watch() {
-  fsevent_watch -F
-}
-
-match() {
-  grep -v --line-buffered build | \
-  grep -E --line-buffered "(\.md|figures|layout\.tex|bibliography\.bib)"
+  fswatch -o chapters/*.md figures/ layout.tex bibliography.bib
 }
 
 run() {
-  xargs -I% -n1 sh -c "rake"
+  xargs -t -I{} sh -c "rake"
 }
 
-watch | match | run
+watch | run
