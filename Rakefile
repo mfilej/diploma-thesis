@@ -39,19 +39,3 @@ CLEAN.include(File.join(BUILD_DIR, "*"))
 
 CLOBBER.include(TARGET_PDF)
 CLOBBER.include(Dir.glob(File.join(CHAPTERS_DIR,"*.tex")))
-
-# # Test Suite
-#
-# Run with:
-#
-#     $ ruby Rakefile
-#
-if __FILE__ == $0
-  require "minitest/autorun"
-
-  class Tests < MiniTest::Test
-    def test_haha
-      assert_equal 1, 1
-    end
-  end
-end
