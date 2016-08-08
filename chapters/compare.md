@@ -73,7 +73,7 @@ hmm.sample(20, 15) # Generiranje 20 zaporedij, od
 
 Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne licence. Programske opreme, ki licence ne vključuje, ne moremo uporabljati, spreminjati ali deliti, če to ni eksplicitno navedeno s strani avtorjev~\cite{web/nolicense}. Menimo tudi, da bi ustrezna, permisivna odprtokodna licenca k projektu privabila več razvijalcev in tako pripomogla k njegovi višji kakovosti in širši uporabnosti~\cite{Stewart2006}.
 
-## Projekt hmmlearn
+## Projekt hmmlearn {#ch:comp:hmmlearn}
 
 \begin{center}
 \begin{tabular}{ccc}
@@ -131,7 +131,7 @@ Dokumentacijo projekta najdemo v obliki datoteke PDF~\cite{OConnell2011}, ki naz
 
 Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vključevanju projekta v industrijska okolja, predvsem v primerih uporabe, kjer bi bila potrebne sprememba izvorne kode~\cite{Determann2006}.
 
-## Projekt UMDHMM
+## Projekt UMDHMM {#ch:comp:umdhmm}
 
 \begin{center}
 \begin{tabular}{ccc}
