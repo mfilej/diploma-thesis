@@ -1,0 +1,28 @@
+\begin{figure}
+\centering
+\begin{subfigure}{.42\textwidth}
+  \centering
+  $$
+  f(x, y) = 
+   \begin{bmatrix}
+    0,2 & 0,8 \\
+    0,5 & 0,5 \\
+   \end{bmatrix}
+  $$
+\end{subfigure}%
+\begin{subfigure}{.58\textwidth}
+  \centering
+  \footnotesize
+  \vspace{\baselineskip}
+  \begin{verbatim}
+  
+  map = %{
+           {0, 0} => 0.2, {0, 1} => 0.8,
+           {1, 0} => 0.5, {1, 1} => 0.5,
+        }
+  \end{verbatim}
+\end{subfigure}
+\caption{Primerjava matematičnega zapisa dvorazsežne matrike in njenega zapisa
+s podatkovno strukturo \texttt{map}.}
+\label{fig:impl:matrix_as_map}
+\end{figure}
