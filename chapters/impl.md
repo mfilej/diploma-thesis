@@ -1,22 +1,22 @@
-# Implementacija lastne rešitve {#ch:impl}
+# Implementacija {#ch:impl}
 
 \wip{Utemeljitev, da smo se odlocili za svojo implementacijo. Navedi obstojece resitve: Python: hmmlearn~\cite{hmmlearn/hmmlearn}, GHMM~\cite{sf/ghmm}, HMM~\cite{guyz/HMM}, pommegranate~\cite{jmschrei/pomegranate}, R: HMM~\cite{r/hmm}, Haskell: markov~\cite{fmap/markov} vecina resitev ni dovoljevala dovoljsne kontrole nad parametri. Nekatere resitve so bile tezke za modifikacijo. Najvecja tezava je bila da vecina resitev se ne zna uciti na vecih sekvencah, kar je nujno za ucenje na daljsih besedilih (utemeljeno kasneje). Gledano za nazaj se je izkazala za dobro idejo za boljse razumevanje. Hkrati pa tudi bolj zapleteno kot pricakovano, za boljsi izkoristek casa in boljse rezultate bi bilo mogoce boljse vzeti katero od obstojecih.}
 
 ## Zahteve, omejitve in izbira orodij
 
-Eden izmed poglavitnih ciljev pri implementaciji rešitve je bila pravilnost programa oz. njegovih rezultatov. S hitrostjo izvajanja se ne nismo obremenjevali, dokler je bila v praktičnih mejah in nam ni predstavlja znatne upočasnitve pri razvoju. Generiranje modela, ki je računsko zahtevnejše, je potrebno izvesti samo enkrat, simuliranje modela, ki bi verjetno želeli izvajati pogosteje, pa ni računsko zahtevno~\cite{Guedon2003,Ramage2007,Li2000}.
+Eden izmed poglavitnih ciljev implementacije rešitve je bilo pravilno delovanje programa in z njim pridobljenih rezultatov. Hitrost izvajanja je bila sekundarnega pomena, dokler je bila v praktičnih mejah in ni znatno upočasnjevala razvoja. \wip{?} Generiranje modela, ki je računsko zahtevnejše, je potrebno izvesti samo enkrat. Simulacija modela, ki jo izvajamo večkrat, pa ni računsko zahtevna~\cite{Guedon2003,Ramage2007,Li2000}.
 
-Da bi si zagotovili čim boljše možnosti za pravilno izvedbo rešitve smo se odločili za naslednje pristope: uporabo funkcijskega programiranja, premišljeno zasnovane podatkovne strukture (prilagojene tako razumevanju kot programskemu okolju), programsko testiranje (t.i. unit testing in property-based testing) s sklicevanjem na referenčno rešitev in statično analizo programa. V nadaljevanju bomo podrobneje predstavili vsakega od naštetih pristopv.
+Da bi si zagotovili čim boljše možnosti za pravilno izvedbo rešitve, smo se odločili za naslednje pristope: uporabo funkcijskega programiranja, premišljeno zasnovane podatkovne strukture (prilagojene za lažje razumevanje) in programsko testiranje (t.i. unit testing in property-based testing) s sklicevanjem na referenčno rešitev in statično analizo programa. V nadaljevanju bomo podrobneje predstavili vsakega od naštetih pristopv.
 
 ## Funkcijsko programiranje in podatkovne strukture
 
-Evolucija funkcijskega programiranja se je začela z delom na lambda računu, nato pa nadaljevala s programskimi jeziki kot so Lisp, Iswim, FM, ML, nato pa z modernejšimi različicami kot so Miranda in Haskell. Za razred *funkcijskih* programskih jezikov je značilno, da izračunavanje izvajajo izključno preko vrednotenja *izrazov*~\cite{Hudak1989}.
+Evolucija funkcijskega programiranja se je začela z delom na lambda računu, nadaljevala s programskimi jeziki kot so Lisp, Iswim, FM, ML, nato pa z modernejšimi različicami kot so Miranda in Haskell. Za razred *funkcijskih* programskih jezikov je značilno, da izračunavanje izvajajo izključno preko vrednotenja *izrazov*~\cite{Hudak1989}.
 
-Eden izmed načinov na katerega funkcijski programski jeziki lajšajo razumevanje programske kode je odsotnost konstruktov kot so mutabilnost podatkovnih struktur in pomanjkanje globalnega stanja. Na splošno lahko rečemo, da fukcijski programi nimajo *stranskih učinkov*, ki so pogost vzrok za programske hroščev~\cite{Hughes1989}.
+Eden izmed načinov s katerim funkcijski programski jeziki lajšajo razumevanje programske kode, je odsotnost konstruktov kot so mutabilnost podatkovnih struktur in odsotnost globalnega stanja. Povzamemo lahko, da se fukcijski programi izogibajo *stranskim učinkom*, ki so pogost vzrok programskih hroščev~\cite{Hughes1989}.
 
-Za funkcijske jezike je značilen tudi poudarek na oblikovanju in abstrakcji podatkovnih struktur~\cite{Hudak1989}, nekateri jeziki pa nudijo t.i. pattern matching, ki nam podajanje teh podatkovnih struktur znatno olajša~\cite{Juric2015}. Oba koncepta sta se izkazala za zelo uporabna pri implemetaciji našega programa.
+Za funkcijske jezike je značilen tudi poudarek na oblikovanju podatkovnih struktur~\cite{Hudak1989}. Nekateri jeziki nudijo tudi t.i. *pattern matching*, ki podajanje podatkovnih struktur znatno olajša~\cite{Juric2015}. Oba koncepta sta se izkazala za zelo uporabna pri implemetaciji našega programa.
 
-Najpogostejša abstrakcija, ki se je ponavljala pri implementaciji programa so rezultati funkcij, ki sprejemajo dva ali tri argumente. Za predstavitev takšnega rezultata torej potrebujemo 2- ali 3-dimenzionalno podatkovno strukturo, ki jo običajno imenujemo matrika.
+\wip{? tl;dr matrike} Najpogostejša abstrakcija, ki se je ponavljala pri implementaciji programa, so rezultati funkcij, ki sprejemajo dva ali tri argumente. Za predstavitev takšnega rezultata torej potrebujemo 2- ali 3-dimenzionalno podatkovno strukturo, ki jo običajno imenujemo matrika.
 
 \begin{figure}
 \begin{center}
@@ -26,9 +26,9 @@ Najpogostejša abstrakcija, ki se je ponavljala pri implementaciji programa so r
 \label{diag:matrix2d3d}
 \end{figure}
 
-Nemalokrat se take podatkovne strukture predstavljajo s pomočjo polj~\angl[array] ali seznamov v drugih oblikah, vendar se je v našem primeru to izkazalo za nepraktično zaradi podatkovnih tipov, ki so jih Erlang in Elixir ponujata. Seznami so povezani~\angl[linked list], kar pomeni da niso primerni za indeksirano dostopanje do elementov (`list[x]`), n-terke~\angl[tuples], ki to funkcionalnost podpirajo, pa ne nudijo obširnih funkcionalnosti za naštevanje~\angl[enumerate]~\cite{Thomas2014}, ki so pri implementaciji našega programa prav tako nepogrešljive.
+Take podatkovne strukture se pogosto predstavljajo s pomočjo polj\angl[array] ali drugih oblik seznamov. V našem primeru se je to izkazalo za nepraktično zaradi podatkovnih tipov, ki so na voljo v programskih okoljih Erlang/OTP in Elixir. Na voljo so seznami povezanega tipa\angl[linked list], kar pomeni, da niso primerni za indeksirano dostopanje do elementov (`list[x]`). N-terke\angl[tuples], ki to funkcionalnost podpirajo, pa ne nudijo obširnih funkcionalnosti za naštevanje\angl[enumerate]~\cite{Thomas2014}, ki so pri implementaciji našega programa prav tako nepogrešljive.
 
-Obeh težav smo se rešili z uporabo podatkovne strukture `map`~\{elixir/map}, ki ponuja oboje. `map` je slovar~\angl[dictionary], ki v osnovi ponuja preslikavo iz ključa v vrednost~\angl[key-value]. Zaradi narave okolja Erlang/OTP se `map` zelo pogosto uporablja in je zato implementacija le-tega kar se da učinkovita. Za naše potrebe lahko `map` uporabimo tako, da indekse rezultata združimo v 2-terko in jo uporabimo za ključ, sam element rezultata pa zapišemo kot vrednost.
+Težavi smo odpravili z uporabo podatkovne strukture `map`~\cite{elixir/map}. `map` je slovar\angl[dictionary], ki v osnovi ponuja preslikavo iz ključa v vrednost\angl[key-value]. Zaradi narave okolja Erlang/OTP se `map` redno uporablja in je zato njegova implementacija zelo učinkovita. V našem primeru smo `map` uporabili tako, da smo indekse rezultata združili v 2-terko in jo uporabili za ključ, sam element rezultata pa zapisali kot vrednost.
 
 ```
                                        %{
@@ -39,7 +39,7 @@ f(x, y) =   [0.5  0.5]      map =       {0, 1} => 0.8,
                                        }
 ```
 
-Branje in zapisovanje posameznega elementa na dani poziciji je torej samo vprašanje sestavljanja pravilnega indeksa:
+Za branje in zapisovanje posameznega elementa na dani poziciji je bilo dovolj, da smo pravilno sestavili indeksa:
 
 ```
 iex> map = Map.new
@@ -48,7 +48,7 @@ iex> map = Map.new
 0.5
 ```
 
-Standardna knjižnjica prav tako podpira naštevanje ali sprehod čez vse elemente:
+Standardna knjižnica prav tako podpira naštevanje ali sprehod skozi vse elemente:
 
 ```
 iex> map = %{...}
@@ -58,13 +58,13 @@ iex> map = %{...}
 ...> end)
 ```
 
-Da bi zagotovili konsistentnost pri uporabi teh podatkovnih struktur, smo funkcije za branje in zapisovanje enkapsulirali v svoj modul.
+Da bi zagotovili konsistentnost pri uporabi opisanih podatkovnih struktur, smo funkcije za branje in zapisovanje vključili v zato namenjen modul.
 
 ## Testiranje in preverjanje pravilnosti
 
-Da bi se zavarovali pred lastnimi napakami pri programiranju rešitve smo pred pisanjem vsake funkcije zapisali njeno specifikacijo v obliki testa enote~\angl{unit test} \cite{Carlsson2006}. Ker je tudi specifikacija neke vrste izvršljiv program, nam omogoča, da avtomatsko preverimo, ali napisana koda ustreza specifikacijam. Testi se izvajajo dovolj hitro, da jih lahko med pisanjem vsake funkcije poženemo večkrat in tako vidimo, kdaj se bližamo uspešni rešitvi. Ko napisana koda ustreza željenim specifikacijam, lahko dodamo nove, strožje specifikacije, ali pa nadaljujemo z pisanjem naslednje funkcije~\cite{Beck2003}.
+Da bi se zavarovali pred lastnimi napakami pri programiranju rešitve, smo pred implementacijo vsake funkcije zapisali njeno specifikacijo v obliki testa enote\angl[unit test] \cite{Carlsson2006}. Ker je specifikacija izvršljiv program, lahko ustreznost napisane kode samodejno preverjamo. Testi se izvajajo dovolj hitro, da jih lahko med pisanjem vsake funkcije izvršimo večkrat in tako preverimo, kdaj se bližamo uspešni rešitvi. Ko napisana koda ustreza željenim specifikacijam, lahko dodamo nove, strožje specifikacije, ali pa nadaljujemo s pisanjem naslednje funkcije~\cite{Beck2003}.
 
-Takšni testi so nepogrešljivi tudi pri refaktoriranju ("proces, pri kateremu spreminjamo programsko kodo, na takšen način, da se spremeni interna struktura organizacija, njeno zunanje vedenje pa ostane nespremenjeno"~\cite{Li2007}), saj moramo biti pri spreminjanju kode pazljivi, da ne pride do nazadovanja~\angl[regression].
+Takšni testi so nepogrešljivi tudi pri preurejanju\footnote{Proces pri katerem spreminjamo interno organiziranost programsko kode, ne da bi pri tem spremenili njeno zunanje vedenje~\cite{Li2007}.}, saj moramo biti pri spreminjanju kode pazljivi, da ne pride do nazadovanja\angl[regression].
 
 Znaten del naše rešitve obsega matematične algoritme, za katere ni trivialno napisati specifikacije, saj lahko tudi pri ročnih izračunih hitro samo uvedemo napako. Zato smo se pri implementaciji odločili, da se bomo oprli na neko referenčno implementacijo in s pomočjo rezultatov, ki jih bomo dobili iz le-te, napisali specifikacije za naše funkcije. Referenčna implementacija, po kateri smo se zgledovali, je Python projekt HMM~\cite{guyz/HMM}, ki je sestavljen na dovolj prijazen način, da smo lahko različne algoritme izvajali posebej in njihove rezultate prepisali v naše specifikacije.
 
