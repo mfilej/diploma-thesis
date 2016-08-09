@@ -1,4 +1,4 @@
-# Ovrednotenje
+# Ovrednotenje {#ch:bench}
 
 V tem poglavju smo želeli priti do naslednjih ugotovitev: kako se tvorjena besedila primerjajo z naravnim jezikom; ali spreminjanje parametrov pri učenju markovskih modelov znatno vpliva na tvorjena besedila; in kako se besedila, tvorjena z različnimi markovskimi modeli primerjajo med seboj.
 
@@ -24,13 +24,3 @@ Zbiranje podatkov za primerjavo modelov smo avtomatizirali s programom, ki izved
 4. Izbrane vrstice uporabi za učenje modelov.
 5. Vsak naučen model se uporabi za tvorjenje 5.000 stavkov z dolžinami, ki so naključno izbrane glede na podatke pridobljene v 2. koraku.
 6. Za tvorjena besedila se izmeri število glagolov na stavek, kot v 3. koraku. Meritve se zapišejo v datoteko, ki bo kasneje uporabljena za analizo.
-
-## Rezultati
-
-korpus kaze spike pri 1 (ce stejemo vse glagole namesto samo glavnih dobimo spike pri 2)
-
-ostali modeli nimajo spike-a, 0 in 1 sta bolj poravnana
-
-vsi modeli dokaj podobni med seboj
-
-statisticna analiza?
