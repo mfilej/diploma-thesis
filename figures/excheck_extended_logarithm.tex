@@ -1,0 +1,12 @@
+\begin{figure}
+\begin{verbatim}
+  property :ext_log do
+    for_all x in such_that(x in real when x > 0) do
+      Logzero.ext_log(x) == :math.log(x)
+    end
+  end
+\end{verbatim}
+\caption{%
+Primer ExCheck specifikacije, ki preverja ujemanje vrednosti razširjenega logaritma z vrednostmi običajne logaritemske funkcija za vsa pozitivna realna števila.}
+\label{fig:impl:excheck_extended_logarithm}
+\end{figure}

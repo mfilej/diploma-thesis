@@ -1,10 +1,8 @@
 # Implementacija knjižnice {#ch:impl}
 
-Po pregledu obstoječih rešitev v \ref{ch:comp}. poglavju smo se odločili, da implementiramo svojo knjižnico za delo s skritimi markovskimi modeli. Poglavitni razlog za to odločitev je bilo splošno pomanjkanje dokumentacije za delo z obstoječimi orodji. 
+Po pregledu obstoječih rešitev v \ref{ch:comp}. poglavju smo se odločili, da implementiramo svojo knjižnico za delo s skritimi markovskimi modeli. Glavni razlog za to odločitev je bilo splošno pomanjkanje dokumentacije za delo z obstoječimi orodji. Predvidevamo, da nam bo proces implementacije pomagal tudi pri razumevanju problemske domene.
 
-\wip{racunamo, da se bomo v procesu implementacije veliko naucili}
-
-Eden izmed poglavitnih ciljev implementacije rešitve je bilo pravilno delovanje programa in z njim pridobljenih rezultatov. Hitrost izvajanja je bila sekundarnega pomena, dokler je bila v praktičnih mejah in ni znatno upočasnjevala razvoja.
+Eden izmed temeljnih ciljev implementacije rešitve je bilo pravilno delovanje programa in z njim pridobljenih rezultatov. Hitrost izvajanja je bila sekundarnega pomena, dokler je bila v praktičnih mejah in ni znatno upočasnjevala razvoja.
 
 Da bi si zagotovili čim boljše možnosti za pravilno izvedbo rešitve, smo se odločili za naslednje pristope: uporabo funkcijskega programiranja, premišljeno zasnovane podatkovne strukture (prilagojene za lažje razumevanje) in programsko testiranje (t.i. unit testing in property-based testing) s sklicevanjem na referenčno rešitev in statično analizo programa. V nadaljevanju bomo podrobneje predstavili vsakega od naštetih pristopv.
 
@@ -58,41 +56,28 @@ Da bi zagotovili konsistentnost pri uporabi opisanih podatkovnih struktur, smo f
 
 ## Testiranje in preverjanje pravilnosti
 
-Da bi se zavarovali pred lastnimi napakami pri programiranju rešitve, smo pred implementacijo vsake funkcije zapisali njeno specifikacijo v obliki testa enote\angl[unit test] \cite{Carlsson2006}. Ker je specifikacija izvršljiv program, lahko ustreznost napisane kode samodejno preverjamo. Testi se izvajajo dovolj hitro, da jih lahko med pisanjem vsake funkcije izvršimo večkrat in tako preverimo, kdaj se bližamo uspešni rešitvi. Ko napisana koda ustreza željenim specifikacijam, lahko dodamo nove, strožje specifikacije, ali pa nadaljujemo s pisanjem naslednje funkcije~\cite{Beck2003}.
+Da bi se zavarovali pred lastnimi napakami pri programiranju rešitve, smo pred implementacijo vsake funkcije zapisali njeno specifikacijo v obliki testa enote\angl[unit test] \cite{Carlsson2006}. Ker je specifikacija izvršljiv program, smo lahko ustreznost napisane kode samodejno preverjali. Testi se izvajajo dovolj hitro, da smo jih lahko med pisanjem vsake funkcije izvršili večkrat in tako preverili, kdaj smo bližaali uspešni rešitvi. Ko je napisana koda ustrezala željenim specifikacijam, smo lahko dodali nove, strožje specifikacije, ali pa nadaljevali s pisanjem naslednje funkcije~\cite{Beck2003}.
 
 Takšni testi so nepogrešljivi tudi pri preurejanju\footnote{Proces pri katerem spreminjamo interno organiziranost programsko kode, ne da bi pri tem spremenili njeno zunanje vedenje~\cite{Li2007}.}, saj moramo biti pri spreminjanju kode pazljivi, da ne pride do nazadovanja\angl[regression].
 
-Znaten del naše rešitve obsega matematične algoritme, za katere ni trivialno napisati specifikacije, saj lahko tudi pri ročnih izračunih hitro samo uvedemo napako. Zato smo se pri implementaciji odločili, da se bomo oprli na neko referenčno implementacijo in s pomočjo rezultatov, ki jih bomo dobili iz le-te, napisali specifikacije za naše funkcije. Referenčna implementacija, po kateri smo se zgledovali, je Python projekt HMM~\cite{guyz/HMM}, ki je sestavljen na dovolj prijazen način, da smo lahko različne algoritme izvajali posebej in njihove rezultate prepisali v naše specifikacije.
+Naša rešitev večinoma obsega matematične algoritme, za katere ni bilo trivialno napisati specifikacije, saj bi lahko tudi z ročnim izračunavanjem hitro uvededli napake. Zato smo se oprli na referenčno implementacijo in s pomočjo pridobljenih rezultatov napisali specifikacije za naše funkcije. Referenčna implementacija, po kateri smo se zgledovali, je Python projekt HMM~\cite{guyz/HMM}, katerega preglednost in modularnost izvorne kode dovoljujeta posamično izvajanje notranjih funkcij. Pridobljene vrednosti smo prepisali v naše specifikacije.
 
-Zaradi nenatančne narave števil s plavajočo vejico, ki smo jih uporabili za predstavitev večine rezultatov algoritmov, je včasih pri testiranju potrebno prepustiti možnost določenega odstopanja. Določeni deli specifikacije zato namesto stroge enakosti preverjajo, da vrednosti od referenčenga rezultata niso oddaljene za več kot prepisano vrednost $\Delta$. To smo dosegli z uporabo ExUnit~\cite{elixir/exunit} funkcije `assert_in_delta` (oz. smo to funkcijo nadgradili v `assert_all_in_delta` tako, da lahko preverja več rezultatov naenkrat). Ugotovili smo, da smo lahko večino specifikacij zadostili z $\Delta$ vrednostjo $5^{-8}$.
+Zaradi nenatančne narave števil s plavajočo vejico, ki smo jih uporabili za predstavitev večine rezultatov algoritmov, je bilo pri  testiranju občasno potrebno prepustiti možnost odstopanja. Določeni deli specifikacije so zato dopuščali, da so dobljene vrednosti od referenčnega rezultata odstopale za izbrano vrednost $\Delta$. To smo dosegli z uporabo ExUnit~\cite{elixir/exunit} funkcije `assert_in_delta` (to funkcijo smo nadgradili v `assert_all_in_delta` tako, da lahko preverja več rezultatov naenkrat). Ugotovili smo, da je za večino specifikacij zadostovala vrednost $\Delta = 5^{-8}$.
 
-S pomočjo funkcije `all_in_delta` smo preverjali tudi ergodičnost funkcije za prehode med stanji z določenimi verjetnostmi. Za primer, kjer sta iz nekega stanja dovoljena prehoda v stanje $A$ z verjetnostjo 0.2 in stanje $B$ z verjetnostjo 0.8, smo naprimer definirali naslednji zahtevi:
+S pomočjo funkcije `assert_all_in_delta` smo preverili tudi ergodičnost funkcije za prehode med stanji z določenimi verjetnostmi. Za primer lahko navedemo model, ki iz določenega stanja dovoljuje prehoda v stanje $A$ z verjetnostjo 0.2 in v stanje $B$ z verjetnostjo 0.8. Specifikacija za tak model je zapisana na sliki \eqref{fig:impl:assert_ergodic}.
 
-```
-assert_in_delta frequencies.a, 2000, 150
-assert_in_delta frequencies.b, 8000, 150
-```
+\input{figures/assert_ergodic}
 
-Zahtevamo torej, da je od $10.000$ poskusov prehoda iz začetnega stanja $2.000\pm150$ takih, kjer se je zgodil prehod v stanje $A, $8.000\pm150$ pa takih, kjer se je zgodil prehod v stanje $B.
+V primerih, ko so bile specifikacije preobsežne, da bi jih ročno zapisali, smo si pomagali z orodji za t.i. *property-based testing*. Le-ta mogočajo, da posamezno lastnost istočasno preverimo na množici števil (npr. na vseh naravnih številih, vseh pozitivnih realnih številih ...). Program nato v procesu preverjanja sam izbere nekaj kombinacij takih števil, za katere preveri ujemanje s pogoji. Za okolje Erlang/OTP je na voljo orodje QuickCheck, katerega smo lahko s pomočjo orodja ExCheck~\cite{parroty/excheck} uporabili v programskem okolju Elixir. QuickCheck in ExCheck ponujata omejen jezik, s katerim opišemo lastnosti, ki smo jih želeli preveriti v našem programu. Orodji sta generirali naključne testne primere in preverili ustreznost naših rezultatov.~\cite{Li2007} Primer specifikacije je prikazan na sliki \eqref{fig:impl:excheck_extended_logarithm}.
 
-Nekatere specifikacije je težko povzeti v nekaj trditvah~\angl[assertion], ročno navajanje potrebne količine trditev bi bilo zamudno (in v določenih primerih celo nepraktično), veliko število kode, ki bi nastalo kot rezultat takšnega navajanja pa bi bilo nepregledno in težavno za spreminjanje ter vzdrževanje. V takih primerih si lahko pomagamo z orodji za preizkušanje na osnovi lastnosti~\angl[property-based testing], ki nam omogočajo, da neko lastnost izrazimo na večji množici števil (npr. vsa naravna števila ali pozitivna realna števila, itd.), program pa potem v procesu preverjanja sam izbere nekaj kombinacij takih števil, za katere preveri, če zapisani pogoji držijo. Za okolje Erlang je na voljo QuickCheck, s pomočjo orodja ExCheck~\cite{parroty/excheck} pa smo ga lahko uporabili tudi v programskem okolju Elixir. QuickCheck in Excheck ponujata omejen jezik, s katerim opišemo lastnosti, ki jih želimo preveriti v našem programu. Orodji nato generirata naključne testne primere in preverita, če jim naš program zadostuje.~\cite{Li2007}
-
-Takšen pristop testiranja smo na primer uporabili pri pisanju razširjenih logaritemskih funkcij. Razširjen logaritem je za vsa pozitivna realna števila definiran kot navaden logaritem. ExCheck nam omogoča, da to trditev zapišemo na naslednji način \footnote{	\texttt{Logzero} modul vsebuje našo implementacijo, \texttt{:math} pa je del Erlangove standardne knjižnice.}:
-
-```
-  property :ext_log do
-    for_all x in such_that(x in real when x > 0) do
-      Logzero.ext_log(x) == :math.log(x)
-    end
-  end
-```
+\input{figures/excheck_extended_logarithm}
 
 ## Statična analiza
 
-Tako kot programsko okolje Erlang/OTP, tudi Elixir sloni na konceptu dinamičnih programskih tipov (t.i. dynamic typing), ki od uporabnikov ne zahtevajo, da programsko kodo označujejo z informacijami o programskih tipih. Da bi se lahko uporabniki vseeno lahko pridobili prednosti, ki jih prinašajo orodja za statično analizo programske kode, se lahko poslužijo koncepta postopnega tipiziranja (t.i. gradual typing)~\cite{Papadakis2011}. Na ta način se informacije o programskih tipih dodajajo sproti in po želji, orodje za statično analizo pa javlja morebitne težave. Rezultat je čistejša programska koda, ki jo je lažje razumeti in vzdrževati, je robustnejša in bolje dokumentirana~\cite{Sagonas2008}.
+Tako kot programsko okolje Erlang/OTP, tudi Elixir temelji na konceptu dinamičnih programskih tipov (t.i. *dynamic typing*), ki ne zahtevajo označevanja z informacijami o programskih tipih. Da bi lahko uporabniki kljub temu koristili prednosti, ki jih prinašajo orodja za statično analizo programske kode, se lahko poslužijo koncepta postopnega tipiziranja (t.i. *gradual typing*)~\cite{Papadakis2011}. Na ta način se informacije o programskih tipih dodajajo po potrebi. Orodje za statično analizo na podlagi teh informacij javlja morebitne težave. Rezultat je čistejša programska koda, ki jo je lažje razumeti in vzdrževati. Je robustnejša in bolje dokumentirana~\cite{Sagonas2008}.
 
 V programskem okolju Erlang/OTP je na voljo orodje Dialyzer~\cite{Sagonas2005}, ki pa se lahko uporablja tudi v okolju Elixir s pomočjo orodja Dialyxir~\cite{jeremyjh/dialyxir}.
 
 ## Izbira programskega jezika
 
-Elixir~\cite{Thomas2014} je sodoben, dinamičen, funkcijski programski jezik. Zgrajen je na osnovi Erlangovega navideznega stroja in ima zato kljub svoji relativni novosti na voljo zelo bogat ekosistem in več desetletij razvoja, ki jih ponuja platforma Erlang/OTP~\cite{Armstrong2007}. Nenazadnje pa izbira programskega jezika za to nalogo predstavlja predvsem avtorjevo subjektivno odločitev.
+Elixir~\cite{Thomas2014} je sodoben, dinamičen, funkcijski programski jezik. Zgrajen je na osnovi Erlangovega navideznega stroja, zato ima kljub svoji relativni novosti na voljo zelo bogat ekosistem in več desetletij razvoja, ki jih ponuja platforma Erlang/OTP~\cite{Armstrong2007}. Nenazadnje pa izbira programskega jezika za to nalogo predstavlja predvsem subjektivno odločitev avtorjev diplomskega dela.
