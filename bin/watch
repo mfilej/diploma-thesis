@@ -8,7 +8,7 @@ set -u
 set -o pipefail
 
 watch() {
-  fswatch -o chapters/*.md figures/ layout.tex bibliography.bib
+  fswatch --latency 0.2 -o chapters/*.md figures/ layout.tex bibliography.bib
 }
 
 run() {
