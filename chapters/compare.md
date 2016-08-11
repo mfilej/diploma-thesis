@@ -11,6 +11,98 @@ Izbrane projekte smo podrobno preučili, da bi ugotovili, če ustrezajo zgoraj n
 \vfill
 \pagebreak
 
+## Kako smo izbirali
+
+Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za kolaborativni razvoj projektov GitHub\footnote{\url{https://github.com}}. Zaradi pudarka na orodjih za sodelovanje pri razvoju programske opreme je GitHub postal zelo priljubljen pri razvijalcih odprte kode~\cite{McDonald2013}. Ta priljubljenost je pospešila in vzpodbudila sodelovanje na odprtokodnih projektih~\cite{Thung2013}, zato smo se odločili, da iskanje projektov, ki so aktivno vzdrževani in imajo za sabo tudi skupine aktivnih uporabnikov, začnemo ravno na tem portalu. GitHub nam skupaj z zmogljivim iskalnikom omogoča pregled nad velikim številom potencialno uporabnih projektov. Dodatno smo si lahko pomagali z indikatorji popularnosti in povezanosti projektov, s katerimi smo lahko ocenili, ali je projekt vzdrževan in ali ima aktivne uporabnike. Takšni indikatorji so nam dali večjo možnost, da najdemo projekt, ki bo deloval na sodobni strojni in programski opremi~\cite{Dabbish2012}. Našli smo tudi projekte, ki ne domujejo na portalu GitHub, ampak imajo tam urejeno zrcalno shrambo. Iskanje nam je skupno vrnilo preko 700 projektov.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/github_search.png}
+\end{center}
+\caption{Posnetek zaslona iskalnega vmesnika portala GitHub.}
+\label{diag:compare:ghsearch}
+\end{figure}
+
+Poleg portala GitHub smo iskanje opravili še na nekaterih drugih mestih. Nekaj rezultatov smo našli z iskanjem projektov preko znanstvenih člankov, ki smo jih iskali na portalih Google Scholar (\url{scholar.google.com}), CiteSeerX (\url{citeseerx.ist.psu.edu}), arXiv (\url{arxiv.org}), Microsoft Academic Search (\url{academic.research.microsoft.com/}) …
+
+Da bi bil pregled projektov praktično izvedljiv v časovnem okviru, določenem za diplomsko delo, smo morali množico najdenih projektov razredčiti na hevrističen način. Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. V naslednjem koraku smo odstranili številne aktivne in dodelane projekte, ustvarjene za določeno aplikacijo skritih markovskih modelov (npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots), ki pa so bili za naš problem preveč specifični. Kot smo omenili na začetku poglavja, smo projekte, ki delujejo izključno z zveznim oddajanjem, izločili, saj za naš namen niso ustrezni. Prav tako smo izločili projekte brez podpore za mnogotera opazovana zaporedja. Preostale projekte smo si ogledali podrobneje.
+
+Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki, kot so veliko število parametrov in relacije med njimi, vplivajo na to, da je obliko vhodnih podatkov zelo težko določiti brez ustrezne dokumentacije. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa s primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Izločili smo projekte, za katere nismo uspeli ugotoviti pravilnega načina uporabe zaradi popolnega pomanjkanja dokumentacije. Kot je ugotovil 	Sonnenburg~\cite{Sonnenburg2007}, bi bilo področje programske opreme za strojno učenje bogatejše, če bi projekti poleg izvorne kode vsebovali tudi krajši članek z opisom uporabe.
+
+Naš cilj je bil izpostaviti projekte, ki so uporabni za namen generiranja besedil za široko množico uporabnikov — tako za posameznike, ki želijo projekt uporabiti v lastne, neprofitne namene, kot tudi za razvijalce v industriji, ki bi želeli projekte uporabiti v profitne namene. Zato smo poleg že omenjene dokumentacije pregledali tudi licence. V literaturi je zapisano, da se projekti za strojno učenje, ki so izdani pod permisivnimi licencami, bolje razvijejo~\cite{Sonnenburg2007}, nerestriktivne licence na odprtokodnih orodjih pa lažje privabijo potencialne uporabnike~\cite{Stewart2006}.
+
+## Projekt hmmlearn {#ch:comp:hmmlearn}
+
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jezik \\
+\url{http://hmmlearn.readthedocs.io} & BSD  & Python \\\midrule
+\end{tabular}
+\end{center}
+
+Hmmlearn~\cite{hmmlearn/hmmlearn} je skupina algoritmov za nenadzorovano\angl[unsupervised] učenje skritih markovskih modelov. Orodje je napisano v programskem jeziku Python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik Python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj z dejstvom, da je scikit-learn zelo razširnjen projetk, pomeni, da lahko hmmlearn postane zelo zanimiv za široko skupino uporabnikov. Podobno kot `HMM` tudi `hmmlearn` uporabnikom, preko mehanizma dedovanja, nudi podporo za implementacijo verjetnostnih modelov po meri. Podrobnosti so opisane v dokumentaciji projekta.
+
+Ob času pregleda je bila na voljo prva javna različica projekta 0.1.1, ki je bila izdana februarja 2015. Prihajajoča\footnote{Različica 0.2.0 je izšla marca 2016.} različica 0.2.0 prinaša veliko novosti, med drugim tudi sposobnost za učenje na mnogoterih opazovanih zaporedjih. Funkcionalnost je bila sicer že na voljo v t.i. razvojni različici, vendar smo tukaj naleteli na odstopanja med novimi razvojnimi vmesniki in dokumentacijo, ki je bila tarkat na voljo samo za prejšnjo različico. To je razlog, da s to knjižnico učenja modelov na mnogoterih zaporedjih v praksi nismo uspeli izvesti.
+
+Kljub temu da je hmmlearn še v zgodnji razvojni fazi, si od tega projekta, zaradi enostavnih programskih vmesnikov, scikit-learn kompatibilnosti in že sedaj obsežne dokumentacije,  v prihodnosti veliko obetamo. Upamo, da ga bomo lahko v prihodnosti še preizkusili.
+
+Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, kar naredi projekt primeren za rabo v vseh okoljih, vključno z uporabo v komercialne namene~\cite{Determann2006}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/compare_hmmlearn.png}
+\end{center}
+\caption{Posnetek zaslona zgledno urejene dokumentacije projekta hmmlearn.}
+\label{diag:compare:hmmlearn}
+\end{figure}
+
+## Projekt UMDHMM {#ch:comp:umdhmm}
+
+\begin{center}
+\begin{tabular}{ccc}
+\footnotesize
+\\\toprule
+URL naslov & Licenca & Jezik \\
+\url{http://www.kanungo.com/software/software.html} & GNU GPL  & C \\\midrule
+\end{tabular}
+\end{center}
+
+*UMDHMM Hidden Markov Model Toolkit* \cite{Kanungo1999} je projekt Marylandske univerze, ki implementira algoritme za delo s skritimi markovskimi modeli Forward-Backward, Viterbi in Baum-Welch.
+
+Za razliko od ostalih projektov, ki smo jih pregledali, UMDHMM ne ponuja funkcij v obliki knjižnice, ki bi jih lahko uporabniki klicali iz lastne programske kode. Glavni vmesnik za uporabo omenjenih algoritmov so programi, namenjeni uporabi preko ukazne vrstice. Projekt obsega programe `genseq`, `testvit`, `esthmm` in `testfor`.
+
+\begin{description}
+\item[Program \tt{esthmm}] je jedro projekta, ki na podlagi podanega zaporedja simbolov z uporabo algoritma Baum-Welch (glej poglavje \ref{ch:hmm:bw}), naredi oceno parametrov za skriti markovski model.
+\item[Program \tt{genseq}] uprabi parametre modela, ki jih je generiral program \texttt{esthmm}, in na njihovi podlagi generira naključno zaporedje simbolov.
+\item[Program \tt{testvit}] z uporabo algoritma Viterbi oceni, katero zaporedje stanj je najbolj verjetno za neko dano zaporedje simbolov.
+\item[Program \tt{testfor}] z uporabo algoritma Forward (glej poglavje \ref{ch:hmm:fb}) izračuna $P(O \given \lambda)$ — verjetnost opazovanega zaporedja glede na model.
+\end{description}
+
+Za primer (prikazan na sliki \ref{fig:compare:umdhmm}) vzemimo uporabo programa za ocenjevanje parametrov modela. Podati je potrebno parametra $N$ in $M$, ki določata število stanj modela  in število simbolov, ki jih model oddaja. Zaporedje, ki predstavlja učno množico za model, je zapisano v datoteki \texttt{input.seq} v obliki zaporedja številk stanj. Rezultat bo izpisan na standardni izhod v obliki parametrov modela $\lambda = (A, B, \pi, N, M)$ \eqref{eq:theory:model}.
+
+\input{figures/compare_umdhmm_example}
+
+Preprostost vmesnika z ukazno vrstico nam je omogočila, da smo na podlagi vhodnega zaporedja na enostaven način zgradili model in pričeli z simulacijo. Slabost tega vmesnika je pomanjkanje podrobnega nadzora nad vnosom vhodnih podatkov, ki bi ga npr. omogočala knjižnica z zbirko funkcij. Program kot vhod sprejme eno zaporedje. Uporabnik nima nadzora nad tem, kako se le-ta pred učenjem modela razdeli. V projektu smo sicer našli navedbe, da program podpira učenje modela na podlagi mnogoterih opazovanih zaporedij, vendar  zaradi omenjenega pomanjkanja nadzora, nismo uspeli ugotoviti, po kakšnem principu se zaporedja obravnavajo.
+
+V literaturi~\cite{Zhou2005} je navedeno, da se projekt uporablja za predikcijo nastajanja in analizo struktur beljakovinskih molekul. Strokovnjaki navajajo, da so program UMDHMM delno prilagodili. Kljub temu, da licenca GPL, pod katero je projekt izdan, to zahteva, spremenjena izvorna koda ni na voljo~\cite{Determann2006}.
+
+Za branje dokumentacije nas projekt napoti na priloženo datoteko PDF, ki pa vsebuje samo splošne informacije o teoriji skritih markovskih modelov, ne poda pa navodil za uporabo priloženih programov. Vsakega izmed programov lahko v ukazni vrstici poženemo brez parametrov in tako dobimo kratek priročnik uporabe, npr:
+
+```
+$ esthmm
+Usage1: esthmm [-v] -N <num_states> -M <num_symbols> <file.seq>
+Usage2: esthmm [-v] -S <seed> -N <num_states> -M <num_symbols> <file.seq>
+Usage3: esthmm [-v] -I <mod.hmm> <file.seq>
+  N - number of states
+  M - number of symbols
+  S - seed for random number genrator
+  I - mod.hmm is a file with the initial model parameters
+  file.seq - file containing the obs. seqence
+  v - prints out number of iterations and log prob
+```
+
 ## Projekt GHMM
 
 \begin{center}
@@ -73,33 +165,6 @@ hmm.sample(20, 15) # Generiranje 20 zaporedij, od
 
 Poglavitna ovira pri morebitni uporabi ogrodja HMM je pomanjkanje odprtokodne licence. Programske opreme, ki licence ne vključuje, ne moremo uporabljati, spreminjati ali deliti, če to ni eksplicitno navedeno s strani avtorjev~\cite{web/nolicense}. Menimo tudi, da bi ustrezna, permisivna odprtokodna licenca k projektu privabila več razvijalcev in tako pripomogla k njegovi višji kakovosti in širši uporabnosti~\cite{Stewart2006}.
 
-## Projekt hmmlearn {#ch:comp:hmmlearn}
-
-\begin{center}
-\begin{tabular}{ccc}
-\footnotesize
-\\\toprule
-URL naslov & Licenca & Jezik \\
-\url{http://hmmlearn.readthedocs.io} & BSD  & Python \\\midrule
-\end{tabular}
-\end{center}
-
-Hmmlearn~\cite{hmmlearn/hmmlearn} je skupina algoritmov za nenadzorovano\angl[unsupervised] učenje skritih markovskih modelov. Orodje je napisano v programskem jeziku Python, programski vmesnik pa je oblikovan po  vzoru scikit-learn\footnote{Scikit-learn je modul za programski jezik Python, ki vključuje široko paleto sodobnih algoritmov za nadzorovano in nenadzorovano strojno učenje pri srednje velikih problemih. Modul se osredotoča na enostavnost uporabe, zmogljivost, dokumentacijo in razumljiv programski vmesnik~\cite{Pedregosa2011}.} modula. Združljvost njunih programskih vmesnikov skupaj in dejstvo, da je scikit-learn zelo razširnjen projetk, pomeni, da lahko hmmlearn postane zelo zanimiv za široko skupino uporabnikov. Podobno kot `HMM` tudi `hmmlearn` uporabnikom, preko mehanizma dedovanja, nudi podporo za implementacijo verjetnostnih modelov po meri. Podrobnosti so opisane v dokumentaciji projekta.
-
-Ob času pregleda je bila na voljo prva javna različica projekta 0.1.1, ki je bila izdana februarja 2015. Prihajajoča\footnote{Različica 0.2.0 je izšla marca 2016.} različica 0.2.0 prinaša veliko novosti, med drugim tudi sposobnost za učenje na mnogoterih opazovanih zaporedjih. Funkcionalnost je bila sicer že na voljo v t.i. razvojni različici, vendar smo tukaj naleteli na odstopanja med novimi razvojnimi vmesniki in dokumentacijo, ki je bila tarkat na voljo samo za prejšnjo različico. To je razlog, da s to knjižnico učenja modelov na mnogoterih zaporedjih v praksi nismo uspeli izvesti.
-
-Kljub temu da je hmmlearn še v zgodnji razvojni fazi, si od tega projekta, zaradi enostavnih programskih vmesnikov, scikit-learn kompatibilnosti in že sedaj obsežne dokumentacije,  v prihodnosti veliko obetamo. Upamo, da ga bomo lahko v prihodnosti še preizkusili.
-
-Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, kar naredi projekt primeren za rabo v vseh okoljih, vključno z uporabo v komercialne namene~\cite{Determann2006}.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{images/compare_hmmlearn.png}
-\end{center}
-\caption{Posnetek zaslona zgledno urejene dokumentacije projekta hmmlearn.}
-\label{diag:compare:hmmlearn}
-\end{figure}
-
 ## Projekt mhsmm {#ch:compare:mhsmm}
 
 \begin{center}
@@ -131,51 +196,6 @@ Dokumentacijo projekta najdemo v obliki datoteke PDF~\cite{OConnell2011}, ki naz
 
 Projekt je izdan pod restriktivno licenco GPL, ki lahko predstavlja oviro pri vključevanju projekta v industrijska okolja, predvsem v primerih uporabe, kjer bi bila potrebne sprememba izvorne kode~\cite{Determann2006}.
 
-## Projekt UMDHMM {#ch:comp:umdhmm}
-
-\begin{center}
-\begin{tabular}{ccc}
-\footnotesize
-\\\toprule
-URL naslov & Licenca & Jezik \\
-\url{http://www.kanungo.com/software/software.html} & GNU GPL  & C \\\midrule
-\end{tabular}
-\end{center}
-
-*UMDHMM Hidden Markov Model Toolkit* \cite{Kanungo1999} je projekt Marylandske univerze, ki implementira algoritme za delo s skritimi markovskimi modeli Forward-Backward, Viterbi in Baum-Welch.
-
-Za razliko od ostalih projektov, ki smo jih pregledali, UMDHMM ne ponuja funkcij v obliki knjižnice, ki bi jih lahko uporabniki klicali iz lastne programske kode. Glavni vmesnik za uporabo omenjenih algoritmov so programi, namenjeni uporabi preko ukazne vrstice. Projekt obsega programe `genseq`, `testvit`, `esthmm` in `testfor`.
-
-\begin{description}
-\item[Program \tt{esthmm}] je jedro projekta, ki na podlagi podanega zaporedja simbolov z uporabo algoritma Baum-Welch (glej poglavje \ref{ch:hmm:bw}), naredi oceno parametrov za skriti markovski model.
-\item[Program \tt{genseq}] uprabi parametre modela, ki jih je generiral program \texttt{esthmm}, in na njihovi podlagi generira naključno zaporedje simbolov.
-\item[Program \tt{testvit}] z uporabo algoritma Viterbi oceni, katero zaporedje stanj je najbolj verjetno za neko dano zaporedje simbolov.
-\item[Program \tt{testfor}] z uporabo algoritma Forward (glej poglavje \ref{ch:hmm:fb}) izračuna $P(O \given \lambda)$ — verjetnost opazovanega zaporedja glede na model.
-\end{description}
-
-Za primer (prikazan na sliki \ref{fig:compare:umdhmm}) vzemimo uporabo programa za ocenjevanje parametrov modela. Podati je potrebno parametra $N$ in $M$, ki določata število stanj modela  in število simbolov, ki jih model oddaja. Zaporedje, ki predstavlja učno množico za model, je zapisano v datoteki \texttt{input.seq} v obliki zaporedja številk stanj. Rezultat bo izpisan na standardni izhod v obliki parametrov modela $\lambda = (A, B, \pi, N, M)$ \eqref{eq:theory:model}.
-
-\input{figures/compare_umdhmm_example}
-
-Preprostost vmesnika z ukazno vrstico nam je omogočila, da smo na podlagi vhodnega zaporedja na enostaven način zgradili model in pričeli z simulacijo. Slabost tega vmesnika je pomanjkanje podrobnega nadzora nad vnosom vhodnih podatkov, ki bi ga npr. omogočala knjižnica z zbirko funkcij. Program kot vhod sprejme eno zaporedje. Uporabnik nima nadzora nad tem, kako se le-ta pred učenjem modela razdeli. V projektu smo sicer našli navedbe, da program podpira učenje modela na podlagi mnogoterih opazovanih zaporedij, vendar  zaradi omenjenega pomanjkanja nadzora, nismo uspeli ugotoviti, po kakšnem principu se zaporedja obravnavajo.
-
-V literaturi~\cite{Zhou2005} je navedeno, da se projekt uporablja za predikcijo nastajanja in analizo struktur beljakovinskih molekul. Strokovnjaki navajajo, da so program UMDHMM delno prilagodili. Kljub temu, da licenca GPL, pod katero je projekt izdan, to zahteva, spremenjena izvorna koda ni na voljo~\cite{Determann2006}.
-
-Za branje dokumentacije nas projekt napoti na priloženo datoteko PDF, ki pa vsebuje samo splošne informacije o teoriji skritih markovskih modelov, ne poda pa navodil za uporabo priloženih programov. Vsakega izmed programov lahko v ukazni vrstici poženemo brez parametrov in tako dobimo kratek priročnik uporabe, npr:
-
-```
-$ esthmm
-Usage1: esthmm [-v] -N <num_states> -M <num_symbols> <file.seq>
-Usage2: esthmm [-v] -S <seed> -N <num_states> -M <num_symbols> <file.seq>
-Usage3: esthmm [-v] -I <mod.hmm> <file.seq>
-  N - number of states
-  M - number of symbols
-  S - seed for random number genrator
-  I - mod.hmm is a file with the initial model parameters
-  file.seq - file containing the obs. seqence
-  v - prints out number of iterations and log prob
-```
-
 ## Primerjava
 
 \input{figures/comparison_table}
@@ -198,23 +218,3 @@ Omenili bomo še nekaj projektov, ki niso bili ustrezni za primerjavo, vendar za
 Zasledili smo nekaj raziskav, ki modeliranje skritih markovskih modelov opravljajo na platformi Matlab/Octave, vendar izvorne kode pri večini ni bilo na voljo~\cite{Yun2013}. Izjema sta bila projekta iHMM~\cite{Gael2008} in H2M~\cite{Cappe2001}, ki sta opisana v omenjeni literaturi. H2M se med drugim uporablja na področjih razpoznavanja govora~\cite{Ramesh1992} in na področju zaznavanja ter klasifikacije zvokov (razbitje stekla, človeški vzkliki, streli orožja, eksplozije, zapiranje vrat …) \cite{Dufaux2000}. Oba prjekta sta se za našo problemsko domeno izkazala kot neprimerna, saj podpirata samo zvezne markovske modele, naša domena pa zahteva uporabno diskretnih~\cite{Cappe2001}.
 
 Poleg projekta `mhsmm` (glej poglavje \ref{ch:compare:mhsmm}) sta za programsko okolje R na voljo še projekta `HMM` (\url{https://cran.r-project.org/web/packages/HMM}) in `hsmm` (\url{https://cran.r-project.org/web/packages/hsmm}), ki se od `mhsmm` razlikujeta v dveh ključnih vidikih~\cite{OConnell2011}. Prvi je ta, da `hsmm` ne podpira uporabniških razširitev za implementacijo novih porazdelitev emisij. Drugi vidik, ki je za našo problemsko domeno pomembnejši, pa je pomanjkanje zmožnosti za obdelavo mnogoterih opazovanih zaporedij, zaradi česa je projekt neprimeren za uporabo pri generaciji besedil.
-
-## Kako smo izbirali
-
-Zbiranje potencialnih projektov smo začeli z iskanjem na spletnem portalu za kolaborativni razvoj projektov GitHub\footnote{\url{https://github.com}}. Zaradi pudarka na orodjih za sodelovanje pri razvoju programske opreme je GitHub postal zelo priljubljen pri razvijalcih odprte kode~\cite{McDonald2013}. Ta priljubljenost je pospešila in vzpodbudila sodelovanje na odprtokodnih projektih~\cite{Thung2013}, zato smo se odločili, da iskanje projektov, ki so aktivno vzdrževani in imajo za sabo tudi skupine aktivnih uporabnikov, začnemo ravno na tem portalu. GitHub nam skupaj z zmogljivim iskalnikom omogoča pregled nad velikim številom potencialno uporabnih projektov. Dodatno smo si lahko pomagali z indikatorji popularnosti in povezanosti projektov, s katerimi smo lahko ocenili, ali je projekt vzdrževan in ali ima aktivne uporabnike. Takšni indikatorji so nam dali večjo možnost, da najdemo projekt, ki bo deloval na sodobni strojni in programski opremi~\cite{Dabbish2012}. Našli smo tudi projekte, ki ne domujejo na portalu GitHub, ampak imajo tam urejeno zrcalno shrambo. Iskanje nam je skupno vrnilo preko 700 projektov.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=\textwidth]{images/github_search.png}
-\end{center}
-\caption{Posnetek zaslona iskalnega vmesnika portala GitHub.}
-\label{diag:compare:ghsearch}
-\end{figure}
-
-Poleg portala GitHub smo iskanje opravili še na nekaterih drugih mestih. Nekaj rezultatov smo našli z iskanjem projektov preko znanstvenih člankov, ki smo jih iskali na portalih Google Scholar (\url{scholar.google.com}), CiteSeerX (\url{citeseerx.ist.psu.edu}), arXiv (\url{arxiv.org}), Microsoft Academic Search (\url{academic.research.microsoft.com/}) …
-
-Da bi bil pregled projektov praktično izvedljiv v časovnem okviru, določenem za diplomsko delo, smo morali množico najdenih projektov razredčiti na hevrističen način. Iz rezultatov iskanja smo najprej izločili tiste projekte, za katere je bilo po opisu razvidno, da se ne ukvarjajo s temo skirtih markovskih modelov. Za tem smo izločili še zapuščene in nedokočane projekte. V naslednjem koraku smo odstranili številne aktivne in dodelane projekte, ustvarjene za določeno aplikacijo skritih markovskih modelov (npr. sekvenciranje DNK, napovedovanje gibanj na delniškem trgu, klasifikacijo besedil, kompresijo podatkov \dots), ki pa so bili za naš problem preveč specifični. Kot smo omenili na začetku poglavja, smo projekte, ki delujejo izključno za zvezne emisije, izločili, saj za naš namen niso ustrezni. Prav tako smo izločili projekte brez podpore za mnogotera opazovana zaporedja. Preostale projekte smo si ogledali podrobneje.
-
-Pomanjkanje dokumentacije se je izkazalo za največjo težavo pri iskanju primernega orodja. Dejavniki, kot so veliko število parametrov in relacije med njimi, vplivajo na to, da je obliko vhodnih podatkov zelo težko določiti brez ustrezne dokumentacije. Pri nekaterih projektih smo si lahko pomagali s t.i. `README` datotekami, pri drugih pa s primeri uporabe, ki so jih avtorji priročno vključili poleg izvorne kode. Izločili smo projekte, za katere nismo uspeli ugotoviti pravilnega načina uporabe zaradi popolnega pomanjkanja dokumentacije. Kot je ugotovil 	Sonnenburg~\cite{Sonnenburg2007}, bi bilo področje programske opreme za strojno učenje bogatejše, če bi projekti poleg izvorne kode vsebovali tudi krajši članek z opisom uporabe.
-
-Naš cilj je bil izpostaviti projekte, ki so uporabni za namen generiranja besedil za široko množico uporabnikov — tako za posameznike, ki želijo projekt uporabiti v lastne, neprofitne namene, kot tudi za razvijalce v industriji, ki bi želeli projekte uporabiti v profitne namene. Zato smo poleg že omenjene dokumentacije pregledali tudi licence. V literaturi je zapisano, da se projekti za strojno učenje, ki so izdani pod permisivnimi licencami, bolje razvijejo~\cite{Sonnenburg2007}, nerestriktivne licence na odprtokodnih orodjih pa lažje privabijo potencialne uporabnike~\cite{Stewart2006}.
