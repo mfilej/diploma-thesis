@@ -14,7 +14,6 @@ task default: [:chapters, :typeset]
  
 rule ".tex" => ->(f){source_for(f)} do |t|
   sh "bin/md_to_tex", t.source, t.name
-  Rake::Task[:typeset].invoke
 end
 
 task :typeset do
