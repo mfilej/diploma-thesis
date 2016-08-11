@@ -161,9 +161,9 @@ b_j(k) = P(v_k \given q_t = S_j),\qquad &1 \leq j \leq N, \\
 
 \end{description}
 
-### Uporaba modela za generiranje zaporedij {#theory-hmm-gen}
+### Uporaba modela za tvorjenje zaporedij {#theory-hmm-gen}
 
-Primerno definirani skriti markovski modeli lahko delujejo kot generatorji zaporedij simbolov na naslednji način:
+Primerno definirani skriti markovski modeli lahko tvorijo zaporedja simbolov na naslednji način:
 
 1. izberemo začetno stanje $q_1 = S_i$ glede na $\pi$;
 2. nastavimo $t = 1$;
@@ -171,7 +171,7 @@ Primerno definirani skriti markovski modeli lahko delujejo kot generatorji zapor
 4. opravimo prehod v novo stanje $q_{t+1} = S_j$ glede na prehodne verjentosti iz stanja $S_i$, ki jih določa $a_{ij}$;
 5. nastavimo $t = t + 1$; če je $t < T$ se vrnemo na točko 3; sicer postopek zaključimo.
 
-Navedeni postopek lahko uporabimo tako za generiranje simbolov, kot za ugotavljanje, na kakšen način je določeno opazovano zaporedje najverjetneje nastalo~\cite{Rabiner1989}.
+Navedeni postopek lahko uporabimo tako za tvorjenje zaporedij simbolov, kot za ugotavljanje, na kakšen način je določeno opazovano zaporedje najverjetneje nastalo~\cite{Rabiner1989}.
 
 ### Temeljni problemi skritih markovskih modelov {#ch:hmm:3prob}
 
