@@ -1,0 +1,5 @@
+{
+  "chapters/*.md": {"type": "chapter", "alternate": "chapters/{}.tex"},
+  "chapters/*.tex": {"type": "tex", "alternate": "chapters/{}.md"},
+  "figures/*": {"type": "figure"},
+}
