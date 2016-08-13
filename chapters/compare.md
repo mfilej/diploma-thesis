@@ -2,14 +2,11 @@
 
 V tem poglavju bomo opravili pregled obstoječih orodij za delo s skritimi markovskimi modeloi. Najprej bomo opisali, kakšne vrste funkcionalosti pričakujemo od orodja, ki ga želimo uporabiti v problemski domeni tvorjenja besedil. Nato bomo opisali najobetavnejše projekte, primerjali vrste funkcionalnosti, ki jih le-ti ponujajo, in za vaskega posebej navedli njegovo ustreznost za uporabo v naši problemski domeni. Nadaljevali bomo s primerjavo projektov, v katero smo vključili tudi lastno implementacijo, opisano v \ref{ch:impl}. poglavju. Rezultate bomo prikazali v primerjalni tabeli.  Navedli bomo še nekaj drugih obetavnih projetkov, ki ne ustrezajo vsem kriterijem in jih zato tudi nismo podrobneje pregledali. Opisali bomo, kje in kako smo projekte iskali in kako smo seznam najdenih projektov razredčili. Na koncu bomo utemeljili še naš izbor projektov.
 
-Naša problemska domena je učenje skritih markovskih modelov na podlagi daljših besedil. Za učenje modelov želimo uporabiti besedilo ali množico besedil nekega avtorja, ki je dovolj dolga, da predstavlja dobro reprezentacijo pogostosti pojavljanja izrazov oz.\ besednih zvez in hkrati vsebuje tudi dovoljšen besedni zaklad. Odločili smo se, da bomo kot učne množice za ta orodja uporabili krajše knjige ali zbirke krajših vrst besedil (esejev, poezije \dots). Posamezna učna množica bo tako obsegala od 10.000 do 50.000 besed. Če predpostavimo, da bo vsaka beseda predstavljala en simbol oz. en člen opazovanega zaporedja\footnote{Namesto besede bi lahko izbrali tudi skupino črk (n-gram) ali posamezno črko; dilemo bomo podrobneje opisali v poglavju \wip{referenca na poglavje}}, potem bi opazovano zaporedje iz take učne množice predstavljalo 10.000 do 50.000 simbolov. Takšna dolžina zaporedja predstavlja težavo za markovske modele, saj začnejo pri izračunu t.i. *forward* in *backward* spremenljivk (glej poglavje \ref{ch:hmm:fb}) verjetnosti opazovanih simbolov strmo padati, kar privede do napake podkoračitve (glej poglavje \ref{ch:model:underflow}) \cite{Rabiner1989}. Tej težavi se izognemo tako, da besedilo razdelimo na več delov (npr. povedi) in vsakega od teh delov obravnavamo kot krajše opazovano zaporedje, neodvisno od ostalih (podrobnosti v poglavju \ref{ch:model:multiobs}). Zato bomo pri pregledu projektov, ki bi bili primerni za našo domeno, poudarek dali na tiste, ki lahko na vhodu zajemajo mnogotera opazovana zaporedja.
+Naša problemska domena je učenje skritih markovskih modelov na podlagi daljših besedil. Za učenje modelov želimo uporabiti besedilo ali množico besedil nekega avtorja, ki je dovolj dolga, da predstavlja dobro reprezentacijo pogostosti pojavljanja izrazov oz.\ besednih zvez in hkrati vsebuje tudi dovoljšen besedni zaklad. Odločili smo se, da bomo kot učne množice za ta orodja uporabili krajše knjige ali zbirke krajših vrst besedil (esejev, poezije \dots). Posamezna učna množica bo tako obsegala od 10.000 do 50.000 besed. Če predpostavimo, da bo vsaka beseda predstavljala en simbol oz. en člen opazovanega zaporedja, potem bi opazovano zaporedje iz take učne množice predstavljalo 10.000 do 50.000 simbolov. Takšna dolžina zaporedja predstavlja težavo za markovske modele, saj začnejo pri izračunu t.i. *forward* in *backward* spremenljivk (glej poglavje \ref{ch:hmm:fb}) verjetnosti opazovanih simbolov strmo padati, kar privede do napake podkoračitve (glej poglavje \ref{ch:model:underflow}) \cite{Rabiner1989}. Tej težavi se izognemo tako, da besedilo razdelimo na več delov (npr. povedi) in vsakega od teh delov obravnavamo kot krajše opazovano zaporedje, neodvisno od ostalih (podrobnosti v poglavju \ref{ch:model:multiobs}). Zato bomo pri pregledu projektov, ki bi bili primerni za našo domeno, poudarek dali na tiste, ki lahko na vhodu zajemajo mnogotera opazovana zaporedja.
 
 Markovske modele ločimo glede na vrsto vrednosti, ki jih opazujejo oz. oddajajo. Diskretne modeli so tisti, ki oddajajo iz diskretne zaloge vrednosti, zvezni pa tisti, ki oddajajo iz zvezne zaloge vrednosti. Za našo problemsko domeno želimo, da model oddaja diskretne vrednosti, ki jim pravimo tudi simboli. V našem diplomskem delu se bomo zato osredotočili izključno na projekte, ki modelirajo diskretne modele.
 
 Izbrane projekte smo podrobno preučili, da bi ugotovili, če ustrezajo zgoraj navedenim kriterijem, torej da modelirajo diskretne markovske modele in da imajo podporo za mnogotera opazovana zaporedja. Poleg tega smo raziskali, za kakšen namen so bili razviti, kakšne funkcionalnosti ponujajo in kako dostopni so za uporabo. Pregledali smo tudi dokumentacijo, ki je na voljo, in licenco, pod katero so projekti izdani.
-
-\vfill
-\pagebreak
 
 ## Kako smo izbirali
 
@@ -58,7 +55,8 @@ Projekt je izdan pod zelo permisivno odprtokodno licenco BSD, kar naredi projekt
 \label{diag:compare:hmmlearn}
 \end{figure}
 
-## Projekt UMDHMM {#ch:comp:umdhmm}
+\begin{samepage}
+\section{Projekt UMDHMM}\label{ch:comp:umdhmm}
 
 \begin{center}
 \begin{tabular}{ccc}
@@ -68,6 +66,7 @@ URL naslov & Licenca & Jezik \\
 \url{http://www.kanungo.com/software/software.html} & GNU GPL  & C \\\midrule
 \end{tabular}
 \end{center}
+\end{samepage}
 
 *UMDHMM Hidden Markov Model Toolkit* \cite{Kanungo1999} je projekt Marylandske univerze, ki implementira algoritme za delo s skritimi markovskimi modeli Forward-Backward, Viterbi in Baum-Welch.
 

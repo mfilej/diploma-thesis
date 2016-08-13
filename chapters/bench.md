@@ -10,21 +10,17 @@ Ker se pri tvorjenju besedil s skritimi markovskimi modeli  besede izbirajo izkl
 
 Našo rešitev smo primerjali z dvemi drugimi rešitvami iz \ref{ch:comp}. poglavja. Izbrali smo hmmlearn \eqref{ch:comp:hmmlearn} in umdhmm \eqref{ch:comp:umdhmm}, ker se medsebojno razlikujeta po pristopu učenja modelov, zato smo pričakovali, da se bodo razlike med modeli pokazale ravno tukaj.
 
-\wip{pavza}
+Da bi ugotovili morebiten vpliv spreminjanja parametrov skritih markovskih modelov na tvorjena modela, smo se odločili, da pri vseh treh rešitvah uporabimo modele z 1, 3, 5, 8 in 12 stanji. Na koncu smo izvedli še primerjavo tvorjenih besedil z izvornim korpusom. Skupno smo torej primerjali 16 besedil.
 
-Da bi ugotovili morebiten vpliv spreminjanja parametrov skritih markovskih modelov na tvorjena modela, smo se odločili, da bomo poizkusili pri vseh treh rešitvah uporabiti modele z 1, 3, 5, 8 in 12 stanji.
+Učno množico smo izvlekli iz korpusa slovenskega pisnega jezika ccKRES~\cite{ccKres2013}, ki je označen v skladu s priporočili za zapis besedil TEI P5~\cite{Tei2008}. XML zapis vsebuje označbe za povedi, besede, ločila, itn. Besede so dodatno označene z informacijami o besednih vrstah, številu, spolu … \cite{Erjavec2003}
 
-Na koncu bomo izvedli primerjavo tvorjeih besedil z izvornim korpusom. Skupno bomo torej primerjali 16 beesdil.
-
-Učno množico smo izvklekli iz korpusa slovenskega pisnega jezika ccKRES~\cite{ccKres2013}. Korpus je označen v skladu s priporočili za zapis besedil TEI P5~\cite{Tei2008}. XML zapis vsebuje označbe za povedi, besede, ločila, itn. Besede so dodatno označene z informacijami o besednih vrstah, številu, spolu, … \cite{Erjavec2003}
-
-Korpus vsebuje raznolike vrste besedil. Hoteli smo se osredotočiti na povedi in izločiti oblike besedil, kot so TV sporedi, kuharski recepti, športni rezultati. Izbrali smo samo povedi, ki se začnejo z veliko začenico in končajo z ločilom (. ali ! ali ?). Iz teh povedi smo izločili tiste, ki vsebujejo velike začetnice (razen prve črke v povedi), da bi izločili lastna imena in kratice. Preostale povedi smo segmentirali na mestih, zaznamovanih z vejicami in tako dobili segmente, ki približno ustrezajo stavkom (z izjemami, kot so vrinjeni stavki in podobno). Segmente smo nato prilagodili za učenje modelov tako, da smo velike črke pretvorili v male in izločili preostala ločila. Tako pridobljeno učno množico segmentov smo shranili v tekstovno datoteko s po enim segmentom na vrstico.
+Korpus vsebuje raznolike besedilne vrste. Da bi se izognili neobičajnim oblikam povedi, smo izločili TV sporede, kuharske recepte in športne rezultate … To smo storili tako, da smo izbrali izključno povedi, ki se začnejo z veliko začenico in končajo s končnim ločilom (piko, klicajem ali vprašajem). Izločili smo tudi povedi, ki vsebujejo velike začetnice, ki niso na začetku povedi. Preostale povedi smo segmentirali na mestih, zaznamovanih z vejicami, in tako dobili segmente, ki približno ustrezajo stavkom (z izjemami, kot so vrinjeni stavki in podobno). Segmente smo nato prilagodili za učenje modelov, tako da smo velike črke pretvorili v male in izločili vsa ločila. Tako pridobljeno učno množico segmentov smo shranili v tekstovno datoteko s po enim segmentom na vrstico.
 
 Zbiranje podatkov za primerjavo modelov smo avtomatizirali s programom, ki izvede naslednje korake:
 
 1. Iz učne množice besedil naključno izbere 5.000 vrstic.
 2. Na izbranih vrsticah izmeri porazdelitev števila besed.
-3. Na vrsticah prav tko izmeri porazdelitev števila glagolov (na podlagi označb v TEI dokumentih).
+3. Na izbranih vrsticah izmeri porazdelitev števila glagolov (na podlagi označb v TEI dokumentih).
 4. Izbrane vrstice uporabi za učenje modelov.
-5. Vsak naučen model se uporabi za tvorjenje 5.000 stavkov z dolžinami, ki so naključno izbrane glede na podatke pridobljene v 2. koraku.
-6. Za tvorjena besedila se izmeri število glagolov na stavek, kot v 3. koraku. Meritve se zapišejo v datoteko, ki bo kasneje uporabljena za analizo.
+5. Vsak naučen model tvori 5.000 stavkov, katerih dolžine naključno izbere glede na podatke, pridobljene v 2. koraku.
+6. Za tvorjena besedila izmeri porazdelitev glagolov (kot v 3. koraku). Meritve zapiše v datoteko, ki se kasneje uporabi za analizo.

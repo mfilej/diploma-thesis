@@ -1,8 +1,10 @@
 # Uvod
 
-V želji po večji produktivnosti, zmanjševanju obsega dela in višji kvaliteti življenja avtomatizacija pronica v vsa področja človeškega življenja. Stroji prevzemajo nove odgovornosti v vseh panogah, med drugim tudi v jezikoslovju. Področje računalništva se že desetletja ukvarja z reševanjem mnogih izzivov v povezavi z naravnim oz. človeškim jezikom, kot so na primer strojno prevajanje, prepoznavanje in tvorjenje govora, optično prepoznavanje znakov (OCR), preverjanje slovnične pravilnosti, analiza čustvenosti, zlogovanje besed ter tvorjenje besedil.
+V želji po večji produktivnosti, zmanjševanju obsega dela in višji kvaliteti življenja avtomatizacija pronica v vsa področja človeškega življenja. Stroji prevzemajo nove odgovornosti v vseh panogah, med drugim tudi v jezikoslovju.
 
-Tvorjenje naravnega jezika\angl[natural language generation — NLG] je proces sestavljanja besedil, ki zvenijo naravno in bi za njih lahko sklepali, da jih je proizvedel človek~\cite{Kondadadi2013}.
+Obdelava naravnega jezika (NLP) je področje računalništva, jezikoslovja in umetne inteligence, ki se že desetletja ukvarja z reševanjem mnogih izzivov v povezavi z naravnim oz. človeškim jezikom, kot so na primer strojno prevajanje, prepoznavanje in tvorjenje govora, optično prepoznavanje znakov (OCR), preverjanje slovnične pravilnosti, analiza čustvenosti, zlogovanje besed ter tvorjenje besedil.
+
+Tvorjenje naravnega jezika (NLG) je proces sestavljanja besedil, ki zvenijo naravno in bi za njih lahko sklepali, da jih je proizvedel človek~\cite{Kondadadi2013}.
 
 Nastopa lahko v različnih obsegih. Ljudi lahko popolnoma nadomesti, kot na primer pri verbalizaciji vremenske napovedi, ki jo lahko stroji opravijo povsem samostojno. Poveča lahko človeško storilnost, recimo s pisanjem osnutkov dokumentov ali s strnjevanjem besedil v obnove. Nenazadnje lahko pozitivno vpliva tudi na kvaliteto življenja (tvorjenje besedil, ki pomagajo lajšati anksioznost; opisovanje grafov in drugih nebesednih oblik za slabovidne ljudi). Drugi primeri uporabe NLG sistemov vključujejo obnavljanje in strjevanje zdravniških, inžinirskih, finančnih, športnih … podatkov; tvorjenje osnutkov dokumentov, kot so navodila za uporabo, pravni dokumenti, poslovna pisma …~\cite{Clark2013}
 
