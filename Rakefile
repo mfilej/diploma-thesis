@@ -6,6 +6,7 @@ CHAPTER_FILES = Rake::FileList.new("#{CHAPTERS_DIR}/*.md")
 FIGURES_DIR = "figures"
 IMAGES_DIR = "images"
 MAIN_TEX_FILE = "layout.tex"
+ABSTRACT_FILES = %w[abstract_en.tex abstract_si.tex]
 BUILD_DIR = "build"
 TARGET_PDF = "diploma.pdf"
 
@@ -19,12 +20,13 @@ end
 task :typeset do
   mkdir_p BUILD_DIR
   cp MAIN_TEX_FILE, BUILD_DIR
+  cp ABSTRACT_FILES, BUILD_DIR
   cp Dir.glob("*.{bib,bst,xmp,xmpi,icm}"), BUILD_DIR
   cp_r CHAPTERS_DIR, BUILD_DIR
   cp_r FIGURES_DIR, BUILD_DIR
   cp_r IMAGES_DIR, BUILD_DIR
   Dir.chdir(BUILD_DIR) do
-    sh "latexmk -pdf -recorder"
+    sh "latexmk", "-pdf", "-recorder", MAIN_TEX_FILE
   end
   mv File.join(BUILD_DIR, MAIN_TEX_FILE.ext(".pdf")), TARGET_PDF
 end
