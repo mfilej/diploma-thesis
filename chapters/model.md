@@ -12,7 +12,7 @@ Eden izmed večjih izzivov našega diplomskega dela je bila preslikava matemati�
 
 Izgradnjo modela smo zastavili na način, prikazan na sliki \ref{diag:baum_welch}. Postopek vključuje glavno zanko, ki izvaja Baum-Welch algoritem (glej poglavje \ref{ch:hmm:bw}). Ko se dovolj približamo kritični točki, se zanka prekine.
 
-Algoritem je razdeljen na dva koraka, ki ju imenujemo korak $E$~\angl[expectation] in korak $M$~\angl[maximization]. V koraku $E$ izračunamo vmesne vrednosti $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela
+Algoritem EM je sestavljen iz dveh korakov – koraka $E$ in koraka $M$. V koraku $E$ izračunamo vmesne vrednosti $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela
 $$\lambda = (a, b, \pi).$$
 V koraku $M$ na podlagi dobljenih vrednosti izračunamo nov model
 $$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$

@@ -1,6 +1,6 @@
 # Skriti markovski modeli {#ch:theo}
 
-Za verjetnostne porazdelitve, ki sestavljajo statistične modele, predpostavljamo, da aproksimirajo pojave iz realnega sveta. Ti približki so včasih dovolj dobri, da lahko pojave z zadostno natančnostjo napovedujemo ali tvorimo za statistično populacijo reprezentativne vzorce. Primer takih statističnih modelov so skriti markovski modeli. Uporabni so pri sekvenciranju DNA molekul, prepoznavanju govora, napovedovanju gibanj na finančnih trgih, ipd. V tem poglavju bomo predstavili teoretične temelje, ki omogočajo obstoj skritih markovskih modelov.
+Za verjetnostne porazdelitve, ki sestavljajo statistične modele, predpostavljamo, da aproksimirajo pojave iz realnega sveta. Ti približki so včasih dovolj dobri, da lahko pojave z zadostno natančnostjo napovedujemo ali tvorimo za statistično populacijo reprezentativne vzorce. Primer takih statističnih modelov so skriti markovski modeli. Uporabni so pri sekvenciranju DNK molekul, prepoznavanju govora, napovedovanju gibanj na finančnih trgih, ipd. V tem poglavju bomo predstavili teoretične temelje, ki omogočajo obstoj skritih markovskih modelov.
 
 Verjetnostna teorija je ključnega pomena pri
 razumevanju, izražanju in obravnavi koncepta negotovosti. Skupaj s teorijo odločanja omogočata, da na podlagi vseh razpoložljivih informacij, pa čeprav nepopolnih ali dvoumnih, opravimo optimalne napovedi ~\cite{Bishop2006}.
