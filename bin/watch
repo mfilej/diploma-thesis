@@ -9,7 +9,8 @@ set -o pipefail
 
 watch() {
   fswatch --latency 0.2 -o \
-    chapters/*.md figures/ layout.tex abstract_{si,en}.tex bibliography.bib
+    chapters/*.md figures/ layout.tex abstract_{si,en}.tex acronyms.tex \
+    bibliography.bib
 }
 
 run() {

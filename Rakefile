@@ -6,7 +6,7 @@ CHAPTER_FILES = Rake::FileList.new("#{CHAPTERS_DIR}/*.md")
 FIGURES_DIR = "figures"
 IMAGES_DIR = "images"
 MAIN_TEX_FILE = "layout.tex"
-ABSTRACT_FILES = %w[abstract_en.tex abstract_si.tex]
+SUPPORT_FILES = %w[abstract_en.tex abstract_si.tex acronyms.tex]
 BUILD_DIR = "build"
 TARGET_PDF = "diploma.pdf"
 
@@ -20,7 +20,7 @@ end
 task :typeset do
   mkdir_p BUILD_DIR
   cp MAIN_TEX_FILE, BUILD_DIR
-  cp ABSTRACT_FILES, BUILD_DIR
+  cp SUPPORT_FILES, BUILD_DIR
   cp Dir.glob("*.{bib,bst,xmp,xmpi,icm}"), BUILD_DIR
   cp_r CHAPTERS_DIR, BUILD_DIR
   cp_r FIGURES_DIR, BUILD_DIR
