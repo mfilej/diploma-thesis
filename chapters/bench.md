@@ -16,11 +16,34 @@ Učno množico smo izvlekli iz korpusa slovenskega pisnega jezika ccKRES~\cite{c
 
 Korpus vsebuje raznolike besedilne vrste. Da bi se izognili neobičajnim oblikam povedi, smo izločili TV sporede, kuharske recepte in športne rezultate … To smo storili tako, da smo izbrali izključno povedi, ki se začnejo z veliko začenico in končajo s končnim ločilom (piko, klicajem ali vprašajem). Izločili smo tudi povedi, ki vsebujejo velike začetnice, ki niso na začetku povedi. Preostale povedi smo segmentirali na mestih, zaznamovanih z vejicami, in tako dobili segmente, ki približno ustrezajo stavkom (z izjemami, kot so vrinjeni stavki in podobno). Segmente smo nato prilagodili za učenje modelov, tako da smo velike črke pretvorili v male in izločili vsa ločila. Tako pridobljeno učno množico segmentov smo shranili v tekstovno datoteko s po enim segmentom na vrstico.
 
-Zbiranje podatkov za primerjavo modelov smo avtomatizirali s programom, ki izvede naslednje korake:
+Zbiranje podatkov in primerjavo modelov smo avtomatizirali s programom, ki izvede naslednje korake:
 
 1. Iz učne množice besedil naključno izbere 5.000 vrstic.
 2. Na izbranih vrsticah izmeri porazdelitev števila besed.
-3. Na izbranih vrsticah izmeri porazdelitev števila glagolov (na podlagi označb v TEI dokumentih).
+3. Na izbranih vrsticah izmeri pogostost pojavljanja glagolov (na podlagi označb v TEI dokumentih).
 4. Izbrane vrstice uporabi za učenje modelov.
 5. Vsak naučen model tvori 5.000 stavkov, katerih dolžine naključno izbere glede na podatke, pridobljene v 2. koraku.
-6. Za tvorjena besedila izmeri porazdelitev glagolov (kot v 3. koraku). Meritve zapiše v datoteko, ki se kasneje uporabi za analizo.
+6. Za tvorjena besedila izmeri pogostost pojavljanja glagolov (kot v 3. koraku). Meritve zapiše v datoteko, jih bomo v nadaljevanju uporabili za analizo.
+
+## Rezultati
+
+Najprej smo preverjali hipotezo:
+
+> *Število stanj ima statistično pomemben vpliv na pogostost pojavljanja glagolov v stavkih.*
+
+Za vsako orodje smo opravili ločen preizkus. Preizkus $\chi^2$ je pokazal, da hipoteze za nobeno od orodij ne moremo potrditi. Rezultati so prikazani v tabeli \ref{tab:bench_state_comparison}.
+
+
+\input{figures/bench_state_comparison}
+
+Zaradi majhnega vpliva števila stanj modela na izid smo se odločili, da izide za posamezno orodje prikažemo na podlagi pričakovanih vrednosti. Podatki so skupaj z rezultati za korpus prikazani v tabeli \ref{tab:bench_model_table} in na sliki \ref{fig:bench_model_comparison}.
+
+\input{figures/bench_models}
+
+Za vsako izmed tvorjenih besedil smo preverili tudi hipotezo:
+
+> *Porazdelitev glagolov v tvorjenih stavkih je neodvisna od porazdelitve glagolov v stavkih izvornega korpusa.*
+
+Opravili smo $\chi^2$ preizkus hipoteze neodvisnosti. Rezultati so hipotezo potrdili za vsa tvorjena besedila (tabela \ref{tab:bench_model_comparison}). Iz tega sledi, da so razlike v številu glagolov na stavek med tvorjenimi besedili in izvornim korpusom statistično pomembne. Na podlagi rezultatov lahko sklepamo, da porazdelitve glagolov v besedilih, tvorjenih s skritimi markovskimi modeli, niso podobne porazdelitvi glagolov v korpusu.
+
+\input{figures/bench_model_comparison}
