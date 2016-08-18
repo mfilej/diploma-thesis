@@ -13,10 +13,12 @@
 \usepackage{fancyhdr}               % poskrbi, na primer, za glave strani
 \usepackage{amssymb}                % dodatni simboli
 \usepackage{amsmath}                % eqref, npr.
+\usepackage{amsthm}                 % hipoteze
 \usepackage{perpage}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{enumitem}
+\usepackage{multirow}
 \usepackage{wrapfig,booktabs}
 \usepackage{xcolor} % \wip command
 \usepackage[chapter]{algorithm}
@@ -94,6 +96,7 @@ algorithm, Elixir, Erlang/OTP}
 \newtheorem{izrek}{Izrek}[chapter]
 \newtheorem{trditev}{Trditev}[izrek]
 \newenvironment{dokaz}{\emph{Dokaz.}\ }{\hspace{\fill}{$\Box$}}
+\newtheorem{hypothesis}{Hipoteza}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Algorithms
