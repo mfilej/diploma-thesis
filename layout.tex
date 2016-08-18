@@ -22,6 +22,10 @@
 \usepackage[chapter]{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage[scale=2]{ccicons}                % CC license symbols
+\usepackage{url}
+\usepackage[
+  style=ieee, urldate=comp, sorting=nty, dateabbrev=false
+]{biblatex}
 
 %\usepackage{hyperxmp}
 \usepackage[pdftex, colorlinks=true,
@@ -174,6 +178,28 @@ algorithm, Elixir, Erlang/OTP}
     /ModDate  (\pdfcreationdate)
     /Trapped  /False
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+\addbibresource{bibliography.bib}
+
+% Problem: Mendeley Desktop exports tildes in URLs as `$\sim$`.
+% Workaround: define a biblatex source map.
+% Source: http://tex.stackexchange.com/a/275538.
+\DeclareSourcemap{
+  \maps{
+    \map{
+      \step[fieldsource=url,
+            match=\regexp{\$\\sim\$},
+            replace=\regexp{\~}]
+    }
+  }
+}
+
+\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -368,9 +394,8 @@ Morebitno posvetilo.
 \include{chapters/bench}
 \include{chapters/conclusion}
 
-\bibliographystyle{slplainurl}
 \addcontentsline{toc}{chapter}{Literatura}
+\printbibliography
 \label{ch:literatura}
-\bibliography{bibliography}
 \end{document}
 
