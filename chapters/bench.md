@@ -24,43 +24,51 @@ Zbiranje podatkov in primerjavo modelov smo avtomatizirali s programom, ki izved
 2. Na izbranih vrsticah izmeri porazdelitev števila besed.
 3. Na izbranih vrsticah izmeri pogostost pojavljanja glagolov (na podlagi označb v TEI dokumentih).
 4. Izbrane vrstice uporabi za učenje modelov.
-5. Vsak naučen model tvori 5.000 stavkov, katerih dolžine naključno izbere glede na podatke, pridobljene v 2. koraku.
+5. Vsak naučen model uporabi za tvorjenje 5.000 stavkov, katerih dolžine naključno izbere glede na podatke, pridobljene v 2. koraku.
 6. Za tvorjena besedila izmeri pogostost pojavljanja glagolov (kot v 3. koraku). Meritve zapiše v datoteko, jih bomo v nadaljevanju uporabili za analizo.
 
-Pridobljene meritve so prikazane v tabeli \ref{tab:bench_measurements}.
+Pridobljene meritve so prikazane v tabeli \ref{tab:bench:measurements}.
 
 \input{figures/bench_measurements}
 
-% Hipoteza 1 %
-
-\begin{hypothesis}
+\begin{hypothesis}% Hipoteza 1
 Število skritih stanj modela ima statistično pomemben vpliv na pogostost pojavljanja glagolov v stavkih.
+\label{h:bench:1}
 \end{hypothesis}
 
-Zanimalo nas je, ali ima število skritih stanj modela zaznaven vpliv na tvorjeno besedilo. Za vsako orodje smo opravili ločen $\chi^2$ preizkus. Uporabili smo podatke v tabeli \ref{tab:bench:measurements}. Rezultati preizkusa so prikazani v   tabeli \ref{tab:bench:state_comparison}. Glede na pridobljene rezultate smo ugotovili, da hipoteze za nobeno od orodij ne moremo potrditi. Iz tega sledi, da število skritih stanj modela nima zaznavnega vpliva na tvorjeno besedilo.
+Zanimalo nas je, ali ima število skritih stanj modela zaznaven vpliv na tvorjeno besedilo. Za vsako orodje smo opravili ločen $\chi^2$ preizkus. Uporabili smo podatke v tabeli \ref{tab:bench:measurements}. Rezultati preizkusa so prikazani v   tabeli \ref{tab:bench:state_comparison}. Glede na visoke $p$ vrednosti hipoteze za nobeno od orodij ne moremo potrditi. Iz tega sledi, da število skritih stanj modela nima zaznavnega vpliva na tvorjeno besedilo.
 
 \input{figures/bench_state_comparison}
 
-% Hipoteza 2 %
-
-\begin{hypothesis}
+\begin{hypothesis}% Hipoteza 2
 Pogostost pojavljanja glagolov v stavkih pri tvorjenih besedilih je primerljiva s pogostostjo pojavljanja glagolov v korpusu.
+\label{h:bench:2}
 \end{hypothesis}
 
-Zanimalo nas je, ali je keteri od modelov sposoben tvorjenja besedil, ki bi se po pogostosti pojavljanja glagolov prilegala korpusu. Za vsako tvorjeno besedilo smo opravili $\chi^2$ preizkus neodvisnosti proti korpusu. Rezultati so prikazani v tabeli \ref{tab:bench:models_vs_corpus}. Glede na visoke $p$ vrednosti ugotavljamo, da hipoteze za nobenega od modelov ne moramo potrditi. Iz tega sledi, da noben model ni tvoril besedila, ki bi bilo primerljivo po pogostosti pojavljanja glagolov v stavkih.
+Zanimalo nas je, ali je keteri od modelov sposoben tvorjenja besedil, ki bi se po pogostosti pojavljanja glagolov prilegala korpusu. Za vsako tvorjeno besedilo smo opravili $\chi^2$ preizkus neodvisnosti od korpusa. Rezultati so prikazani v tabeli \ref{tab:bench:models_vs_corpus}. Glede na $p$ vrednosti ugotavljamo, da hipoteze za nobenega od modelov ne moramo potrditi. Iz tega sledi, da noben model ni tvoril besedila, ki bi bilo po pogostosti pojavljanja glagolov v stavkih primerljivo s korpusom.
 
 \input{figures/bench_models_vs_corpus}
 
-% Hipoteza 3 %
-
-\begin{hypothesis}
-Lastna implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v stavkih primerljiva z ostalimi orodji.
+\begin{hypothesis}% Hipoteza 3
+Lastna implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v stavkih primerljiva ostalim orodjem.
+\label{h:bench:3}
 \end{hypothesis}
 
-Zanimalo nas je, ali so besedila, tvorjena z lastno implementacijo, primerljiva z besedili, tvorjenimi z drugimi orodji. Glede na p-vrednosti v tabeli \ref{tab:bench_state_comparison} sklepamo, da
+Zanimalo nas je, ali so besedila, tvorjena z lastno implementacijo, primerljiva z besedili, tvorjenimi z drugimi orodji. Ker smo pri \ref{h:bench:1}. hipotezi ugotovili, da število skritih stanj modela nima zaznavnega vpliva, smo v tem koraku vsak model predstavili s povprečji vrednosti, pridobljenih čez vsa števila skritih stanj. Podatke prikazuje tabela \ref{tab:bench:model_averages_comparison}.
 
-Zaradi majhnega vpliva števila stanj modela na izid smo se odločili, da izide za posamezno orodje prikažemo na podlagi pričakovanih vrednosti. Podatki so skupaj z rezultati za korpus prikazani v tabeli \ref{tab:bench_model_table} in na sliki \ref{fig:bench_model_comparison}.
+Na podlagi rezultatov $\chi^2$ preizkuov neodvisnosti v tabeli \ref{tab:bench:nxn_comparison} lahko hipotezo potrdimo za našo implementacijo in orodje hmmlearn. Iz tega lahko sklepamo, da te dve rešitvi tvorita besedila s podobno pogostostjo pojavljanja glagolov v stavkih.
 
-Opravili smo $\chi^2$ preizkus hipoteze neodvisnosti. Rezultati so hipotezo potrdili za vsa tvorjena besedila (tabela \ref{tab:bench_model_comparison}). Iz tega sledi, da so razlike v številu glagolov na stavek med tvorjenimi besedili in izvornim korpusom statistično pomembne. Na podlagi rezultatov lahko sklepamo, da porazdelitve glagolov v besedilih, tvorjenih s skritimi markovskimi modeli, niso podobne porazdelitvi glagolov v korpusu.
+Rezultati za orodje UMDHMM kažejo veliko mero neodvisnosti z ostalimi dvemi orodji. To predpisujemo predvsem neskladanju pogostosti pri 0 glagolov (2. stolpec v tabeli \ref{tab:bench:model_averages_comparison}). Pri enem in več glagolov na stavek so si vsa orodja podobna, kar potrjujejo visoke $p$ vrednosti v tabeli \ref{tab:bench:state_comparison}.
 
-\input{figures/bench_models}
+\input{figures/bench_model_averages_comparison}
+\input{figures/bench_nxn_comparison}
+
+Podatke iz tabele \ref{tab:bench:model_averages_comparison} smo prikazali tudi na grafu na sliki \ref{graph:bench:models_graph}.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{images/bench_model_comparison.png}
+\end{center}
+\caption{Pogostost pojavljanja glagolov pri različnih modelih.}
+\label{graph:bench:models_graph}
+\end{figure}
