@@ -1,29 +1,29 @@
 \begin{table}
 \centering
-\begin{tabular}{|l|r|c|c|}
-\hline
+\begin{tabular}{l r cc}
+\toprule
 {\bf model}  & $\mathbf{N}$ & {\bf $\chi^2$} & \bf{p} \\
-  \hline\multirow{5}{*}{hmmlearn} %
+  \midrule\multirow{5}{*}{hmmlearn} %
     &  1              & 1781.45        & 0.0 \\
     &  3              & 2071.20        & 0.0 \\
     &  5              & 1901.00        & 0.0 \\
     &  8              & 2090.52        & 0.0 \\
     & 12              & 1638.61        & 0.0 \\
-  \hline\multirow{5}{*}{UMDHMM} %
+  \midrule\multirow{5}{*}{UMDHMM} %
     &  1              & 1888.47        & 0.0 \\
     &  3              & 1696.58        & 0.0 \\
     &  5              & 1664.18        & 0.0 \\
     &  8              & 1745.01        & 0.0 \\
     & 12              & 1858.63        & 0.0 \\
-  \hline\multirow{5}{*}{Lastna impl.} %
+  \midrule\multirow{5}{*}{Lastna impl.} %
     &  1              & 1858.63        & 0.0 \\
     &  3              & 1743.51        & 0.0 \\
     &  5              & 1914.00        & 0.0 \\
     &  8              & 2015.09        & 0.0 \\
     & 12              & 1679.03        & 0.0 \\
-\hline
-\end{tabular}
-\\ {\centering N - št. skritih stanj modela}
+\bottomrule
+\end{tabular} \\
+\vspace{6pt}{\centering N \dots št. skritih stanj modela}
 \caption{Primerjava $\chi^2$ in p-vrednosti za vsa tvorjena besedila.}
 \label{tab:bench:models_vs_corpus}
 \end{table}
