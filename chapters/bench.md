@@ -45,7 +45,7 @@ Pogostost pojavljanja glagolov v stavkih pri tvorjenih besedilih je primerljiva 
 \label{h:bench:2}
 \end{hypothesis}
 
-Zanimalo nas je, ali je keteri od modelov sposoben tvorjenja besedil, ki bi se po pogostosti pojavljanja glagolov prilegala korpusu. Za vsako tvorjeno besedilo smo opravili $\chi^2$ preizkus neodvisnosti od korpusa. Rezultati so prikazani v tabeli \ref{tab:bench:models_vs_corpus}. Glede na $p$ vrednosti ugotavljamo, da hipoteze za nobenega od modelov ne moramo potrditi. Iz tega sledi, da noben model ni tvoril besedila, ki bi bilo po pogostosti pojavljanja glagolov v stavkih primerljivo s korpusom.
+Zanimalo nas je, ali je keteri od modelov sposoben tvorjenja besedil, ki bi se po pogostosti pojavljanja glagolov prilegala korpusu. Za vsako tvorjeno besedilo smo opravili $\chi^2$ preizkus neodvisnosti od korpusa. Rezultati so prikazani v tabeli \ref{tab:bench:models_vs_corpus}. Glede na $p$ vrednosti ugotavljamo, da hipoteze za nobenega od modelov ne moremo potrditi. Iz tega sledi, da noben izmed modelov ni tvoril besedila, ki bi bilo po pogostosti pojavljanja glagolov v stavkih primerljivo s korpusom.
 
 \input{figures/bench_models_vs_corpus}
 
@@ -54,11 +54,11 @@ Lastna implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v
 \label{h:bench:3}
 \end{hypothesis}
 
-Zanimalo nas je, ali so besedila, tvorjena z lastno implementacijo, primerljiva z besedili, tvorjenimi z drugimi orodji. Ker smo pri \ref{h:bench:1}. hipotezi ugotovili, da število skritih stanj modela nima zaznavnega vpliva, smo v tem koraku vsak model predstavili s povprečji vrednosti, pridobljenih čez vsa števila skritih stanj. Podatke prikazuje tabela \ref{tab:bench:model_averages_comparison}.
+Zanimalo nas je, ali so besedila, tvorjena z lastno implementacijo, primerljiva z besedili, tvorjenimi z drugimi orodji. Ker smo pri \ref{h:bench:1}. hipotezi ugotovili, da število skritih stanj modela nima zaznavnega vpliva, smo v tem koraku vsak model predstavili s povprečnimi vrednostmi, pridobljenimi čez vsa števila skritih stanj. Podatki so prikazani v tabeli \ref{tab:bench:model_averages_comparison}.
 
-Na podlagi rezultatov $\chi^2$ preizkuov neodvisnosti v tabeli \ref{tab:bench:nxn_comparison} lahko hipotezo potrdimo za našo implementacijo in orodje hmmlearn. Iz tega lahko sklepamo, da te dve rešitvi tvorita besedila s podobno pogostostjo pojavljanja glagolov v stavkih.
+Na podlagi rezultatov $\chi^2$ preizkusov neodvisnosti v tabeli \ref{tab:bench:nxn_comparison} lahko hipotezo potrdimo za našo implementacijo in orodje hmmlearn. Iz tega lahko sklepamo, da omenjeni rešitvi tvorita besedila s podobno pogostostjo pojavljanja glagolov v stavkih.
 
-Rezultati za orodje UMDHMM kažejo veliko mero neodvisnosti z ostalimi dvemi orodji. To predpisujemo predvsem neskladanju pogostosti pri 0 glagolov (2. stolpec v tabeli \ref{tab:bench:model_averages_comparison}). Pri enem in več glagolov na stavek so si vsa orodja podobna, kar potrjujejo visoke $p$ vrednosti v tabeli \ref{tab:bench:state_comparison}.
+Rezultati za orodje UMDHMM kažejo veliko mero neodvisnosti od ostalih dveh orodij. Menimo, da je to posledica neskladanja v pogostosti pojavljanja stavkov brez glagolov (2. stolpec v tabeli \ref{tab:bench:model_averages_comparison}). Pri enem in več glagolov na stavek so si vsa orodja podobna, kar potrjujejo visoke $p$ vrednosti v tabeli \ref{tab:bench:state_comparison}.
 
 \input{figures/bench_model_averages_comparison}
 \input{figures/bench_nxn_comparison}
@@ -75,7 +75,7 @@ Podatke iz tabele \ref{tab:bench:model_averages_comparison} smo prikazali tudi n
 
 ## Kvalitativna analiza lastne implementacije
 
-S kvantitativno analizo smo pokazali, da je naša implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v povedih (v primerjavi s korpusom) vsaj tako dobra, kot ostali dve orodji. Poleg tega menimo, da je naša knjižnjica temeljito dokumentirana in da pri uporabi dovoljuje veliko mero prostosti in fleksibilnosti.
+S kvantitativno analizo smo pokazali, da naša implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v povedih (v primerjavi s korpusom) vsaj tako dobra, kot ostali dve orodji. Poleg tega menimo, da je naša knjižnjica temeljito dokumentirana in da pri uporabi dovoljuje veliko mero prostosti in fleksibilnosti.
 
 * URL naslov knjižnice: \wip{naslov}
 * URL naslov dokumentacije: \wip{naslov}
