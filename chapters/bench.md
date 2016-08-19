@@ -72,3 +72,10 @@ Podatke iz tabele \ref{tab:bench:model_averages_comparison} smo prikazali tudi n
 \caption{Pogostost pojavljanja glagolov pri različnih modelih.}
 \label{graph:bench:models_graph}
 \end{figure}
+
+## Kvalitativna analiza lastne implementacije
+
+S kvantitativno analizo smo pokazali, da je naša implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v povedih (v primerjavi s korpusom) vsaj tako dobra, kot ostali dve orodji. Poleg tega menimo, da je naša knjižnjica temeljito dokumentirana in da pri uporabi dovoljuje veliko mero prostosti in fleksibilnosti.
+
+* URL naslov knjižnice: \wip{naslov}
+* URL naslov dokumentacije: \wip{naslov}
