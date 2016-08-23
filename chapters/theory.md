@@ -79,7 +79,9 @@ p_{ij} = P(X_{n+1} = x_j \given X_n = xi)
 \label{eq:preh}
 \end{equation}
 
-\begin{equation}
+Če privzamemo, da vsebuje abeceda $|\check{\mathbf{Z}}| = m$ simbolov, potem lahko določimo $1 \leq i, j \leq m$. Vrednosti $p_{ij}$ sestavljajo *matriko prehodnih verjetnosti*:
+
+$$
 P = 
  \begin{bmatrix}
   p_{11} & p_{12} & \cdots & p_{1m} \\
@@ -87,10 +89,7 @@ P =
   \vdots & \vdots & \ddots & \vdots \\
   p_{m1} & p_{m2} & \cdots & p_{mm} 
  \end{bmatrix}
-\label{eq:prehmat}
-\end{equation}
-
-Če privzamemo, da vsebuje abeceda $|\check{\mathbf{Z}}| = m$ simbolov, potem lahko določimo $1 \leq i, j \leq m$. Vrednosti $p_{ij}$ sestavljajo *matriko prehodnih verjetnosti* $P = [p_{ij}]$ \eqref{eq:prehmat}.
+$$
 
 *Markovska veriga* ali *markovski model* je stohastični proces, za katerega velja markovska lastnost \eqref{eq:markovski}~\cite{Bishop2006}.
 
@@ -234,9 +233,10 @@ opisuje verjetnost, da se dani model $\lambda$ po delnem opazovanem zaporedju $\
 in induktivni del
 %
 \begin{align}
+\label{eq:fw:forw:loop}
 \alpha_{t+1}(j) = [\sum_{i=1}^N \alpha_t(i) a_{ij}] b_j(O_{t+1}),
 \qquad &1 \leq t \leq T - 1, \nonumber \\
-&1 \leq j \leq N.\label{eq:fw:forw:loop}
+&1 \leq j \leq N.
 \end{align}
 %
 nam omogočata izračun te vrednosti.
