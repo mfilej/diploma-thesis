@@ -1,22 +1,25 @@
 \begin{table}
 \begin{minipage}{\textwidth}
-\centering
 \small
-\begin{tabular}{l|c|c|c|c|c}
-& {\tt GHMM} & {\tt hmmlearn} & \tt{HMM} & \tt{mshmm} & \tt{UMDHMM} \\ \hline
-diskretno odd. & da & da & da & da & da \\ 
-zvezno odd.    & da & da & da & da & ne \\
-mn. op. zap.   & da & ne\footnote{Funkcija je sedaj že na voljo v novi različici knjižnjice.}
-                        & da & da & da\footnote{Podpora za mnogotera opazovana zaporedja je omenjena v izvorni kodi, vendar uporabnik nima nadzora nad načinom, kako se vhod, ki je podan kot en niz, deli na več zaporedij.} \\
-razširljivost  & ne & da & da & delna & ne \\
-knjižnjica  & da & da & da & da & ne \\
-dokumentacija  & skopa & da & ne & skopa & ne \\
-licenca        & LGPL & BSD & ni podana & GPL & GPL \\
-jezik          & C, Python & Python & Python & R & C \\
-\end{tabular}
-\caption[Pirmerjava funkcionalnosti projektov]{
-  Primerjava funkcionalnosti in drugih lastnosti projektov, ki smo jih
-  obravnavali.}
+\begin{tabular}{l lllll}
+\toprule
+                  & {\tt hmmlearn} & \tt{UMDHMM} & {\tt GHMM}& \tt{HMM} & \tt{mshmm} \\
+\midrule
+diskretni SMM     & da     & da      & da        & da        & da    \\
+zvezni SMM        & da     & ne      & da        & da        & da    \\
+mn. op. zap.$^a$  & ne$^b$ & da$^c$  & da        & da        & da    \\
+razširljivost     & da     & ne      & ne        & da        & delna \\
+knjižnjica        & da     & ne      & da        & da        & da    \\
+dokumentacija     & da     & ne      & skopa     & ne        & skopa \\
+licenca           & BSD    & GPL     & LGPL      & ni podana & GPL   \\
+jezik             & Python & C       & C, Python & Python    & R     \\
+\bottomrule
+\end{tabular} \\
+\vspace{6pt}{\footnotesize\indent \\
+$\quad^a$ mnogotera opazovana zaporedja\\
+$\quad^b$ Funkcija je sedaj že na voljo v novi različici knjižnjice. \\
+$\quad^c$ Podpora za mnogotera opazovana zaporedja je omenjena v izvorni kodi, vendar uporabnik nima nadzora nad načinom, kako se vhod, ki je podan kot en niz, deli na več zaporedij.}
+\caption{Primerjava funkcionalnosti in drugih lastnosti projektov.}
 \label{tab:compare}
 \end{minipage}
 \end{table}
