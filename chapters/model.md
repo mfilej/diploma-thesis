@@ -13,11 +13,10 @@ Eden izmed večjih izzivov našega diplomskega dela je bila preslikava matemati�
 Izgradnjo modela smo zastavili na način, prikazan na sliki \ref{diag:baum_welch}. Postopek vključuje glavno zanko, ki izvaja Baum-Welchev algoritem (glej poglavje \ref{ch:hmm:bw}). Ko se dovolj približamo kritični točki, se zanka prekine.
 
 Algoritem EM je sestavljen iz dveh korakov – koraka $E$ in koraka $M$. V koraku $E$ izračunamo vmesne vrednosti $\alpha$, $\beta$, $\gamma$ in $\xi$, s pomočjo katerih ocenimo trenutno verjetnost modela
-$$\lambda = (a, b, \pi).$$
-V koraku $M$ na podlagi dobljenih vrednosti izračunamo nov model
-$$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi}).$$
+$$\lambda = (a, b, \pi)\;.$$
 
-\noindent Definiramo še nekaj oznak, ki jih bomo uporabljali v nadaljevanju:
+V koraku $M$ na podlagi dobljenih vrednosti izračunamo nov model
+$$\bar{\lambda} = (\bar{a}, \bar{b}, \bar{\pi})\;.$$
 
 V nadaljevanju predstavljamo psevdokodo za izračun vrednosti $\alpha$, $\beta$, $\gamma$ in $\xi$.
 
@@ -45,7 +44,7 @@ S pomočjo spremenljivke $\alpha$ lahko, kot je pokazano v \eqref{eq:hmm:prob1},
 
 \input{figures/model_prob_algorithm}
 
-\noindent `ln()` predstavlja funkcijo naravnega logaritma. V tej nalogi se bo beseda \emph{logaritem} nanašala izključno na naravni logaritem.
+\noindent $\texttt{ln}(\cdot)$ predstavlja funkcijo naravnega logaritma. V tej nalogi se bo beseda \emph{logaritem} nanašala izključno na naravni logaritem.
 
 ## Korak M
 

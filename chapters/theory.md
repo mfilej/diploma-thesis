@@ -295,24 +295,22 @@ opisuje verjetnost, da je glede na dano zaporedje $O$ model $\lambda$ ob trenutk
 
 opisuje verjetnost, da se model $\lambda$ pri opazovanju zaporedja $O$ ob trenutku $t$ znajde v stanju $Q_i$.
 
-S pomočjo $\xi$ in $\gamma$ lahko izvedemo ponovno oceno parametrov modela in tako dobimo nov model $\bar{\lambda} = (\bar{A}, \bar{B}, \bar{\pi})$.
-
-Pričakovano število prehodov iz kateregakoli stanja v stanje $Q_i$ opišemo z
+S pomočjo $\xi$ in $\gamma$ lahko izvedemo ponovno oceno parametrov modela in tako dobimo nov model $\bar{\lambda} = (\bar{A}, \bar{B}, \bar{\pi})$. Pričakovano število prehodov iz kateregakoli stanja v stanje $Q_i$ opišemo z
 
 $$
-\sum\limits_{t=1}^{T=1} \gamma_t(i),
+\sum\limits_{t=1}^{T=1} \gamma_t(i)\;,
 $$
 
-pričakovano število prehodov iz stanja $Q_i$ v stanje $Q_j$ pa z
+\noindent pričakovano število prehodov iz stanja $Q_i$ v stanje $Q_j$ pa z
 
 $$
-\sum\limits_{t=1}^{T=1} \xi_t(i, j).
+\sum\limits_{t=1}^{T=1} \xi_t(i, j)\;.
 $$
 
-Ocena verjetnosti, da ob začetnem trenutku $t=1$ izbrano stanje $Q_i$:
+\noindent Ocena verjetnosti, da ob začetnem trenutku $t=1$ izbrano stanje $Q_i$:
 
 \begin{equation}
-\boldsymbol{\bar{\pi}}_i\;=\;\gamma_1(i).
+\boldsymbol{\bar{\pi}}_i\;=\;\gamma_1(i)\;.
 \label{eq:hmm:reest:pi}
 \end{equation}
 
@@ -323,7 +321,7 @@ Nove verjetnosti prehodov stanj $\bar{a}_{ij}$ ocenimo z razmerjem med pričakov
 \sum\limits_{t=1}^{T=1} \xi_t(i, j)
 }{
 \sum\limits_{t=1}^{T=1} \gamma_t(i)
-}
+}\;.
 \label{eq:hmm:reest:a}
 \end{equation}
 
@@ -334,7 +332,7 @@ Nove verjetnosti za oddajo simbolov $\bar{b}_j(k)$ ocenimo na podlagi razmerja m
 \sum\limits_{\substack{t=1 \\ O_t = v_k}}^{T=1} \gamma_t(j)
 }{
 \sum\limits_{t=1}^{T=1} \gamma_t(j)
-}
+}\;.
 \label{eq:hmm:reest:b}
 \end{equation}
 
