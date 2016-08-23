@@ -32,11 +32,17 @@ p(X, Y) = p(X)p(Y)
 
 ## Diskretni viri informacij {#ch:theo:vir}
 
-Teorija informacij obravnava *diskretne vire informacije*, t.j. *naključne procese*, ki oddajajo informacijo zajeto v diskretnih signalih. Modeliranje diskretnih virov temelji na opazovanju nizov simbolov, ki jih viri oddajajo. Končni, neprazni množici simbolov $\check{\mathbf{Z}} = \{v_1, v_2, \dots, v_K\}, K \in \mathbb{N}$ pravimo tudi *abeceda vira*.
+Teorija informacij obravnava *diskretne vire informacije*, t.j. *naključne procese*, ki oddajajo informacijo zajeto v diskretnih signalih. Modeliranje diskretnih virov temelji na opazovanju nizov simbolov, ki jih viri oddajajo. Končni, neprazni množici simbolov
 
-Simboli, ki jih vir oddaja, ustrezajo nizu naključnih spremenljivk $$\{X_t, t = 1, 2, \dots, n\}.$$
+$$
+\check{\mathbf{Z}} = \{v_1, v_2, \dots, v_K\},\;K \in \mathbb{N}
+$$
 
-Označimo jih z $X_1, X_2, \dots, X_n$, kjer $X_n$ označuje $n$-ti simbol oddanega zaporedja. Enačba \eqref{eq:porazd} opisuje porazdelitev verjetnosti, da vir odda znak $x_1$ v trenutku $t = 1$, znak $x_2$ v trenutku $t = 2$, \dots\ in znak $x_n$ v trenutku $t=n$.
+\noindent pravimo tudi *abeceda vira*. Simboli, ki jih vir oddaja, ustrezajo nizu naključnih spremenljivk
+
+$$\{X_t,\;t = 1, 2, \dots, n\}.$$
+
+\noindent Označimo jih z $X_1, X_2, \dots, X_n$, kjer $X_n$ označuje $n$-ti simbol oddanega zaporedja. Enačba \eqref{eq:porazd} opisuje porazdelitev verjetnosti, da vir odda znak $x_1$ v trenutku $t = 1$, znak $x_2$ v trenutku $t = 2$, \dots\ in znak $x_n$ v trenutku $t=n$.
 
 Enačba \eqref{eq:stac} definira lastnost *stacionarnosti*. Za stacionarne vire pravimo, da se njihove verjetnostne lastnosti s časom ne spreminjajo~\cite{Pavesic2010}.
  
@@ -167,6 +173,21 @@ b_j(k) = P(v_k \given q^{[t]} = Q_j),\qquad &1 \leq j \leq N, \\
 
 \end{description}
 
+
+\noindent Parametri $T, K$ in $O$ pa opisujejo opazovana zaporedja:
+
+\begin{description}
+\item[$\boldsymbol{K}$ \dots] število vseh simbolov abecede, $K = |\check{\mathbf{Z}}|$.
+
+\item[$\boldsymbol{T}$ \dots] dolžina opazovanega zaporedja.
+
+\item[$\boldsymbol{O}$ \dots] opazovano zaporedje, kjer opazovanja $O_t$ predstavljajo simbole abecede $\check{\mathbf{Z}}$.
+\begin{equation}
+O = \obsseq{1}{2}{T}
+\label{eq:obsseq}
+\end{equation}
+\end{description}
+
 ### Uporaba modela za tvorjenje zaporedij {#theory-hmm-gen}
 
 Primerno definirani skriti markovski modeli lahko tvorijo zaporedja simbolov dolžine $T$ na naslednji način:
@@ -180,13 +201,6 @@ Primerno definirani skriti markovski modeli lahko tvorijo zaporedja simbolov dol
 Navedeni postopek lahko uporabimo tako za tvorjenje zaporedij simbolov, kot za ugotavljanje, na kakšen način je določeno opazovano zaporedje najverjetneje nastalo~\cite{Rabiner1989}.
 
 ### Temeljni problemi skritih markovskih modelov {#ch:hmm:3prob}
-
-Enačba \eqref{eq:obsseq} definira opazovano zaporedje dolžine $T$, kjer opazovanja $O_t$ predstavljajo simbole abecede $\check{\mathbf{Z}}$.
-
-\begin{equation}
-O = \obsseq{1}{2}{T}
-\label{eq:obsseq}
-\end{equation}
 
 Pred uporabo skritih markovskih modelov za reševanje praktičnih izzivov moramo najprej rešiti temeljne probleme, ki smo jih povzeli po \cite{Rabiner1989}:
 
