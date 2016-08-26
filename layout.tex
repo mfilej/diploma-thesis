@@ -3,14 +3,16 @@
 % http://www.fri.uni-lj.si/file/189169/vzorec160416.zip
 
 \documentclass[a4paper, 12pt]{book}
+\RequirePackage{pdf14}
 
-\usepackage[utf8]{inputenc}
-\usepackage{cmap}
-\usepackage{type1ec}
+\usepackage[a-2b]{pdfx}
 \usepackage[T1]{fontenc}
-\usepackage[slovene,english]{babel} % naloži, med drugim, slovenske delilne vzorce
-\usepackage[pdftex]{graphicx}       % omogoča vlaganje slik različnih formatov
+\usepackage[utf8]{inputenc}
+\usepackage{type1ec}
 \usepackage{fancyhdr}               % poskrbi, na primer, za glave strani
+\usepackage[pdftex]{graphicx}       % omogoča vlaganje slik različnih formatov
+\usepackage[slovene,english]{babel} % naloži, med drugim, slovenske delilne vzorce
+\usepackage{cmap}
 \usepackage{amssymb}                % dodatni simboli
 \usepackage{amsmath}                % eqref, npr.
 \usepackage{amsthm}                 % hipoteze
@@ -25,16 +27,17 @@
 \usepackage[noend]{algpseudocode}
 \usepackage[scale=2]{ccicons}                % CC license symbols
 \usepackage{url}
+\usepackage{hyperref}
 \usepackage[
   style=ieee, urldate=comp, sorting=nty, dateabbrev=false, sortcites
 ]{biblatex}
 
 %\usepackage{hyperxmp}
-\usepackage[pdftex, colorlinks=true,
+\hypersetup{pdftex, colorlinks=true,
   citecolor=black, filecolor=black, 
   linkcolor=black, urlcolor=black,
   pagebackref=false, 
-  pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks]{hyperref}
+  pdfproducer={LaTeX}, pdfcreator={LaTeX}, hidelinks}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document info
