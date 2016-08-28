@@ -44,11 +44,11 @@ S pomočjo spremenljivke $\alpha$ lahko, kot je pokazano v \eqref{eq:hmm:prob1},
 
 \input{figures/model_prob_algorithm}
 
-\noindent $\texttt{ln}(\cdot)$ predstavlja funkcijo naravnega logaritma. V tej nalogi se bo beseda \emph{logaritem} nanašala izključno na naravni logaritem.
+\noindent $\texttt{ln}(\cdot)$ predstavlja funkcijo naravnega logaritma. V tem delu se bo beseda \emph{logaritem} nanašala izključno na naravni logaritem.
 
 ## Korak M
 
-Cilj koraka $M$ je, na podlagi izračunanih vrednosti $\gamma$ in $\xi$, ponovno oceniti parametre $\bar{\pi}$, $\bar{a}$ in $\bar{b}$ ter tako pridobiti nov model $\bar{\lambda}$.
+Cilj koraka $M$ je na podlagi izračunanih vrednosti $\gamma$ in $\xi$ ponovno oceniti parametre $\bar{\pi}$, $\bar{a}$ in $\bar{b}$ ter tako pridobiti nov model $\bar{\lambda}$.
 
 Funkcija `reestimate_pi`~\eqref{koda:reestimate_pi} verjetnosti začetnih stanj $\bar{\pi}$ izračuna tako, da enostavno prebere izračunane vrednosti spremenljivke $\bar{\gamma}$ za prvi simbol opazovane sekvence, kot to določa enačba \eqref{eq:hmm:reest:pi}.
 
@@ -62,26 +62,26 @@ Sledita še preslikava enačbe za izračun nove vrednosti $\bar{a}$ \eqref{eq:hm
 
 ## Iterativna maksimizacija parametrov {#iter}
 
-Predhodno smo definirali vse ključne funkcije za maksimizacijo paramterov modela, sledi pa še povezava v glavno zanko, prikazano na sliki \ref{diag:baum_welch}. V literaturi~\cite{Xu1996} najdemo dokaze, da maksimizacija modela nujno vodi k povečanju verjetnosti modela do stopnje, ko le-ta konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do omenjene kritične točke oz.\ njenega približka, t.j.\ točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot izbrano vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabnikom, ker različni problemi zahtevajo različne vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne vrednosti $\varepsilon$, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva, privzeta omejitev je $100$ ponovitev.}, kot to prikazuje algoritem \ref{koda:main_loop}. Predpostavljamo, da je \texttt{model} nek začetni model, vrednosti $\varepsilon$ in \texttt{max\_iter} pa so določili uporabniki.
+Predhodno smo definirali vse ključne funkcije za maksimizacijo paramterov modela, sledi pa še povezava v glavno zanko, prikazano na sliki \ref{diag:baum_welch}. V literaturi~\cite{Xu1996} najdemo dokaze, da maksimizacija modela nujno vodi k povečanju verjetnosti modela do stopnje, ko ta konvergira proti kritični točki. Naš program lahko torej zasnujemo tako, da iteracijo nadaljuje do omenjene kritične točke oz.\ njenega približka, tj.\ točke, kjer se verjetnosti prejšnjega in trenutnega modela razlikujeta za manj kot izbrano vrednost $\varepsilon$\footnote{Izbire vrednosti $\varepsilon$ prepustimo uporabnikom, ker različni problemi zahtevajo različne vrednosti. Za relativno enostaven model smo začeli z vrednostjo $10^{-6}$.}. Da bi se zaščitili pred izbiro premajhne vrednosti $\varepsilon$, glavno zanko še dodatno omejimo z navzgor omejenim maksimalnim številom ponovitev\footnote{Tudi ta vrednost je nastavljiva; privzeta omejitev je $100$ ponovitev.}, kot to prikazuje algoritem \ref{koda:main_loop}. Predpostavljamo, da je \texttt{model} nek začetni model, vrednosti $\varepsilon$ in \texttt{max\_iter} pa so določili uporabniki.
 
 \input{figures/main_loop_algorithm}
 
 ## Izbira začetnih parametrov
 
-Postopek iterativnoega izboljševanja parametrov modela, opisan v poglavju \ref{iter}, zahteva izbiro začetnih parametrov, ki služijo kot vhod v iteracijo (glej algoritem \ref{koda:main_loop}). Ustrezna izbira parametra vpliva na to, ali bo maksimizacija privedla samo do lokalnega ali pa do globalnega maksimuma~\cite{Rabiner1989}. V literaturi~\cite{Rabiner1989,Bilmes1997} zasledimo dva nezahtevna pristopa, ki se izkažeta za enako dobra: naključne vrednosti in enakomerno\footnote{Prehodu v vsako stanje dodelimo enako verjetnost.} \cite{Lustrek2004} razporejene vrednosti (pod pogojem, da se držimo omejitev stohastičnosti in da so verjetnosti neničelne). Izjema je parameter $b$, za katerega se izkaže, da je ustrezna začetna ocena vrednosti pomembna~\cite{Rabiner1989}. Oceno lahko pridobimo na več načinov, odvisno od tipa podatkov. V našem primeru je vhod besedilo, tako da smo za vrednosti vzeli relativne pogostosti pojavljanja simbolov abecede.
+Postopek iterativnega izboljševanja parametrov modela, opisan v poglavju \ref{iter}, zahteva izbiro začetnih parametrov, ki služijo kot vhod v iteracijo (glej algoritem \ref{koda:main_loop}). Ustrezna izbira parametra vpliva na to, ali bo maksimizacija privedla samo do lokalnega ali pa do globalnega maksimuma~\cite{Rabiner1989}. V literaturi~\cite{Rabiner1989, Bilmes1997} zasledimo dva nezahtevna pristopa, ki se izkažeta za enako dobra: naključne vrednosti in enakomerno\footnote{Prehodu v vsako stanje dodelimo enako verjetnost.} \cite{Lustrek2004} razporejene vrednosti (pod pogojem, da se držimo omejitev stohastičnosti in da so verjetnosti neničelne). Izjema je parameter $b$, za katerega se izkaže, da je ustrezna začetna ocena vrednosti pomembna~\cite{Rabiner1989}. Oceno lahko pridobimo na več načinov, odvisno od tipa podatkov. V našem primeru je vhod besedilo, tako da smo za vrednosti vzeli relativne pogostosti pojavljanja simbolov abecede.
 
 ## Podpora za mnogotera opazovana zaporedja {#ch:model:multiobs}
 
 Baum-Welchev algoritem je v osnovi definiran za maksimizacijo verjetnosti modela glede na dano opazovano sekvenco. Ker želimo algoritem uporabiti za namen tvorjenja besedila, moramo za uspešno učenje modela uporabiti dovolj veliko učno množico, npr. besedilo s približno $10.000$ besedami. Takšno učno zaporedje prinaša dve težavi:
 
-* Opazovano zaporedje takšne dolžine bo v koraku $E$ Baum-Welchevega algoritma za bolj oddaljene simbole abecede izračunalo zelo majhe verjetnosti, ki bodo povzročile napako podkoračitve\angl[underflow] (podrobnejši opis sledi v razdelku \ref{ch:model:underflow}).
-* Zapis celotnega besedila v obliki enega opazovanja sporoča odvisnost zaporedja, kar pomeni, da so povedi, ki nastopijo kasneje, odvisne od predhodnih. Takšna odvisnost je v našem modelu nezaželjena (bolj kot odvisnost med povedmi je za nas zanimiva odvisnost med besedami).~\cite{Zhao2011}
+* Opazovano zaporedje takšne dolžine bo v koraku $E$ Baum-Welchevega algoritma za bolj oddaljene simbole abecede izračunalo zelo majhne verjetnosti, ki bodo povzročile napako podkoračitve\angl[underflow] (podrobnejši opis sledi v razdelku \ref{ch:model:underflow}).
+* Zapis celotnega besedila v obliki enega opazovanja sporoča odvisnost zaporedja, kar pomeni, da so povedi, ki nastopijo kasneje, odvisne od predhodnih. Takšna odvisnost je v našem modelu nezaželena (bolj kot odvisnost med povedmi je za nas zanimiva odvisnost med besedami).~\cite{Zhao2011}
 
 V literaturi zasledimo različne pristope k obravnavi mnogoterih zaporedij. Pri enostavnejših pristopih ima vsako zaporedje enako težo~\cite{Rabiner1989,Bilmes1997}, pri kompleksnejših pa imajo lahko modeli različne uteži ali pa je njihova izbira celo dinamično prepuščena drugim algoritmom.~\cite{Zhao2011,Li2000}  Zaradi narave našega problema smo se odločili, da bomo vsako poved obravnavali kot neodvisno zaporedje. Algoritme za priredbo Baum-Welchev algoritma za mnogotera zaporedja smo prevzeli iz enačb v članku~\cite{rabinererratum}.
 
 Algoritmi \eqref{koda:estimate_alpha}, \eqref{koda:estimate_beta}, \eqref{koda:estimate_xi}, \eqref{koda:estimate_gamma} za izračun vrednosti $\alpha, \beta, \gamma, \xi$ ostanejo nespremenjeni, korak $E$ pa se spremeni do te mere, da  vrednosti $\alpha, \beta, \gamma$ in $\xi$ računamo za vsako opazovano zaporedje posebej. Če je $\boldsymbol{O}^{(s)}$ $s$-to zaporedje (oz. $s$-ti stavek), potem moramo izračunati vrednosti $\alpha^s, \beta^s, \gamma^s$ in $\xi^s$.
 
-Z dobljenimi vrednostmi najprej izračuanmo verjetnosti posameznih zaporedij glede na trenutni model $P(\boldsymbol{O}^{(s)}|\lambda)$, kar storimo z algoritmom \ref{koda:model_prob}. Skupna verjetnost opazovanih zaporedij  $\boldsymbol{O}$ je enaka zmnožku verjetnosti za posamezna zaporedja $\boldsymbol{O}^{(k)}$ \cite{Rabiner1989}:
+Z dobljenimi vrednostmi najprej izračunamo verjetnosti posameznih zaporedij glede na trenutni model $P(\boldsymbol{O}^{(s)}|\lambda)$, kar storimo z algoritmom \ref{koda:model_prob}. Skupna verjetnost opazovanih zaporedij  $\boldsymbol{O}$ je enaka zmnožku verjetnosti za posamezna zaporedja $\boldsymbol{O}^{(k)}$ \cite{Rabiner1989}:
 
 \begin{equation}
 P(\boldsymbol{O}|\lambda) = \prod_{s=1}^S P(\boldsymbol{O}^{(k)}|\lambda)\;.
@@ -96,7 +96,7 @@ Za preverjanje pravilnosti postopka je pomembno, da lahko za primer posameznega 
 
 ## Preprečevanje napake podkoračitve {#ch:model:underflow}
 
-Uporaba skritih markovskih modelov na dolga opazovana zaporedja zahteva računanje z izredno majnimi verjetnostmi. Le-te privedejo do nestabilnosti pri izračunavanju števil v plavajoči vejici~\cite{Mann2006}, med njimi tudi do napake podkoračitve.
+Uporaba skritih markovskih modelov na dolga opazovana zaporedja zahteva računanje z izredno majhnimi verjetnostmi. Te privedejo do nestabilnosti pri izračunavanju števil v plavajoči vejici~\cite{Mann2006}, med njimi tudi do napake podkoračitve.
 
 Podkoračitev se pojavi že po nekaj iteracijah Baum-Welchevega algoritma (spremenljivke dobijo vrednost $0$). Razlog je v tem, da ima pri veliki množici vseh možnih zaporedij besed, neko poljubno opazovano zaporedje zelo majhno pogojno verjetnost. Za spopadanje s to težavo obstajata dve najpogostejši rešitvi:
 
@@ -113,7 +113,7 @@ V koraku $M$ algoritmov ni potrebno spreminjati. Upoštevati je potrebno le, da 
 
 Po uspešni maksimizaciji modela lahko pričnemo s simuliranjem oddajanja simbolov. Postopek je definiran v poglavju \ref{theory-hmm-gen}.
 
-Predpostavljamo, da imamo na voljo model $\lambda = (\pi, a, b)$, s pomočjo katerega želimo simulirati oddajanje simbolov abecede. Željena dolžina sekvence je \texttt{target\_length}. Na voljo imamo naslednje funkcije:
+Predpostavljamo, da imamo na voljo model $\lambda = (\pi, a, b)$, s pomočjo katerega želimo simulirati oddajanje simbolov abecede. Želena dolžina sekvence je \texttt{target\_length}. Na voljo imamo naslednje funkcije:
 
 * \texttt{push(list, x)}, ki na konec seznama \texttt{list} doda element \texttt{x};
 * \texttt{pick\_state($\cdot$)} in \texttt{pick\_symbol($\cdot$)}, ki na podlagi razporeditve verjetnosti in trenutnega stanja izbereta novo stanje oz. simbol.
