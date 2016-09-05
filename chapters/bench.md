@@ -77,5 +77,5 @@ Podatke iz tabele \ref{tab:bench:model_averages_comparison} smo prikazali tudi n
 
 S kvantitativno analizo smo pokazali, da naša implementacija tvori besedila, ki so po pogostosti pojavljanja glagolov v povedih (v primerjavi s korpusom) vsaj tako dobra kot ostali dve orodji. Poleg tega menimo, da je naša knjižnica temeljito dokumentirana in da pri uporabi dovoljuje veliko mero prostosti in fleksibilnosti.
 
-* URL naslov knjižnice: \url{http://github.com/mfilej/himamo}
-* URL naslov dokumentacije: \url{http://hexdocs.pm/himamo}
+* URL naslov knjižnice: \url{http://miha.filej.net/diploma-thesis/lib}
+* URL naslov dokumentacije: \url{http://miha.filej.net/diploma-thesis/doc}
