@@ -1,0 +1,4 @@
+/.texpadtmp
+/_site
+/build/*
+/chapters/*.tex
