@@ -11,7 +11,7 @@ V nadaljevanju bomo po \cite{Bishop2006} povzeli nekaj konceptov verjetnostne te
     \item[Pravilo produkta:] $$p(X, Y) = p(Y | X) p(X)$$
 \end{description}
 
-$p(X, Y)$ je v tem primeru presek ali produkt verjetnosti, ki ga opišemo kot verjetnost, da se zgodita $X$ in $Y$. Na podoben način je količina $p(Y | X)$ pogojna verjetnost oz. verjetnost, da se zgodi $Y$ glede na $X$.
+\noindent $p(X, Y)$ je v tem primeru presek ali produkt verjetnosti, ki ga opišemo kot verjetnost, da se zgodita $X$ in $Y$. Na podoben način je količina $p(Y | X)$ pogojna verjetnost oz. verjetnost, da se zgodi $Y$ glede na $X$.
 
 *Bayesovo pravilo* \eqref{eq:bayes} določa zvezo med pogojnimi verjetnostmi.
 
@@ -20,14 +20,14 @@ p(Y | X) = \frac{p(X | Y)p(Y)}{p(X)}
 \label{eq:bayes}
 \end{equation}
 
-Spremenljivki $X$ in $Y$ sta *neodvisni*, kadar velja \eqref{eq:neod}.
+\noindent Spremenljivki $X$ in $Y$ sta *neodvisni*, kadar velja \eqref{eq:neod}.
 
 \begin{equation}
 p(X, Y) = p(X)p(Y)
 \label{eq:neod}
 \end{equation}
 
-*Stohastični proces*, včasih imenovan *naključni* proces, je zbirka naključnih spremenljivk, ki predstavljajo spreminjanje nekega sistema skozi čas~\cite{Zhao2011}.
+\noindent _Stohastični proces_, včasih imenovan *naključni* proces, je zbirka naključnih spremenljivk, ki predstavljajo spreminjanje nekega sistema skozi čas~\cite{Zhao2011}.
 
 ## Diskretni viri informacij {#ch:theo:vir}
 
@@ -133,7 +133,7 @@ q^{[t]} = Q_n
 \label{eq:currstate}
 \end{equation}
 
-Skriti markovski model $\lambda$ je definiran v obliki\footnote{Zapis običajno poenostavimo kot $\lambda = (A, B, \pi)$.}
+\noindent Skriti markovski model $\lambda$ je definiran v obliki\footnote{Zapis običajno poenostavimo kot $\lambda = (A, B, \pi)$.}
 
 \begin{equation}
 \lambda = (A, B, \pi, N, M),
@@ -212,7 +212,7 @@ V poglavjih \ref{ch:hmm:fb} in \ref{ch:hmm:bw} bomo predstavili rešitve prvega 
 
 ## Algoritem *Forward-backward* {#ch:hmm:fb}
 
-*Forward-backward* algoritem zahteva izračun vrednosti $\mathbf{\alpha}$ (*forward*) in  $\mathbf{\beta}$ (*backward*).
+*Forward-backward* algoritem zahteva izračun vrednosti $\mathbf{\alpha}$ (naprej, angl. *forward*) in  $\mathbf{\beta}$ (nazaj, angl. *backward*).
 
 \begin{description}
 \item[Vrednost \emph{forward}]
@@ -284,7 +284,7 @@ Za opis algoritma *Baum-Welch* je potrebno najprej definirati še vrednosti $\xi
 \label{eq:bw:xi} 
 \end{align}
 
-opisuje verjetnost, da je glede na dano zaporedje $O$ model $\lambda$ ob trenutku $t$ v stanju $Q_i$ in v stanju $Q_j$ v trenutku $t + 1$.
+\noindent opisuje verjetnost, da je glede na dano zaporedje $O$ model $\lambda$ ob trenutku $t$ v stanju $Q_i$ in v stanju $Q_j$ v trenutku $t + 1$.
 
 \begin{align}
 \boldsymbol{\gamma_t(i)} =& P(q_t = S_i \given O, \lambda) \nonumber \\
@@ -292,7 +292,7 @@ opisuje verjetnost, da je glede na dano zaporedje $O$ model $\lambda$ ob trenutk
 \label{eq:bw:gamma}
 \end{align}
 
-opisuje verjetnost, da se model $\lambda$ pri opazovanju zaporedja $O$ ob trenutku $t$ znajde v stanju $Q_i$.
+\noindent opisuje verjetnost, da se model $\lambda$ pri opazovanju zaporedja $O$ ob trenutku $t$ znajde v stanju $Q_i$.
 
 S pomočjo $\xi$ in $\gamma$ lahko izvedemo ponovno oceno parametrov modela in tako dobimo nov model $\bar{\lambda} = (\bar{A}, \bar{B}, \bar{\pi})$. Pričakovano število prehodov iz katerega koli stanja v stanje $Q_i$ opišemo z
 
@@ -313,7 +313,7 @@ $$
 \label{eq:hmm:reest:pi}
 \end{equation}
 
-Nove verjetnosti prehodov stanj $\bar{a}_{ij}$ ocenimo z razmerjem med pričakovano frekvenco prehodov iz stanja $Q_i$ v stanje $Q_j$ in pričakovanim številom prehodov iz katerega koli stanja v stanje $Q_i$:
+\noindent Nove verjetnosti prehodov stanj $\bar{a}_{ij}$ ocenimo z razmerjem med pričakovano frekvenco prehodov iz stanja $Q_i$ v stanje $Q_j$ in pričakovanim številom prehodov iz katerega koli stanja v stanje $Q_i$:
 
 \begin{equation}
 \boldsymbol{\bar{a}}_{ij}\;=\;\frac{
@@ -324,7 +324,7 @@ Nove verjetnosti prehodov stanj $\bar{a}_{ij}$ ocenimo z razmerjem med pričakov
 \label{eq:hmm:reest:a}
 \end{equation}
 
-Nove verjetnosti za oddajo simbolov $\bar{b}_j(k)$ ocenimo na podlagi razmerja med pričakovanim številom pojavov simbola $v_k$ v stanju $Q_j$ in skupni frekvenci stanja $Q_j$:
+\noindent Nove verjetnosti za oddajo simbolov $\bar{b}_j(k)$ ocenimo na podlagi razmerja med pričakovanim številom pojavov simbola $v_k$ v stanju $Q_j$ in skupni frekvenci stanja $Q_j$:
 
 \begin{equation}
 \boldsymbol{\bar{b}}_j(k)\;=\;\frac{
@@ -335,7 +335,7 @@ Nove verjetnosti za oddajo simbolov $\bar{b}_j(k)$ ocenimo na podlagi razmerja m
 \label{eq:hmm:reest:b}
 \end{equation}
 
-V literaturi \cite{Li2000,Ramage2007,Bilmes1997} je dokazano, da za tako pridobljen model $\bar{\lambda}$ velja ena izmed naslednjih dveh točk:
+\noindent V literaturi \cite{Li2000,Ramage2007,Bilmes1997} je dokazano, da za tako pridobljen model $\bar{\lambda}$ velja ena izmed naslednjih dveh točk:
 
 1. $\boldsymbol{P(O \given \bar{\lambda}) > P(O \given \lambda)}$, kar pomeni, da smo dobili nov model $\bar{\lambda}$, ki bolje pojasnjuje zaporedje $O$ kot njegov predhodnik;
 2. $\boldsymbol{P(O \given \bar{\lambda}) = P(O \given \lambda)}$, torej $\boldsymbol{\bar{\lambda} = \lambda}$.
