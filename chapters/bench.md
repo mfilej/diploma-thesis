@@ -18,7 +18,7 @@ Korpus vsebuje raznolike besedilne vrste. Da bi se izognili neobičajnim oblikam
 
 ## Kvantitativna analiza
 
-Zbiranje podatkov in primerjavo modelov smo avtomatizirali s programom, ki izvede naslednje korake:
+Zbiranje podatkov in primerjavo modelov smo avtomatizirali s programom\footnote{Izvorna koda programa je dostopna na naslovu \url{http://miha.filej.net/diploma-thesis/analysis}.}, ki izvede naslednje korake:
 
 1. Iz učne množice besedil naključno izbere 5.000 vrstic.
 2. Na izbranih vrsticah izmeri porazdelitev števila besed.
