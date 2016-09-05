@@ -10,4 +10,4 @@ Prišli smo do naslednjih ugotovitev:
 
 Tvorjena besedila imajo zaradi (statistične) narave tvorjenja zaporedij besed le redko smisel. Zaradi tega menimo, da skriti markovski modeli sami po sebi niso dovolj zmogljivi za tvorjenje naravnih besedil na podlagi splošnega pisnega jezika, ki smo ga uporabili v diplomskem delu. Zaradi sposobnosti proizvajanja velikega števila variacij v besedilih pa bi lahko bili uporabni pri izbiri besed kot del širšega sistema za tvorjenje naravnega jezika.
 
-V prihodnosti želimo skrite markovske modele uporabiti pri pripravi besedil za predmet digitalna forenzika. Pričakujemo, da bo uporaba na ožji problemski domeni privedla do uporabnih rezultatov.
+V prihodnosti želimo skrite markovske modele uporabiti pri pripravi besedil za predmet digitalna forenzika. V času izvedbe diplomskega dela to ni bilo mogoče, saj nismo imeli dostopa do zadostnega števila vzorcev zgodb, na katerih bi lahko izvedli učenje modelov. Predvidevamo, da bi uporaba iste metode na ožji problemski domeni privedla do uporabnih rezultatov.
