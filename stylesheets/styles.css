@@ -11,10 +11,6 @@ h1, h2, h3, h4, h5, h6 {
   margin:0 0 20px;
 }
 
-h1, h2 {
-  font-family: 'Computer Modern Serif';
-}
-
 p, ul, ol, table, pre, dl {
   margin:0 0 20px;
 }
@@ -192,11 +188,27 @@ hr {
 }
 
 footer {
-  width:270px;
   float:left;
   position:fixed;
   bottom:50px;
   -webkit-font-smoothing:subpixel-antialiased;
+}
+
+h1, h2 {
+  font-family: 'Computer Modern Serif';
+}
+
+.programme, .faculty {
+  font-weight: normal;
+  font-size: 14px;
+  color: #727272;
+}
+
+.people dd {
+  margin-left: 20px;
+}
+.people a, .faculty a {
+  color: inherit;
 }
 
 @media print, screen and (max-width: 960px) {
