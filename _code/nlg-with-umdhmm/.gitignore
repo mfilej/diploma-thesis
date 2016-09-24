@@ -1,0 +1,8 @@
+.cache
+__pycache__
+/_build
+/cover
+/deps
+/tools/*
+erl_crash.dump
+*.ez
