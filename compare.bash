@@ -18,6 +18,7 @@ umdhmm_dir="nlg-with-umdhmm"
 corpus_file=$(abs_path $2)
 input_file=$work_dir/_input.txt
 counts_file=$work_dir/counts.txt
+stats_file=$work_dir/stats.txt
 train_lines=5000
 gen_lines=5000
 
@@ -113,8 +114,24 @@ function test_umdhmm {
   echo "$out_file"
 }
 
+function test_rnd {
+  local out_file="$work_dir/random.0.gen"
+
+  (
+    cd "$hmmlearn_dir"
+    ./rnd.py \
+      "-l=$gen_lines" \
+      "-d=$counts_file" \
+      "$work_dir/hmmlearn.builtin.1.le" \
+    > "$out_file"
+  )
+
+  echo "$out_file"
+}
+
 function count_verbs {
   local text_file="$1"
+  local out_file="$text_file.verb.dist"
 
   (
     cd cckres-plain
@@ -122,10 +139,22 @@ function count_verbs {
       | sort -n \
       | uniq -c \
       | awk '{print $2 " " $1}' \
-      > "$text_file.verb.dist"
+      > "$out_file"
   )
+
+  echo "$out_file"
 }
 
+function compute_stats {
+  local expected_freq="$1"
+  local observed_freq="$2"
+
+  local line=$(./chi2.py "$expected_freq" "$observed_freq")
+  
+  echo "$observed_freq: $line" >> "$stats_file"
+}
+
+# count verb frequencies in corpus
 ./text/count_words_per_line "$corpus_file" \
   | sort \
   > "$counts_file"
@@ -136,16 +165,32 @@ num_words=$(
   cat "$input_file" | mix artisan.key_seq "$work_dir/umdhmm"
 )
 
+# init stats file
+echo "" > "$stats_file"
 
-count_verbs "$input_file"
+# begin
+
+input_freq_file=$(count_verbs "$input_file")
 
 for num_states in 1 3 5 8 12; do
   generated=$(test_hmmlearn num_states="$num_states")
-  count_verbs "$generated"
+  freq_file=$(count_verbs "$generated")
+  compute_stats "$input_freq_file" "$freq_file"
 
   generated=$(test_freq num_states="$num_states")
-  count_verbs "$generated"
+  freq_file=$(count_verbs "$generated")
+  compute_stats "$input_freq_file" "$freq_file"
 
   generated=$(test_umdhmm num_states="$num_states")
-  count_verbs "$generated"
+  freq_file=$(count_verbs "$generated")
+  compute_stats "$input_freq_file" "$freq_file"
 done
+
+generated=$(test_rnd)
+rand_freq_file=$(count_verbs "$generated")
+compute_stats "$input_freq_file" "$rand_freq_file"
+
+for model in umdhmm freq hmmlearn.builtin; do
+  echo -n "$model"
+  bash -c "./chi2cont.py example/$model.*.gen.verb.dist"
+done | tr . , > "$work_dir/compare_num_states.csv"
