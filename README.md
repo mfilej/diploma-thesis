@@ -1,4 +1,4 @@
-Requirements:
+## Requirements
 
 * ruby 2.4 or greater (required for proper unicode downcase support)
 * python3
@@ -7,7 +7,7 @@ Requirements:
 * `cd nlg-with-umdhmm && mix do deps.get, compile`
 * follow instructions in nlg-with-umdhmm/README.md to install umdhmm
 
-Run:
+## Run
 
     ./compare.bash example input/segments.txt
 
