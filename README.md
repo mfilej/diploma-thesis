@@ -1,7 +1,9 @@
-Written part of the diploma thesis.
+# Text Generation using Hidden Markov Models
 
 The document is typeset with LaTeX. Chapters are written in markdown wherever
 possible.
+
+See [code](code) directory for Comparison chapter source code.
 
 The markdown to LaTeX conversion requires [pandoc].
 
