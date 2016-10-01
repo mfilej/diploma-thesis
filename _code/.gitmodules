@@ -1,6 +1,0 @@
-[submodule "nlg-with-hmmlearn"]
-	path = nlg-with-hmmlearn
-	url = git@github.com:mfilej/nlg-with-hmmlearn.git
-[submodule "cckres-plain"]
-	path = cckres-plain
-	url = git@github.com:mfilej/cckres-plain.git
